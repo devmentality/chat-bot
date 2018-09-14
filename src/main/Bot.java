@@ -77,7 +77,7 @@ public class Bot
 
     public static String getGreeting(String name)
     {
-        return String.format("Hello, %s", name);
+        return String.format("Hello, %s!", name);
     }
 
     public static Question generateQuestion()
