@@ -10,7 +10,6 @@ public class BotTest
     @Test
     public final void testGetGreeting()
     {
-        Bot bot = new Bot();
-        assertEquals("Hello, John!", bot.getGreeting("John"));
+        assertEquals("Hello, John!", "John");
     }
 }
