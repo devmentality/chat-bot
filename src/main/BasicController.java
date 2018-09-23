@@ -1,31 +1,30 @@
 package main;
 
-public class BasicState implements IState
+public class BasicController implements IController
 {
     private Bot bot;
 
-    @Override
-    public void setContext(Bot bot)
+    public BasicController(Bot bot)
     {
         this.bot = bot;
     }
 
-    @Override
-    public String initialize()
+    public boolean processRequest(String request)
     {
-        return "Hello!";
+        if (request.equals("start"))
+            bot.sendMessage(getGreeting());
+        else if (request.equals("help"))
+            bot.sendMessage(getHelp());
+        else if (request.equals("exit"))
+            bot.sendMessage(getGoodbye());
+        else
+            return false;
+        return true;
     }
 
-    @Override
-    public String respond(String request)
+    private String getGreeting()
     {
-        if (request.equals("help"))
-            return getHelp();
-        if (request.equals("play"))
-            return bot.setAndInitializeState(new GameState());
-        if (request.equals("exit"))
-            return getGoodbye();
-        return "I don't understand:(";
+        return "Hello!";
     }
 
     private String getHelp()

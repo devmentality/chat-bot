@@ -4,30 +4,39 @@ public class Bot
 {
     private IMessageReader reader;
     private IMessageWriter writer;
-    private IState state;
+    private IController[] controllers;
 
-    public Bot(IMessageReader reader, IMessageWriter writer, IState state)
+    public Bot(IMessageReader reader, IMessageWriter writer)
     {
         this.reader = reader;
         this.writer = writer;
-        this.writer.write(setAndInitializeState(state));
-    }
-
-    public String setAndInitializeState(IState newState)
-    {
-        state = newState;
-        state.setContext(this);
-        return state.initialize();
+        controllers = new IController[]
+        {
+            new BasicController(this),
+            new GameController(this),
+            new FallbackController(this)
+        };
     }
 
     public void execute()
     {
-        while(true)
+        boolean terminated = false;
+        while(!terminated)
         {
             String request = reader.read();
-            writer.write(state.respond(request));
             if (request.equals("exit"))
-                break;
+                terminated = true;
+            for (IController controller: controllers)
+            {
+                boolean isProcessed = controller.processRequest(request);
+                if (isProcessed)
+                    break;
+            }
         }
+    }
+
+    public void sendMessage(String message)
+    {
+        writer.write(message);
     }
 }
