@@ -1,6 +1,6 @@
-package main;
+package main.Data;
 
-import main.Data.IAppRepository;
+import main.GameResult;
 
 import java.util.HashMap;
 import java.util.ArrayList;
