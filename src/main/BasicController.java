@@ -1,43 +1,27 @@
 package main;
 
+import main.Data.IAppRepository;
+
 public class BasicController implements IController
 {
     private Bot bot;
+    private IControllerState state;
+    private IAppRepository repository;
 
-    public BasicController(Bot bot)
+    public BasicController(Bot bot, IAppRepository repository)
     {
         this.bot = bot;
+        this.repository = repository;
+        state = new BeforeStartState(this, this.bot, repository);
     }
 
     public boolean processRequest(String request)
     {
-        if (request.equals("start"))
-            bot.sendMessage(getGreeting());
-        else if (request.equals("help"))
-            bot.sendMessage(getHelp());
-        else if (request.equals("exit"))
-            bot.sendMessage(getGoodbye());
-        else
-            return false;
-        return true;
+        return state.processRequest(request);
     }
 
-    private String getGreeting()
+    public void changeState(IControllerState newState)
     {
-        return "Hello!";
-    }
-
-    private String getHelp()
-    {
-        return "I'm chat-bot, playing \"bulls and cows\" game.\n" +
-            "I understand these commands:\n" +
-            "1. help - to see this message\n" +
-            "2. play - to start new \"bulls and cows\" game\n" +
-            "3. exit - to say goodbye to me";
-    }
-
-    private String getGoodbye()
-    {
-        return "Goodbye!";
+        state = newState;
     }
 }

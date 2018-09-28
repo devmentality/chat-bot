@@ -1,6 +1,7 @@
-package main;
+package main.Data;
 
 import java.util.ArrayList;
+import main.GameResult;
 
 public interface IAppRepository
 {

@@ -1,6 +1,8 @@
 package test;
 
 import main.Bot;
+import main.Data.IAppRepository;
+import main.Data.InMemoryRepository;
 import main.StringBufferReader;
 import main.StringBufferWriter;
 import org.junit.Test;
@@ -16,13 +18,15 @@ public class BotTest
     {
         StringBufferReader reader = new StringBufferReader(new String[]{"exit"});
         StringBufferWriter writer = new StringBufferWriter();
-        Bot bot = new Bot(reader, writer);
+        IAppRepository repository = new InMemoryRepository();
+
+        Bot bot = new Bot(reader, writer, repository);
 
         bot.execute();
 
         ArrayList<String> output = writer.getBuffer();
 
         assertEquals(1, output.size());
-        assertEquals("Goodbye!", output.get(0));
+        assertEquals("Send 'start' to start dialog", output.get(0));
     }
 }

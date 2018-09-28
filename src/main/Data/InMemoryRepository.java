@@ -1,6 +1,6 @@
-package main.Data;
+package main;
 
-import main.GameResult;
+import main.Data.IAppRepository;
 
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class InMemoryRepository implements IAppRepository
     public void addGameResult(String playerName, GameResult gameResult)
     {
         if (!hasUser(playerName))
-            throw new IllegalArgumentException("User with this name doesn't exist.");
+            throw new IllegalArgumentException("User with this name does't exist.");
         repository.get(playerName).add(gameResult);
     }
 
@@ -41,7 +41,7 @@ public class InMemoryRepository implements IAppRepository
     public ArrayList<GameResult> getGameResults(String playerName)
     {
         if (!hasUser(playerName))
-            throw new IllegalArgumentException("User with this name doesn't exist.");
+            throw new IllegalArgumentException("User with this name does't exist.");
         return repository.get(playerName);
     }
 }

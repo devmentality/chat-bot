@@ -1,13 +1,20 @@
 package main;
 
+import main.Data.IAppRepository;
+import main.Data.InMemoryRepository;
+
 public class Program
 {
     public static void main(String[] args)
     {
         IMessageWriter writer = new ConsoleWriter();
         IMessageReader reader = new ConsoleReader();
+        IAppRepository repository = new InMemoryRepository();
 
-        Bot bot = new Bot(reader, writer);
-        bot.execute();
+        while(true)
+        {
+            Bot bot = new Bot(reader, writer, repository);
+            bot.execute();
+        }
     }
 }
