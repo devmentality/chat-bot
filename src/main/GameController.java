@@ -44,7 +44,7 @@ public class GameController implements IController
             return true;
     }
 
-    private int[] parseGuess(String guess)
+    public static int[] parseGuess(String guess)
     {
         int[] digits = new int[guess.length()];
         for(int index = 0; index < guess.length(); index++)

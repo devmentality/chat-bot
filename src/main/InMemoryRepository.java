@@ -31,7 +31,7 @@ public class InMemoryRepository implements IAppRepository
     public void addGameResult(String playerName, GameResult gameResult)
     {
         if (!hasUser(playerName))
-            throw new IllegalArgumentException("User with this name does't exist.");
+            throw new IllegalArgumentException("User with this name doesn't exist.");
         repository.get(playerName).add(gameResult);
     }
 
@@ -39,7 +39,7 @@ public class InMemoryRepository implements IAppRepository
     public ArrayList<GameResult> getGameResults(String playerName)
     {
         if (!hasUser(playerName))
-            throw new IllegalArgumentException("User with this name does't exist.");
+            throw new IllegalArgumentException("User with this name doesn't exist.");
         return repository.get(playerName);
     }
 }
