@@ -1,4 +1,4 @@
-package main;
+package main.IO;
 
 public interface IMessageWriter
 {

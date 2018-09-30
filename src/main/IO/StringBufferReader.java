@@ -1,4 +1,6 @@
-package main;
+package main.IO;
+
+import main.IO.IMessageReader;
 
 public class StringBufferReader implements IMessageReader
 {

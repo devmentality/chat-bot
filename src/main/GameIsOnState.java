@@ -1,42 +1,43 @@
 package main;
 
 import main.Data.IAppRepository;
+import main.IO.IMessageWriter;
 
-public class GameIsOnState extends ControllerStateBase
+public class GameIsOnState extends StateBase
 {
     private Game game;
 
-    public GameIsOnState(IController gameController, Bot bot, IAppRepository repository)
+    public GameIsOnState(IStateMachine stateMachine, IAppRepository repository, IMessageWriter writer)
     {
-        super(gameController, bot, repository);
+        super(stateMachine, repository, writer);
         game = new Game();
     }
 
     @Override
-    public boolean processRequest(String request) {
+    public void processRequest(String request) {
         if (request.equals("play"))
             doPlay();
         else if (request.equals("resign"))
             doResign();
         else
             doGameAttempt(request);
-        return true;
     }
 
     private void doPlay()
     {
-        bot.sendMessage("You are already playing");
+        writer.write("You are already playing");
     }
 
     private void doResign()
     {
-        bot.sendMessage(":(");
-        controller.changeState(new GameIsOffState(controller, bot, repository));
-        repository.addGameResult(bot.getUserName(), new GameResult(false));
+        writer.write(":(");
+        //stateMachine.changeState(new GameIsOffState(controller, bot, repository));
+        //repository.addGameResult(bot.getUserName(), new GameResult(false));
     }
 
     private void doGameAttempt(String request)
     {
+        /*
         try
         {
             int[] guessedDigits = parseGuess(request);
@@ -52,9 +53,9 @@ public class GameIsOnState extends ControllerStateBase
         catch (Exception ex)
         {
             bot.sendMessage("You have to provide 4 digits");
-        }
+        }*/
     }
-
+    /*
     private int[] parseGuess(String guess)
     {
         int[] digits = new int[guess.length()];
@@ -62,4 +63,5 @@ public class GameIsOnState extends ControllerStateBase
             digits[index] = Integer.parseInt(String.valueOf(guess.charAt(index)));
         return digits;
     }
+    */
 }

@@ -1,27 +1,40 @@
 package main;
 
 import main.Data.IAppRepository;
+import main.IO.IMessageReader;
+import main.IO.IMessageWriter;
 
-public class Bot
+public class Bot implements IStateMachine
 {
     private IMessageReader reader;
     private IMessageWriter writer;
-    private IController[] controllers;
     private IAppRepository repository;
     private String userName;
+    private IState state;
+    private boolean isTerminated;
 
     public Bot(IMessageReader reader, IMessageWriter writer, IAppRepository repository)
     {
         this.reader = reader;
         this.writer = writer;
         this.repository = repository;
+        state = new BeforeStartState(this, repository, writer);
+        isTerminated = false;
+    }
 
-        controllers = new IController[]
-        {
-            new BasicController(this, repository),
-            new GameController(this, repository),
-            new FallbackController(this)
-        };
+    public void changeState(IState nextState)
+    {
+        state = nextState;
+    }
+
+    public IState getCurrentState()
+    {
+        return state;
+    }
+
+    public void signalToTerminate()
+    {
+        isTerminated = true;
     }
 
     public void setUserName(String name)
@@ -35,25 +48,12 @@ public class Bot
 
     public void execute()
     {
-        boolean terminated = false;
         writer.write(getWelcoming());
-        while(!terminated)
+        while(!isTerminated)
         {
             String request = reader.read();
-            if (request.equals("exit"))
-                terminated = true;
-            for (IController controller: controllers)
-            {
-                boolean isProcessed = controller.processRequest(request);
-                if (isProcessed)
-                    break;
-            }
+            state.processRequest(request);
         }
-    }
-
-    public void sendMessage(String message)
-    {
-        writer.write(message);
     }
 
     private String getWelcoming()

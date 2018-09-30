@@ -4,8 +4,9 @@ import main.Data.IAppRepository;
 
 import java.util.ArrayList;
 
-public class GameIsOffState extends ControllerStateBase
+public class GameIsOffState
 {
+    /*
     public GameIsOffState(IController controller, Bot bot, IAppRepository repository)
     {
         super(controller, bot, repository);
@@ -37,4 +38,5 @@ public class GameIsOffState extends ControllerStateBase
             return false;
         return true;
     }
+    */
 }

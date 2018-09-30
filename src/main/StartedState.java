@@ -1,27 +1,26 @@
 package main;
 
 import main.Data.IAppRepository;
+import main.IO.IMessageWriter;
 
-public class StartedState extends ControllerStateBase
+public class StartedState extends StateBase
 {
-    public StartedState(IController controller, Bot bot, IAppRepository repository)
+    public StartedState(IStateMachine stateMachine, IAppRepository repository, IMessageWriter writer)
     {
-        super(controller, bot, repository);
+        super(stateMachine, repository, writer);
     }
 
     @Override
-    public boolean processRequest(String request)
+    public void processRequest(String request)
     {
         String name = request;
-        bot.setUserName(name);
         if (repository.hasUser(name))
-            bot.sendMessage(String.format("Hi, my old friend, %s", name));
+            writer.write(String.format("Hi, my old friend, %s", name));
         else
         {
-            bot.sendMessage(String.format("Hello, %s", name));
+            writer.write(String.format("Hello, %s", name));
             repository.addUser(name);
         }
-        controller.changeState(new InitializedState(controller, bot, repository));
-        return true;
+        stateMachine.changeState(new InitializedState(stateMachine, repository, writer));
     }
 }

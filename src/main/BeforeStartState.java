@@ -1,30 +1,24 @@
 package main;
 
 import main.Data.IAppRepository;
+import main.IO.IMessageWriter;
 
-public class BeforeStartState implements IControllerState
+public class BeforeStartState extends StateBase
 {
-    private Bot bot;
-    private BasicController controller;
-    private IAppRepository repository;
-
-    public BeforeStartState(BasicController controller, Bot bot, IAppRepository repository)
+    public BeforeStartState(IStateMachine stateMachine, IAppRepository repository, IMessageWriter writer)
     {
-        this.controller = controller;
-        this.bot = bot;
-        this.repository = repository;
+        super(stateMachine, repository, writer);
     }
 
     @Override
-    public boolean processRequest(String request) {
+    public void processRequest(String request) {
         if (request.equals("start"))
         {
-            bot.sendMessage("Hello");
-            bot.sendMessage("What is your name?");
-            controller.changeState(new StartedState(controller, bot, repository));
+            writer.write("Hello");
+            writer.write("What is your name?");
+            stateMachine.changeState(new StartedState(stateMachine, repository, writer));
         }
         else
-            bot.sendMessage("Send 'start' to start dialog");
-        return true;
+            writer.write("Send 'start' to start dialog");
     }
 }

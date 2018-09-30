@@ -2,6 +2,10 @@ package main;
 
 import main.Data.IAppRepository;
 import main.Data.InMemoryRepository;
+import main.IO.ConsoleReader;
+import main.IO.ConsoleWriter;
+import main.IO.IMessageReader;
+import main.IO.IMessageWriter;
 
 public class Program
 {

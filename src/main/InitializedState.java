@@ -1,33 +1,34 @@
 package main;
 
 import main.Data.IAppRepository;
+import main.IO.IMessageWriter;
 
-public class InitializedState extends ControllerStateBase
+
+public class InitializedState extends StateBase
 {
-    public InitializedState(IController controller, Bot bot, IAppRepository repository)
+    private ICommand[] commands;
+
+    public InitializedState(IStateMachine stateMachine, IAppRepository repository, IMessageWriter writer)
     {
-        super(controller, bot, repository);
+        super(stateMachine, repository, writer);
+
+        commands = new ICommand[]
+        {
+            new ExitCommand(stateMachine, repository, writer),
+            new HelpCommand(stateMachine, repository, writer)
+        };
     }
 
     @Override
-    public boolean processRequest(String request)
+    public void processRequest(String request)
     {
-        if (request.equals("help"))
-            bot.sendMessage(getHelp());
-        else if (request.equals("exit"))
-            bot.sendMessage(getGoodbye());
-        else
-            return false;
-        return true;
-    }
-
-    private String getHelp()
-    {
-        return "Bot help";
-    }
-
-    private String getGoodbye()
-    {
-        return "Goodbye";
+        for(ICommand command: commands)
+        {
+            if (request.equals(command.getName()))
+            {
+                command.execute();
+                break;
+            }
+        }
     }
 }
