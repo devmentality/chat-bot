@@ -1,7 +1,7 @@
 package test;
 
 import org.junit.Test;
-import main.SampleGenerator;
+import main.GameLogic.SampleGenerator;
 
 
 public class TestGenerator {

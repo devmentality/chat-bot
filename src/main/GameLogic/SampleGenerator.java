@@ -1,4 +1,4 @@
-package main;
+package main.GameLogic;
 
 import java.util.HashSet;
 import java.util.Random;

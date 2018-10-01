@@ -1,34 +1,24 @@
 package main;
 
+import main.Commands.*;
 import main.Data.IAppRepository;
 import main.IO.IMessageWriter;
 
 
 public class InitializedState extends StateBase
 {
-    private ICommand[] commands;
+    private Session session;
 
-    public InitializedState(IStateMachine stateMachine, IAppRepository repository, IMessageWriter writer)
+    public InitializedState(IStateMachine stateMachine, IAppRepository repository, IMessageWriter writer, Session session)
     {
         super(stateMachine, repository, writer);
-
+        this.session = session;
         commands = new ICommand[]
         {
-            new ExitCommand(stateMachine, repository, writer),
-            new HelpCommand(stateMachine, repository, writer)
+                new ExitCommand(stateMachine, repository, writer),
+                new HelpCommand(stateMachine, repository, writer),
+                new NewGameCommand(stateMachine, repository, writer, session),
+                new StatisticsCommand(stateMachine, repository, writer, session)
         };
-    }
-
-    @Override
-    public void processRequest(String request)
-    {
-        for(ICommand command: commands)
-        {
-            if (request.equals(command.getName()))
-            {
-                command.execute();
-                break;
-            }
-        }
     }
 }

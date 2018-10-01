@@ -5,9 +5,9 @@ import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
-import main.Game;
-import main.GameController;
-import main.GuessResult;
+import main.GameLogic.Game;
+import main.GameLogic.GameController;
+import main.GameLogic.GuessResult;
 
 public class TestAnswer {
 	@Test

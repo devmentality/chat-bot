@@ -1,7 +1,8 @@
-package main;
+package main.Commands;
 
 import main.Data.IAppRepository;
 import main.IO.IMessageWriter;
+import main.IStateMachine;
 
 public abstract class CommandBase implements ICommand
 {
@@ -10,11 +11,12 @@ public abstract class CommandBase implements ICommand
     protected IAppRepository repository;
     protected IMessageWriter writer;
 
-    public CommandBase(IStateMachine stateMachine, IAppRepository repository, IMessageWriter writer)
+    public CommandBase(IStateMachine stateMachine, IAppRepository repository, IMessageWriter writer, String commandName)
     {
         this.stateMachine = stateMachine;
         this.repository = repository;
         this.writer = writer;
+        this.commandName = commandName;
     }
 
     @Override

@@ -1,14 +1,14 @@
-package main;
+package main.Commands;
 
 import main.Data.IAppRepository;
 import main.IO.IMessageWriter;
+import main.IStateMachine;
 
 public class ExitCommand extends CommandBase
 {
     public ExitCommand(IStateMachine stateMachine, IAppRepository repository, IMessageWriter writer)
     {
-        super(stateMachine, repository, writer);
-        commandName = "exit";
+        super(stateMachine, repository, writer, "exit");
     }
 
     @Override

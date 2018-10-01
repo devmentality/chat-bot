@@ -1,4 +1,4 @@
-package main;
+package main.GameLogic;
 
 // gonna be deleted!
 public class GameController

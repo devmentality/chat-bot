@@ -1,7 +1,6 @@
-package main;
+package main.GameLogic;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Game {
     private static final int amountOfDigits = 4;

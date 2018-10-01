@@ -2,8 +2,8 @@ package main.Data;
 
 import java.util.ArrayList;
 
-import main.Game;
-import main.GameResult;
+import main.GameLogic.Game;
+import main.GameLogic.GameResult;
 
 public interface IAppRepository
 {

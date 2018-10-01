@@ -14,6 +14,7 @@ public class StartedState extends StateBase
     public void processRequest(String request)
     {
         String name = request;
+        Session session = new Session(name);
         if (repository.hasUser(name))
             writer.write(String.format("Hi, my old friend, %s", name));
         else
@@ -21,6 +22,6 @@ public class StartedState extends StateBase
             writer.write(String.format("Hello, %s", name));
             repository.addUser(name);
         }
-        stateMachine.changeState(new InitializedState(stateMachine, repository, writer));
+        stateMachine.changeState(new InitializedState(stateMachine, repository, writer, session));
     }
 }

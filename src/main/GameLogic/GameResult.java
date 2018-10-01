@@ -1,4 +1,4 @@
-package main;
+package main.GameLogic;
 
 public class GameResult
 {

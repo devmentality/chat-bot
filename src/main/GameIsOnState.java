@@ -1,67 +1,59 @@
 package main;
 
+import main.Commands.ExitCommand;
+import main.Commands.HelpCommand;
+import main.Commands.ICommand;
+import main.Commands.ResignCommand;
 import main.Data.IAppRepository;
+import main.GameLogic.Game;
+import main.GameLogic.GameController;
+import main.GameLogic.GameResult;
+import main.GameLogic.GuessResult;
 import main.IO.IMessageWriter;
 
 public class GameIsOnState extends StateBase
 {
     private Game game;
+    private Session session;
 
-    public GameIsOnState(IStateMachine stateMachine, IAppRepository repository, IMessageWriter writer)
+    public GameIsOnState(IStateMachine stateMachine, IAppRepository repository, IMessageWriter writer,
+                         Game game, Session session)
     {
         super(stateMachine, repository, writer);
-        game = new Game();
+        this.game = game;
+        this.session = session;
+        commands = new ICommand[]
+        {
+                new ExitCommand(stateMachine, repository, writer),
+                new HelpCommand(stateMachine, repository, writer),
+                new ResignCommand(stateMachine, repository, writer, session)
+
+        };
     }
 
     @Override
-    public void processRequest(String request) {
-        if (request.equals("play"))
-            doPlay();
-        else if (request.equals("resign"))
-            doResign();
-        else
-            doGameAttempt(request);
+    protected void handleNoncommandRequest(String request)
+    {
+        doGameAttempt(request);
     }
 
-    private void doPlay()
+    private void doGameAttempt(String attemptString)
     {
-        writer.write("You are already playing");
-    }
-
-    private void doResign()
-    {
-        writer.write(":(");
-        //stateMachine.changeState(new GameIsOffState(controller, bot, repository));
-        //repository.addGameResult(bot.getUserName(), new GameResult(false));
-    }
-
-    private void doGameAttempt(String request)
-    {
-        /*
         try
         {
-            int[] guessedDigits = parseGuess(request);
+            int[] guessedDigits = GameController.parseGuess(attemptString);
             GuessResult result = game.respondOnGuess(guessedDigits);
-            bot.sendMessage(String.format("%d bulls and %d cows", result.amountOfBulls, result.amountOfCows));
+            writer.write(String.format("%d bulls and %d cows", result.amountOfBulls, result.amountOfCows));
             if (result.amountOfBulls == 4)
             {
-                bot.sendMessage("Congrats, you have won!");
-                controller.changeState(new GameIsOffState(controller, bot, repository));
-                repository.addGameResult(bot.getUserName(), new GameResult(true));
+                writer.write("Congrats, you have won!");
+                repository.addGameResult(session.getUsername(), new GameResult(true));
+                stateMachine.changeState(new InitializedState(stateMachine, repository, writer, session));
             }
         }
         catch (Exception ex)
         {
-            bot.sendMessage("You have to provide 4 digits");
-        }*/
+            writer.write("You have to provide 4 digits");
+        }
     }
-    /*
-    private int[] parseGuess(String guess)
-    {
-        int[] digits = new int[guess.length()];
-        for(int index = 0; index < guess.length(); index++)
-            digits[index] = Integer.parseInt(String.valueOf(guess.charAt(index)));
-        return digits;
-    }
-    */
 }

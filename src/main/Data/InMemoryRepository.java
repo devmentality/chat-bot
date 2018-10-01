@@ -1,7 +1,7 @@
 package main.Data;
 
-import main.Game;
-import main.GameResult;
+import main.GameLogic.Game;
+import main.GameLogic.GameResult;
 
 import java.util.HashMap;
 import java.util.ArrayList;
