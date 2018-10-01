@@ -15,6 +15,7 @@ public class InMemoryRepository implements IAppRepository
     public InMemoryRepository()
     {
         repository = new HashMap<>();
+        unfinishedGames = new HashMap<>();
     }
 
     @Override

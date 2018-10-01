@@ -1,9 +1,6 @@
 package main;
 
-import main.Commands.ExitCommand;
-import main.Commands.HelpCommand;
-import main.Commands.ICommand;
-import main.Commands.ResignCommand;
+import main.Commands.*;
 import main.Data.IAppRepository;
 import main.GameLogic.Game;
 import main.GameLogic.GameController;
@@ -26,8 +23,8 @@ public class GameIsOnState extends StateBase
         {
                 new ExitCommand(stateMachine, repository, writer),
                 new HelpCommand(stateMachine, repository, writer),
-                new ResignCommand(stateMachine, repository, writer, session)
-
+                new ResignCommand(stateMachine, repository, writer, session),
+                new StopGameCommand(stateMachine, repository, writer, session, game)
         };
     }
 

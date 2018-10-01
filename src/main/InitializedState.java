@@ -18,7 +18,8 @@ public class InitializedState extends StateBase
                 new ExitCommand(stateMachine, repository, writer),
                 new HelpCommand(stateMachine, repository, writer),
                 new NewGameCommand(stateMachine, repository, writer, session),
-                new StatisticsCommand(stateMachine, repository, writer, session)
+                new StatisticsCommand(stateMachine, repository, writer, session),
+                new ContinueGameCommand(stateMachine, repository, writer, session)
         };
     }
 }
