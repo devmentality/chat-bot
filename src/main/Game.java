@@ -1,11 +1,13 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Game {
     private static final int amountOfDigits = 4;
     private int[] digitsToGuess;
-
+    private static ArrayList<int []> attempts;
+    
     public Game() {
         digitsToGuess = new int[amountOfDigits];
         digitsToGuess = SampleGenerator.setDigitsToGuess(amountOfDigits);
@@ -46,6 +48,7 @@ public class Game {
         int[] digits = new int[guess.length()];
         for(int index = 0; index < guess.length(); index++)
             digits[index] = Integer.parseInt(String.valueOf(guess.charAt(index)));
+        attempts.add(digits);
         return digits;
     }
 }
