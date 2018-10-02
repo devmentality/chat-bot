@@ -21,4 +21,7 @@ public class Strings
     public static final String goodbye = "Goodbye!";
 
     public static final String startRequest = "Send 'start' to start dialog.";
+    public static final String introduction =
+            "Now you are ready for playing.\n" +
+            "Send 'help' to get to know how to use me.";
 }

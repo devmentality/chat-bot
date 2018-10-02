@@ -2,19 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="827e5266-bcbe-4880-bfd1-72f8057abea2" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/Commands/StartCommand.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/Resources/Strings.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/test/TestStartedState.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/test/mocks/StateMachineMock.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/BeforeStartState.java" afterPath="$PROJECT_DIR$/src/main/BeforeStartState.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/Bot.java" afterPath="$PROJECT_DIR$/src/main/Bot.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/Commands/ExitCommand.java" afterPath="$PROJECT_DIR$/src/main/Commands/ExitCommand.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/Commands/HelpCommand.java" afterPath="$PROJECT_DIR$/src/main/Commands/HelpCommand.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/IState.java" afterPath="$PROJECT_DIR$/src/main/IState.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/InitializedState.java" afterPath="$PROJECT_DIR$/src/main/InitializedState.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/Resources/Strings.java" afterPath="$PROJECT_DIR$/src/main/Resources/Strings.java" />
       <change beforePath="$PROJECT_DIR$/src/main/StartedState.java" afterPath="$PROJECT_DIR$/src/main/StartedState.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/StateBase.java" afterPath="$PROJECT_DIR$/src/main/StateBase.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/BotTest.java" afterPath="$PROJECT_DIR$/src/test/BotTest.java" />
+      <change beforePath="$PROJECT_DIR$/src/test/TestStartedState.java" afterPath="$PROJECT_DIR$/src/test/TestStartedState.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,18 +21,8 @@
       <file leaf-file-name="Strings.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/Resources/Strings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="22" column="78" lean-forward="false" selection-start-line="22" selection-start-column="78" selection-end-line="22" selection-end-column="78" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ExitCommand.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/Commands/ExitCommand.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="15" column="25" lean-forward="true" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+            <state relative-caret-position="-15">
+              <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -49,7 +31,7 @@
       <file leaf-file-name="BotTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/BotTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="151">
+            <state relative-caret-position="153">
               <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="44" />
               <folding />
             </state>
@@ -69,8 +51,8 @@
       <file leaf-file-name="TestBeforeStartState.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/TestBeforeStartState.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+            <state relative-caret-position="297">
+              <caret line="23" column="5" lean-forward="true" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -88,46 +70,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BeforeStartState.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/BeforeStartState.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="28" column="42" lean-forward="false" selection-start-line="28" selection-start-column="42" selection-end-line="28" selection-end-column="42" />
-              <folding>
-                <element signature="e#562#563#0" expanded="true" />
-                <element signature="e#612#613#0" expanded="true" />
-                <element signature="e#692#693#0" expanded="true" />
-                <element signature="e#742#743#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StateMachineMock.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/mocks/StateMachineMock.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="77">
-              <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#256#257#0" expanded="true" />
-                <element signature="e#291#292#0" expanded="true" />
-                <element signature="e#358#359#0" expanded="true" />
-                <element signature="e#398#399#0" expanded="true" />
-                <element signature="e#455#456#0" expanded="true" />
-                <element signature="e#490#491#0" expanded="true" />
-                <element signature="e#531#532#0" expanded="true" />
-                <element signature="e#566#567#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StartedState.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="StartedState.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/StartedState.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="17" column="5" lean-forward="true" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+            <state relative-caret-position="476">
+              <caret line="30" column="9" lean-forward="true" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
               <folding>
                 <element signature="e#366#367#0" expanded="true" />
                 <element signature="e#415#416#0" expanded="true" />
@@ -136,11 +83,35 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestStartedState.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TestStartedState.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/TestStartedState.java">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InitializedState.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/InitializedState.java">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="85">
-              <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+              <caret line="24" column="5" lean-forward="false" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestGenerator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/TestGenerator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-64">
+              <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -202,22 +173,22 @@
         <option value="$PROJECT_DIR$/src/main/Commands/StopGameCommand.java" />
         <option value="$PROJECT_DIR$/src/main/GameIsOnState.java" />
         <option value="$PROJECT_DIR$/src/main/Commands/ContinueGameCommand.java" />
-        <option value="$PROJECT_DIR$/src/main/InitializedState.java" />
         <option value="$PROJECT_DIR$/src/main/Data/InMemoryRepository.java" />
         <option value="$PROJECT_DIR$/src/main/IState.java" />
         <option value="$PROJECT_DIR$/src/main/Bot.java" />
         <option value="$PROJECT_DIR$/src/main/StateBase.java" />
         <option value="$PROJECT_DIR$/src/main/Commands/HelpCommand.java" />
         <option value="$PROJECT_DIR$/src/main/Commands/StartCommand.java" />
-        <option value="$PROJECT_DIR$/src/main/StartedState.java" />
         <option value="$PROJECT_DIR$/src/main/Commands/ExitCommand.java" />
         <option value="$PROJECT_DIR$/src/test/BotTest.java" />
         <option value="$PROJECT_DIR$/src/test/mocks/StateMachineMock.java" />
         <option value="$PROJECT_DIR$/src/test/TestStartState.java" />
-        <option value="$PROJECT_DIR$/src/main/Resources/Strings.java" />
         <option value="$PROJECT_DIR$/src/main/BeforeStartState.java" />
         <option value="$PROJECT_DIR$/src/test/TestBeforeStartState.java" />
         <option value="$PROJECT_DIR$/src/test/TestStartedState.java" />
+        <option value="$PROJECT_DIR$/src/main/Resources/Strings.java" />
+        <option value="$PROJECT_DIR$/src/main/InitializedState.java" />
+        <option value="$PROJECT_DIR$/src/main/StartedState.java" />
       </list>
     </option>
   </component>
@@ -258,20 +229,14 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="chat-bot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chat-bot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
       <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -431,6 +396,31 @@
       <envs />
       <patterns />
     </configuration>
+    <configuration name="TestStartedState" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="first" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="test" />
+      <option name="MAIN_CLASS_NAME" value="test.TestStartedState" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -511,20 +501,22 @@
       <option name="PROGRAM_PARAMETERS" />
       <predefined_log_file id="idea.log" enabled="true" />
     </configuration>
-    <list size="6">
+    <list size="7">
       <item index="0" class="java.lang.String" itemvalue="Application.Program" />
       <item index="1" class="java.lang.String" itemvalue="JUnit.test in first" />
       <item index="2" class="java.lang.String" itemvalue="JUnit.BotTest" />
       <item index="3" class="java.lang.String" itemvalue="JUnit.TestAnswer" />
       <item index="4" class="java.lang.String" itemvalue="JUnit.TestGenerator" />
       <item index="5" class="java.lang.String" itemvalue="JUnit.TestBeforeStartState" />
+      <item index="6" class="java.lang.String" itemvalue="JUnit.TestStartedState" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.TestBeforeStartState" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.BotTest" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.TestGenerator" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.TestAnswer" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="JUnit.TestStartedState" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.TestBeforeStartState" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.BotTest" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.TestGenerator" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.TestAnswer" />
       </list>
     </recent_temporary>
   </component>
@@ -545,24 +537,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="BotTest - 2018.10.02 at 23h 21m 00s.xml">
-      <configuration name="BotTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="BotTest - 2018.10.02 at 23h 37m 12s.xml">
-      <configuration name="BotTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="TestBeforeStartState - 2018.10.02 at 23h 37m 18s.xml">
-      <configuration name="TestBeforeStartState" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="TestBeforeStartState - 2018.10.02 at 23h 38m 15s.xml">
-      <configuration name="TestBeforeStartState" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="TestBeforeStartState - 2018.10.02 at 23h 41m 06s.xml">
-      <configuration name="TestBeforeStartState" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="TestBeforeStartState - 2018.10.02 at 23h 43m 16s.xml">
-      <configuration name="TestBeforeStartState" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="TestGenerator - 2018.09.28 at 11h 49m 06s.xml">
       <configuration name="TestGenerator" configurationId="JUnit" />
     </history-entry>
@@ -574,6 +548,24 @@
     </history-entry>
     <history-entry file="TestGenerator - 2018.10.01 at 22h 57m 18s.xml">
       <configuration name="TestGenerator" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestStartedState - 2018.10.02 at 23h 58m 26s.xml">
+      <configuration name="TestStartedState" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestStartedState - 2018.10.02 at 23h 58m 55s.xml">
+      <configuration name="TestStartedState" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestStartedState - 2018.10.03 at 00h 00m 43s.xml">
+      <configuration name="TestStartedState" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestStartedState - 2018.10.03 at 00h 02m 09s.xml">
+      <configuration name="TestStartedState" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestStartedState - 2018.10.03 at 00h 02m 30s.xml">
+      <configuration name="TestStartedState" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestStartedState - 2018.10.03 at 00h 06m 10s.xml">
+      <configuration name="TestStartedState" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
@@ -587,18 +579,18 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17432646" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49445325" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24524158" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24524158" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39936608" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -660,20 +652,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="20" column="26" lean-forward="true" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/TestGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/TestAnswer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="549">
-          <caret line="114" column="0" lean-forward="true" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -812,11 +790,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding>
-            <element signature="e#108#109#0" expanded="true" />
-            <element signature="e#148#149#0" expanded="true" />
-            <element signature="e#214#215#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -839,21 +812,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/Resources.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="22" lean-forward="false" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/Resources.java" />
     <entry file="file://$PROJECT_DIR$/src/main/Bot.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="28" column="25" lean-forward="true" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -869,7 +832,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -877,7 +839,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="20" lean-forward="false" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -888,16 +849,6 @@
           <folding>
             <element signature="e#443#444#0" expanded="false" />
             <element signature="e#485#486#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/InitializedState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-62">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -915,16 +866,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/Commands/ExitCommand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="15" column="25" lean-forward="true" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+        <state relative-caret-position="204">
+          <caret line="15" column="25" lean-forward="false" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/mocks/StateMachineMock.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="77">
-          <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+        <state relative-caret-position="289">
+          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#256#257#0" expanded="true" />
@@ -949,23 +900,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/BotTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
+        <state relative-caret-position="153">
           <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/Resources/Strings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="22" column="78" lean-forward="false" selection-start-line="22" selection-start-column="78" selection-end-line="22" selection-end-column="78" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/BeforeStartState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
+        <state relative-caret-position="323">
           <caret line="28" column="42" lean-forward="false" selection-start-line="28" selection-start-column="42" selection-end-line="28" selection-end-column="42" />
           <folding>
             <element signature="e#562#563#0" expanded="true" />
@@ -984,10 +927,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/TestGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-64">
+          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/TestAnswer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1097">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/TestStartedState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/Resources/Strings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-15">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/TestBeforeStartState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        <state relative-caret-position="297">
+          <caret line="23" column="5" lean-forward="true" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/InitializedState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="24" column="5" lean-forward="false" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -996,20 +983,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/StartedState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="17" column="5" lean-forward="true" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+        <state relative-caret-position="476">
+          <caret line="30" column="9" lean-forward="true" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
           <folding>
             <element signature="e#366#367#0" expanded="true" />
             <element signature="e#415#416#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/TestStartedState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>

@@ -29,6 +29,7 @@ public class StartedState extends StateBase
             writer.write(String.format(Strings.greetingNewUser, name));
             repository.addUser(name);
         }
+        writer.write(Strings.introduction);
         stateMachine.changeState(new InitializedState(stateMachine, repository, writer, session));
     }
 }

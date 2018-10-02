@@ -3,6 +3,7 @@ package main;
 import main.Commands.*;
 import main.Data.IAppRepository;
 import main.IO.IMessageWriter;
+import main.Resources.Strings;
 
 
 public class InitializedState extends StateBase
