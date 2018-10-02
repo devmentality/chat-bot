@@ -32,6 +32,9 @@ public abstract class StateBase implements IState
         handleNoncommandRequest(request);
     }
 
+    @Override
+    public void activate() { }
+
     protected void handleNoncommandRequest(String request)
     {
         writer.write("I don't understand:(");

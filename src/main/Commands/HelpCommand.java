@@ -4,6 +4,7 @@ import main.Commands.CommandBase;
 import main.Data.IAppRepository;
 import main.IO.IMessageWriter;
 import main.IStateMachine;
+import main.Resources.Strings;
 
 public class HelpCommand extends CommandBase
 {
@@ -15,6 +16,6 @@ public class HelpCommand extends CommandBase
     @Override
     public void execute()
     {
-        writer.write("Bot help");
+        writer.write(Strings.help);
     }
 }

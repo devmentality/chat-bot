@@ -5,18 +5,18 @@ import main.Data.IAppRepository;
 import main.Data.InMemoryRepository;
 import main.IO.StringBufferReader;
 import main.IO.StringBufferWriter;
+import main.Resources.Strings;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 
-
-
 public class BotTest
 {
     @Test
-    public final void testBotSetupAndExit()
+    public final void testBotBasicDialog()
     {
-        StringBufferReader reader = new StringBufferReader(new String[]{"exit"});
+        String username = "Nik";
+        StringBufferReader reader = new StringBufferReader(new String[]{"start", username, "help", "exit"});
         StringBufferWriter writer = new StringBufferWriter();
         IAppRepository repository = new InMemoryRepository();
 
@@ -26,7 +26,11 @@ public class BotTest
 
         ArrayList<String> output = writer.getBuffer();
 
-        assertEquals(1, output.size());
-        assertEquals("Send 'start' to start dialog", output.get(0));
+        assertEquals(5, output.size());
+        assertEquals(Strings.startMessage, output.get(0));
+        assertEquals(Strings.nameRequest, output.get(1));
+        assertEquals(String.format(Strings.greetingNewUser, username), output.get(2));
+        assertEquals(Strings.help, output.get(3));
+        assertEquals(Strings.goodbye, output.get(4));
     }
 }

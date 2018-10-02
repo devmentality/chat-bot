@@ -3,6 +3,7 @@ package main;
 import main.Data.IAppRepository;
 import main.IO.IMessageReader;
 import main.IO.IMessageWriter;
+import main.Resources.Strings;
 
 public class Bot implements IStateMachine
 {
@@ -25,6 +26,7 @@ public class Bot implements IStateMachine
     public void changeState(IState nextState)
     {
         state = nextState;
+        state.activate();
     }
 
     public IState getCurrentState()
@@ -37,27 +39,13 @@ public class Bot implements IStateMachine
         isTerminated = true;
     }
 
-    public void setUserName(String name)
-    {
-        this.userName = name;
-    }
-
-    public  String getUserName() {
-        return userName;
-    }
-
     public void execute()
     {
-        writer.write(getWelcoming());
+        state.activate();
         while(!isTerminated)
         {
             String request = reader.read();
             state.processRequest(request);
         }
-    }
-
-    private String getWelcoming()
-    {
-        return "Hi, I'm bot. Send 'start' to start dialog";
     }
 }

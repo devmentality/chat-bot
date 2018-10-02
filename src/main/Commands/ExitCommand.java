@@ -3,6 +3,7 @@ package main.Commands;
 import main.Data.IAppRepository;
 import main.IO.IMessageWriter;
 import main.IStateMachine;
+import main.Resources.Strings;
 
 public class ExitCommand extends CommandBase
 {
@@ -14,7 +15,7 @@ public class ExitCommand extends CommandBase
     @Override
     public void execute()
     {
-        writer.write("Goodbye!");
+        writer.write(Strings.goodbye);
         stateMachine.signalToTerminate();
     }
 }
