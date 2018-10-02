@@ -5,11 +5,14 @@ import java.util.ArrayList;
 public class Game {
     private static final int amountOfDigits = 4;
     private int[] digitsToGuess;
-    private static ArrayList<int []> attempts;
+    public static ArrayList<int []> attempts;
+    public static ArrayList<GuessResult> results;
     
     public Game() {
         digitsToGuess = new int[amountOfDigits];
         digitsToGuess = SampleGenerator.setDigitsToGuess(amountOfDigits);
+        attempts = new ArrayList<int[]>();
+        results = new ArrayList<GuessResult>();
     }
     
     public Game(int[] guess)
@@ -31,6 +34,8 @@ public class Game {
                 bulls++;
             else if (isCow(guess[index]))
                 cows++;
+        attempts.add(guess);
+        results.add(new GuessResult(bulls, cows));
         return new GuessResult(bulls, cows);
     }
 
@@ -47,7 +52,6 @@ public class Game {
         int[] digits = new int[guess.length()];
         for(int index = 0; index < guess.length(); index++)
             digits[index] = Integer.parseInt(String.valueOf(guess.charAt(index)));
-        attempts.add(digits);
         return digits;
     }
 }

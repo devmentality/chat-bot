@@ -24,7 +24,8 @@ public class GameIsOnState extends StateBase
                 new ExitCommand(stateMachine, repository, writer),
                 new HelpCommand(stateMachine, repository, writer),
                 new ResignCommand(stateMachine, repository, writer, session),
-                new StopGameCommand(stateMachine, repository, writer, session, game)
+                new StopGameCommand(stateMachine, repository, writer, session, game),
+                new AttemptsCommand(stateMachine, repository, writer, game)
         };
     }
 
