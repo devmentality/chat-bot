@@ -48,6 +48,12 @@ public class GameIsOnState extends StateBase
                 repository.addGameResult(session.getUsername(), new GameResult(true));
                 stateMachine.changeState(new InitializedState(stateMachine, repository, writer, session));
             }
+            if(game.attempts.size() == 100)
+            {
+            	writer.write("You lose.");
+            	repository.addGameResult(session.getUsername(), new GameResult(false));
+                stateMachine.changeState(new InitializedState(stateMachine, repository, writer, session));
+            }
         }
         catch (Exception ex)
         {
