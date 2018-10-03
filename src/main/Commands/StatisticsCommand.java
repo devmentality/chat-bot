@@ -4,6 +4,7 @@ import main.Data.IAppRepository;
 import main.GameLogic.GameResult;
 import main.IO.IMessageWriter;
 import main.IStateMachine;
+import main.Resources.Strings;
 import main.Session;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class StatisticsCommand extends CommandBase
                 losses++;
         }
 
-        writer.write(String.format("%d games played %d victories %d losses", victories + losses,
+        writer.write(String.format(Strings.statisticsTemplate, victories + losses,
                 victories, losses));
     }
 }

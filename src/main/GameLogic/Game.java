@@ -18,6 +18,8 @@ public class Game {
     public Game(int[] guess)
     {
     	digitsToGuess = guess;
+        attempts = new ArrayList<int[]>();
+        results = new ArrayList<GuessResult>();
     }
 
     public GuessResult respondOnGuess(int[] guess) {

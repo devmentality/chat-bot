@@ -5,6 +5,7 @@ import main.GameIsOnState;
 import main.GameLogic.Game;
 import main.IO.IMessageWriter;
 import main.IStateMachine;
+import main.Resources.Strings;
 import main.Session;
 
 public class ContinueGameCommand extends CommandBase
@@ -22,13 +23,12 @@ public class ContinueGameCommand extends CommandBase
     {
         if (!repository.hasUnfinishedGame(session.getUsername()))
         {
-            writer.write("You don't have unfinished games");
+            writer.write(Strings.noSavedGames);
             return;
         }
 
+        writer.write(Strings.continueGamePhrase);
         Game game = repository.getUnfinishedGame(session.getUsername());
-        writer.write("Your guesses were: ");
-        writer.write("...");
         stateMachine.changeState(new GameIsOnState(stateMachine, repository, writer, game, session));
     }
 }

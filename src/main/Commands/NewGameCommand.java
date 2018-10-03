@@ -5,6 +5,7 @@ import main.GameLogic.Game;
 import main.GameIsOnState;
 import main.IO.IMessageWriter;
 import main.IStateMachine;
+import main.Resources.Strings;
 import main.Session;
 
 public class NewGameCommand extends CommandBase
@@ -20,6 +21,7 @@ public class NewGameCommand extends CommandBase
     @Override
     public void execute()
     {
+        writer.write(Strings.newGamePhrase);
         stateMachine.changeState(new GameIsOnState(stateMachine, repository, writer, new Game(), session));
     }
 }

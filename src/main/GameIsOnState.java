@@ -7,6 +7,7 @@ import main.GameLogic.GameController;
 import main.GameLogic.GameResult;
 import main.GameLogic.GuessResult;
 import main.IO.IMessageWriter;
+import main.Resources.Strings;
 
 public class GameIsOnState extends StateBase
 {
@@ -41,23 +42,23 @@ public class GameIsOnState extends StateBase
         {
             int[] guessedDigits = GameController.parseGuess(attemptString);
             GuessResult result = game.respondOnGuess(guessedDigits);
-            writer.write(String.format("%d bulls and %d cows", result.amountOfBulls, result.amountOfCows));
+            writer.write(String.format(Strings.guessResultTemplate, result.amountOfBulls, result.amountOfCows));
             if (result.amountOfBulls == 4)
             {
-                writer.write("Congrats, you have won!");
+                writer.write(Strings.congratulations);
                 repository.addGameResult(session.getUsername(), new GameResult(true));
                 stateMachine.changeState(new InitializedState(stateMachine, repository, writer, session));
             }
             if(game.attempts.size() == 100)
             {
-            	writer.write("You lose.");
+            	writer.write(Strings.losePhrase);
             	repository.addGameResult(session.getUsername(), new GameResult(false));
                 stateMachine.changeState(new InitializedState(stateMachine, repository, writer, session));
             }
         }
         catch (Exception ex)
         {
-            writer.write("You have to provide 4 digits");
+            writer.write(Strings.guessFormatFail);
         }
     }
 }

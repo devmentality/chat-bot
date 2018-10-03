@@ -26,11 +26,12 @@ public class BotTest
 
         ArrayList<String> output = writer.getBuffer();
 
-        assertEquals(5, output.size());
+        assertEquals(6, output.size());
         assertEquals(Strings.startMessage, output.get(0));
         assertEquals(Strings.nameRequest, output.get(1));
         assertEquals(String.format(Strings.greetingNewUser, username), output.get(2));
-        assertEquals(Strings.help, output.get(3));
-        assertEquals(Strings.goodbye, output.get(4));
+        assertEquals(Strings.introduction, output.get(3));
+        assertEquals(Strings.help, output.get(4));
+        assertEquals(Strings.goodbye, output.get(5));
     }
 }
