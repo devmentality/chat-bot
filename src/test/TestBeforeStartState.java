@@ -1,6 +1,6 @@
 package test;
 
-import main.BeforeStartState;
+import main.States.BeforeStartState;
 import main.Data.InMemoryRepository;
 import main.IO.StringBufferWriter;
 import main.Resources.Strings;

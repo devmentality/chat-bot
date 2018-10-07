@@ -1,8 +1,10 @@
-package main;
+package main.States;
 
 import main.Data.IAppRepository;
 import main.IO.IMessageWriter;
+import main.IStateMachine;
 import main.Resources.Strings;
+import main.Session;
 
 public class StartedState extends StateBase
 {

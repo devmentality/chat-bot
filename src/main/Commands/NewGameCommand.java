@@ -2,7 +2,7 @@ package main.Commands;
 
 import main.Data.IAppRepository;
 import main.GameLogic.Game;
-import main.GameIsOnState;
+import main.States.GameIsOnState;
 import main.IO.IMessageWriter;
 import main.IStateMachine;
 import main.Resources.Strings;

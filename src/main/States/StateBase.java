@@ -1,8 +1,10 @@
-package main;
+package main.States;
 
 import main.Commands.ICommand;
 import main.Data.IAppRepository;
 import main.IO.IMessageWriter;
+import main.IState;
+import main.IStateMachine;
 
 public abstract class StateBase implements IState
 {

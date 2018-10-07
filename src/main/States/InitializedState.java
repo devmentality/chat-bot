@@ -1,9 +1,10 @@
-package main;
+package main.States;
 
 import main.Commands.*;
 import main.Data.IAppRepository;
 import main.IO.IMessageWriter;
-import main.Resources.Strings;
+import main.IStateMachine;
+import main.Session;
 
 
 public class InitializedState extends StateBase

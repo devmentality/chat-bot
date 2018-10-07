@@ -1,4 +1,4 @@
-package main;
+package main.States;
 
 import main.Commands.*;
 import main.Data.IAppRepository;
@@ -7,7 +7,9 @@ import main.GameLogic.GameController;
 import main.GameLogic.GameResult;
 import main.GameLogic.GuessResult;
 import main.IO.IMessageWriter;
+import main.IStateMachine;
 import main.Resources.Strings;
+import main.Session;
 
 public class GameIsOnState extends StateBase
 {

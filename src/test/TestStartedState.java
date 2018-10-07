@@ -3,7 +3,8 @@ package test;
 import main.Data.InMemoryRepository;
 import main.IO.StringBufferWriter;
 import main.Resources.Strings;
-import main.StartedState;
+import main.States.StartedState;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import test.mocks.StateMachineMock;
@@ -12,13 +13,23 @@ import java.util.ArrayList;
 
 public class TestStartedState
 {
+    private StateMachineMock stateMachine;
+    private StringBufferWriter writer;
+    private StartedState state;
+    private InMemoryRepository repository;
+
+    @Before
+    public final void assignment()
+    {
+        stateMachine = new StateMachineMock();
+        writer = new StringBufferWriter();
+        repository = new InMemoryRepository();
+        state = new StartedState(stateMachine,repository, writer);
+    }
+
     @Test
     public final void testActivation()
     {
-        StateMachineMock stateMachine = new StateMachineMock();
-        StringBufferWriter writer = new StringBufferWriter();
-        StartedState state = new StartedState(stateMachine, new InMemoryRepository(), writer);
-
         state.activate();
         ArrayList<String> output = writer.getBuffer();
 
@@ -28,10 +39,6 @@ public class TestStartedState
     @Test
     public final void testGreetingNewUser()
     {
-        StateMachineMock stateMachine = new StateMachineMock();
-        StringBufferWriter writer = new StringBufferWriter();
-        StartedState state = new StartedState(stateMachine, new InMemoryRepository(), writer);
-
         String userName = "Lol";
         state.processRequest(userName);
 
@@ -44,12 +51,7 @@ public class TestStartedState
     public final void testGreetingOldUser()
     {
         String userName = "Lol";
-
-        StateMachineMock stateMachine = new StateMachineMock();
-        StringBufferWriter writer = new StringBufferWriter();
-        InMemoryRepository repository = new InMemoryRepository();
         repository.addUser(userName);
-        StartedState state = new StartedState(stateMachine, repository, writer);
 
         state.processRequest(userName);
 

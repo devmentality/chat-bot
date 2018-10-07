@@ -4,7 +4,7 @@ import main.Data.IAppRepository;
 import main.GameLogic.Game;
 import main.IO.IMessageWriter;
 import main.IStateMachine;
-import main.InitializedState;
+import main.States.InitializedState;
 import main.Session;
 
 public class StopGameCommand extends CommandBase

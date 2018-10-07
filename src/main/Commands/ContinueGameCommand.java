@@ -1,7 +1,7 @@
 package main.Commands;
 
 import main.Data.IAppRepository;
-import main.GameIsOnState;
+import main.States.GameIsOnState;
 import main.GameLogic.Game;
 import main.IO.IMessageWriter;
 import main.IStateMachine;

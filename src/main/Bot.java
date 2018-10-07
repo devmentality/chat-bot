@@ -3,7 +3,7 @@ package main;
 import main.Data.IAppRepository;
 import main.IO.IMessageReader;
 import main.IO.IMessageWriter;
-import main.Resources.Strings;
+import main.States.BeforeStartState;
 
 public class Bot implements IStateMachine
 {

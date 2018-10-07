@@ -1,9 +1,10 @@
-package main;
+package main.States;
 
 import main.Commands.ICommand;
 import main.Commands.StartCommand;
 import main.Data.IAppRepository;
 import main.IO.IMessageWriter;
+import main.IStateMachine;
 import main.Resources.Strings;
 
 public class BeforeStartState extends StateBase
