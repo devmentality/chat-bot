@@ -1,6 +1,11 @@
 package main.GameLogic;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 public class SampleGenerator {
@@ -14,6 +19,12 @@ public class SampleGenerator {
         {
         	digitsToGuess.add(rnd.nextInt(maxValue));
         }
-		return digitsToGuess.stream().mapToInt(Integer::intValue).toArray();		
+		ArrayList<Integer> arrayOfDigits = new ArrayList<Integer>();
+		for(Integer digit : digitsToGuess)
+		{
+			arrayOfDigits.add(digit);
+		}
+		Collections.shuffle(arrayOfDigits);
+		return arrayOfDigits.stream().mapToInt(Integer::intValue).toArray();		
     }
 }
