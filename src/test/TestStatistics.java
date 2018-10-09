@@ -1,7 +1,6 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -27,15 +26,6 @@ public class TestStatistics {
     private String username = "user";
     private Game game;
     private int maxGames = 1000;
-    
-    @Before
-    public final void assignment()
-    {
-        stateMachine = new StateMachineMock();
-        writer = new StringBufferWriter();
-        repository = new InMemoryRepository();
-        repository.addUser(username);
-    }
     
     private final void winOneGame()
     {
@@ -63,6 +53,10 @@ public class TestStatistics {
     @Test
     public final void testCorrectStatistics()
     {
+    	stateMachine = new StateMachineMock();
+        writer = new StringBufferWriter();
+        repository = new InMemoryRepository();
+        repository.addUser(username);
     	Random random = new Random();
     	int winGames = random.nextInt(maxGames);
     	int loseGames = random.nextInt(maxGames);
