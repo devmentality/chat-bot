@@ -3,6 +3,7 @@ package main.Commands;
 import java.util.Arrays;
 
 import main.IStateMachine;
+import main.Resources.Strings;
 import main.Session;
 import main.Data.IAppRepository;
 import main.GameLogic.Game;
@@ -17,18 +18,12 @@ public class AttemptsCommand extends CommandBase
 			Game currentGame)
 	{
 		super(stateMachine, repository, writer, "attempts");
+		this.currentGame = currentGame;
 	}
 
 	private String makeString(GuessResult result)
 	{
-		String answer = "";
-		Integer bulls = result.amountOfBulls;
-		Integer cows = result.amountOfCows;
-		answer = answer.concat("Bulls: ");
-		answer = answer.concat(bulls.toString());
-		answer = answer.concat(" Cows: ");
-		answer = answer.concat(cows.toString());
-		return answer;
+		return String.format(Strings.attemptResult, result.amountOfBulls, result.amountOfCows);
 	}
 	
 	@Override

@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Game {
     private static final int amountOfDigits = 4;
     private int[] digitsToGuess;
-    public static ArrayList<int []> attempts;
-    public static ArrayList<GuessResult> results;
+    public ArrayList<int []> attempts;
+    public ArrayList<GuessResult> results;
     
     public Game() {
         digitsToGuess = new int[amountOfDigits];
@@ -47,13 +47,5 @@ public class Game {
         	if (guessedDigit == digit)
                 return true;
         return false;
-    }
-
-    public static int[] parseGuess(String guess)
-    {
-        int[] digits = new int[guess.length()];
-        for(int index = 0; index < guess.length(); index++)
-            digits[index] = Integer.parseInt(String.valueOf(guess.charAt(index)));
-        return digits;
     }
 }
