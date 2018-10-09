@@ -36,5 +36,5 @@ public class Strings
     public static final String newGamePhrase = "Let's start. I've made a number with 4 different digits. You goal is to guess it.";
     public static final String continueGamePhrase = "Go on playing.";
 
-    public static final String attemptResult = "Bulls: %d, cows: %d";
+    public static final String noAttempts = "You don't have any attempts.";
 }

@@ -65,7 +65,7 @@ public class TestGameIsOnState
 
         Assert.assertEquals(2, output.size());
         Assert.assertEquals(attempt, output.get(0));
-        Pattern p = Pattern.compile("^Bulls: \\d+, cows: \\d+$");
+        Pattern p = Pattern.compile("^\\d+ bulls and \\d+ cows$");
         Assert.assertTrue(p.matcher(output.get(1)).matches());
 
     }

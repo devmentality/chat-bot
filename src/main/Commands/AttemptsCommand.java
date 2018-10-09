@@ -1,10 +1,7 @@
 package main.Commands;
 
-import java.util.Arrays;
-
 import main.IStateMachine;
 import main.Resources.Strings;
-import main.Session;
 import main.Data.IAppRepository;
 import main.GameLogic.Game;
 import main.GameLogic.GuessResult;
@@ -23,12 +20,18 @@ public class AttemptsCommand extends CommandBase
 
 	private String makeString(GuessResult result)
 	{
-		return String.format(Strings.attemptResult, result.amountOfBulls, result.amountOfCows);
+		return String.format(Strings.guessResultTemplate, result.amountOfBulls, result.amountOfCows);
 	}
 	
 	@Override
 	public void execute()
 	{
+		if (currentGame.attempts.size() == 0)
+		{
+			writer.write(Strings.noAttempts);
+			return;
+		}
+
         for (int i = 0; i < currentGame.attempts.size(); i++)
        	{
         	String attempt = "";
