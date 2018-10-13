@@ -2,6 +2,8 @@ package main.Commands;
 
 import main.Data.IAppRepository;
 import main.GameLogic.GameResult;
+import main.GameLogic.Statistics;
+import main.GameLogic.StatisticsCalculator;
 import main.IO.IMessageWriter;
 import main.IStateMachine;
 import main.Resources.Strings;
@@ -22,18 +24,10 @@ public class StatisticsCommand extends CommandBase
     @Override
     public void execute()
     {
-        ArrayList<GameResult> results = repository.getGameResults(session.getUsername());
-        int victories = 0;
-        int losses = 0;
-        for (GameResult result: results)
-        {
-            if (result.isVictory())
-                victories++;
-            else
-                losses++;
-        }
+        Statistics stat = StatisticsCalculator.calculate(
+                repository.getGameResults(session.getUsername()));
 
-        writer.write(String.format(Strings.statisticsTemplate, victories + losses,
-                victories, losses));
+        writer.write(String.format(Strings.statisticsTemplate, stat.getTotal(),
+                stat.getVictories(), stat.getLosses()));
     }
 }

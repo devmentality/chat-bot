@@ -1,5 +1,6 @@
 package main.Commands;
 
+import main.GameLogic.Attempt;
 import main.IStateMachine;
 import main.Resources.Strings;
 import main.Data.IAppRepository;
@@ -32,16 +33,19 @@ public class AttemptsCommand extends CommandBase
 			return;
 		}
 
-        for (int i = 0; i < currentGame.attempts.size(); i++)
+        for (Attempt attempt: currentGame.attempts)
        	{
-        	String attempt = "";
-        	for (int j = 0; j < 4; j++)
-        	{
-        		Integer number = currentGame.attempts.get(i)[j];
-        		attempt = attempt.concat(number.toString());
-        	}
-        	writer.write(attempt);
-        	writer.write(makeString(currentGame.results.get(i)));
+        	writer.write(joinGuess(attempt.getGuess()));
+        	writer.write(makeString(attempt.getResult()));
         }
+	}
+
+	private String joinGuess(int []guess)
+	{
+		StringBuilder builder = new StringBuilder();
+		for(int el: guess)
+			builder.append(el);
+
+		return builder.toString();
 	}
 }

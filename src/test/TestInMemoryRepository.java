@@ -35,7 +35,6 @@ public class TestInMemoryRepository
 	public final void testIncorrectAddUser()
 	{
 		repository.addUser("user");
-		assertTrue(repository.hasUser("user"));
 		repository.addUser("user");
 	}
 	
@@ -59,8 +58,6 @@ public class TestInMemoryRepository
 		repository.addGameResult("user", gameResult2);
 		ArrayList<GameResult> results = repository.getGameResults("user");
 		assertEquals(results.get(0), gameResult1);
-		assertNotEquals(results.get(0), gameResult2);
-		assertNotEquals(results.get(1), gameResult1);
 		assertEquals(results.get(1), gameResult2);
 	}
 	

@@ -2,6 +2,7 @@ package test;
 
 import main.Commands.AttemptsCommand;
 import main.Data.InMemoryRepository;
+import main.GameLogic.Attempt;
 import main.GameLogic.Game;
 import main.GameLogic.GameController;
 import main.GameLogic.GuessResult;
@@ -45,28 +46,24 @@ public class TestAttemptsCommand
     }
 
     @Test
-    public final void testSeveralAttempts()
+    public final void testAttemptFormat()
     {
-        String[] attempts = new String[] {"1234", "2345"};
-        ArrayList<GuessResult> results = new ArrayList<>();
-
-        for(String attempt: attempts)
-            results.add(game.respondOnGuess(GameController.parseGuess(attempt)));
+        int []guess = new int[] {1, 2, 3, 4};
+        String guessStr = "1234";
+        GuessResult result = new GuessResult(0, 1);
+        game.attempts.add(new Attempt(guess, result));
 
         command.execute();
 
         ArrayList<String> output = writer.getBuffer();
 
-        Assert.assertEquals(2 * attempts.length, output.size());
-        for(int messageIndex = 0; messageIndex + 1 < output.size(); messageIndex += 2)
-        {
-            Assert.assertEquals(attempts[messageIndex / 2], output.get(messageIndex));
-            String expectedAttemptResult =
-                    String.format(Strings.guessResultTemplate,
-                    results.get(messageIndex / 2).amountOfBulls,
-                    results.get(messageIndex / 2).amountOfCows);
+        Assert.assertEquals(2, output.size());
+        Assert.assertEquals(guessStr, output.get(0));
 
-            Assert.assertEquals(expectedAttemptResult, output.get(messageIndex + 1));
-        }
+        String expectedAttemptResult =
+                String.format(Strings.guessResultTemplate,
+                result.amountOfBulls, result.amountOfCows);
+        Assert.assertEquals(expectedAttemptResult, output.get(1));
+
     }
 }

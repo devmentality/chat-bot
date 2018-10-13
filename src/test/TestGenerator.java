@@ -1,6 +1,7 @@
 package test;
 
 import org.junit.Test;
+import org.junit.Assert;
 import main.GameLogic.SampleGenerator;
 
 
@@ -26,6 +27,6 @@ public class TestGenerator {
     {
 		int amountOfDigits = 4;
 		int [] sample = SampleGenerator.setDigitsToGuess(amountOfDigits);
-        assert(checkUniqueDigits(sample));
+        Assert.assertTrue(checkUniqueDigits(sample));
     }
 }

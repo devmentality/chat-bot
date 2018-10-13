@@ -5,21 +5,18 @@ import java.util.ArrayList;
 public class Game {
     private static final int amountOfDigits = 4;
     private int[] digitsToGuess;
-    public ArrayList<int []> attempts;
-    public ArrayList<GuessResult> results;
+    public ArrayList<Attempt> attempts;
     
     public Game() {
         digitsToGuess = new int[amountOfDigits];
         digitsToGuess = SampleGenerator.setDigitsToGuess(amountOfDigits);
-        attempts = new ArrayList<int[]>();
-        results = new ArrayList<GuessResult>();
+        attempts = new ArrayList<>();
     }
     
     public Game(int[] guess)
     {
     	digitsToGuess = guess;
-        attempts = new ArrayList<int[]>();
-        results = new ArrayList<GuessResult>();
+        attempts = new ArrayList<>();
     }
 
     public GuessResult respondOnGuess(int[] guess) {
@@ -36,8 +33,7 @@ public class Game {
                 bulls++;
             else if (isCow(guess[index]))
                 cows++;
-        attempts.add(guess);
-        results.add(new GuessResult(bulls, cows));
+        attempts.add(new Attempt(guess, new GuessResult(bulls, cows)));
         return new GuessResult(bulls, cows);
     }
 
