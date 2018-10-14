@@ -11,8 +11,8 @@ public interface IAppRepository
     boolean hasUser(String username);
     void addGameResult(String playerName, GameResult gameResult);
     ArrayList<GameResult> getGameResults(String playerName);
-    void deleteUnfinishedGameResult(String playerName);
-    void addUnfinishedGameResult(String playerName, Game game);
+    void deleteUnfinishedGame(String playerName);
+    void addUnfinishedGame(String playerName, Game game);
     boolean hasUnfinishedGame(String playerName);
     Game getUnfinishedGame(String playerName);
 }

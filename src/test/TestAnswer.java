@@ -1,7 +1,6 @@
 package test;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
 import main.GameLogic.Game;
@@ -24,13 +23,6 @@ public class TestAnswer {
 		GameController.parseGuess("123a");
 	}
 	
-	@Test
-    public final void testExistsEqualsDigits()
-    {	
-		int [] answer = GameController.parseGuess("1233");
-		Assert.assertFalse(TestGenerator.checkUniqueDigits(answer));
-	}
-	
 	private GuessResult getResult(int[] guess, int[] digitsToGuess)
 	{
 		Game game = new Game(digitsToGuess);
@@ -43,15 +35,6 @@ public class TestAnswer {
 		GuessResult result = getResult(new int[] {1, 2, 3, 4}, new int[] {1, 5, 6, 7});
 		Assert.assertEquals(result.amountOfBulls, 1);
 		Assert.assertEquals(result.amountOfCows, 0);
-		result = getResult(new int[] {1, 2, 3, 4}, new int[] {5, 1, 6, 7});
-		Assert.assertEquals(result.amountOfBulls, 0);
-		Assert.assertEquals(result.amountOfCows, 1);
-		result = getResult(new int[] {1, 2, 3, 4}, new int[] {5, 6, 1, 7});
-		Assert.assertEquals(result.amountOfBulls, 0);
-		Assert.assertEquals(result.amountOfCows, 1);
-		result = getResult(new int[] {1, 2, 3, 4}, new int[] {5, 6, 7, 1});
-		Assert.assertEquals(result.amountOfBulls, 0);
-		Assert.assertEquals(result.amountOfCows, 1);
     }
 	
 	@Test
@@ -63,12 +46,6 @@ public class TestAnswer {
 		result = getResult(new int[] {1, 2, 3, 4}, new int[] {1, 6, 2, 7});
 		Assert.assertEquals(result.amountOfBulls, 1);
 		Assert.assertEquals(result.amountOfCows, 1);
-		result = getResult(new int[] {1, 2, 3, 4}, new int[] {6, 1, 2, 7});
-		Assert.assertEquals(result.amountOfBulls, 0);
-		Assert.assertEquals(result.amountOfCows, 2);
-		result = getResult(new int[] {1, 2, 3, 4}, new int[] {6, 7, 1, 2});
-		Assert.assertEquals(result.amountOfBulls, 0);
-		Assert.assertEquals(result.amountOfCows, 2);
     }
 	
 	@Test

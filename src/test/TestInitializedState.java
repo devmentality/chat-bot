@@ -75,7 +75,7 @@ public class TestInitializedState
     @Test
     public final void testValidContinue()
     {
-        repository.addUnfinishedGameResult(username, new Game());
+        repository.addUnfinishedGame(username, new Game());
 
         state.processRequest("continue");
 

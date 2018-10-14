@@ -42,14 +42,12 @@ public class TestInMemoryRepository
 	public final void testHasUser()
 	{
 		assertFalse(repository.hasUser("user"));
-		assertFalse(repository.hasUser("user2"));
 		repository.addUser("user");
 		assertTrue(repository.hasUser("user"));
-		assertFalse(repository.hasUser("user2"));
 	}
 	
 	@Test
-	public final void testCorrectAddGameResult()
+	public final void testAddGameResult()
 	{
 		repository.addUser("user");
 		GameResult gameResult1 = new GameResult(true);
@@ -61,46 +59,29 @@ public class TestInMemoryRepository
 		assertEquals(results.get(1), gameResult2);
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public final void testIncorrectAddGameResult()
-	{
-		GameResult gameResult = new GameResult(true);
-		repository.addGameResult("user", gameResult);
-	}
-	
-	@Test
-	public final void testAddUnfinishedGameResult()
-	{
-		Game game = new Game();
-		repository.addUnfinishedGameResult("user", game);
-		assertEquals(game, repository.getUnfinishedGame("user"));
-	}
-	
 	@Test
 	public final void testHasUnfinishedGameResult()
 	{
 		Game game = new Game();
-		repository.addUnfinishedGameResult("user", game);
+		repository.addUnfinishedGame("user", game);
 		assertTrue(repository.hasUnfinishedGame("user"));
-		assertFalse(repository.hasUnfinishedGame("user2"));
 		repository.getUnfinishedGame("user");
 		assertFalse(repository.hasUnfinishedGame("user"));
-		assertFalse(repository.hasUnfinishedGame("user2"));
 	}
 	
 	@Test
-	public final void testCorrectDeleteUnfinishedGameResult()
+	public final void testCorrectDeleteUnfinishedGame()
 	{
 		Game game = new Game();
-		repository.addUnfinishedGameResult("user", game);
-		repository.deleteUnfinishedGameResult("user");
+		repository.addUnfinishedGame("user", game);
+		repository.deleteUnfinishedGame("user");
 		assertFalse(repository.hasUnfinishedGame("user"));
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
-	public final void testIncorrectDeleteUnfinishedGameResult()
+	public final void testIncorrectDeleteUnfinishedGame()
 	{
-		repository.deleteUnfinishedGameResult("user");
+		repository.deleteUnfinishedGame("user");
 	}
 	
 	@Test
@@ -108,8 +89,8 @@ public class TestInMemoryRepository
 	{
 		Game game1 = new Game();
 		Game game2 = new Game();
-		repository.addUnfinishedGameResult("user", game1);
-		repository.addUnfinishedGameResult("user", game2);
+		repository.addUnfinishedGame("user", game1);
+		repository.addUnfinishedGame("user", game2);
 		Game game3 = repository.getUnfinishedGame("user");
 		assertEquals(game2, game3);
 		assertNotEquals(game1, game3);

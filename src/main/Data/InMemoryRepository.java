@@ -36,7 +36,7 @@ public class InMemoryRepository implements IAppRepository
     public void addGameResult(String playerName, GameResult gameResult)
     {
     	if (!hasUser(playerName))
-            throw new IllegalArgumentException("User with this name doesn't exist.");
+            addUser(playerName);
         repository.get(playerName).add(gameResult);
     }
 
@@ -49,13 +49,13 @@ public class InMemoryRepository implements IAppRepository
     }
     
     @Override
-    public void addUnfinishedGameResult(String playerName, Game game)
+    public void addUnfinishedGame(String playerName, Game game)
     {
     	unfinishedGames.put(playerName, game);
     }
     
     @Override
-    public void deleteUnfinishedGameResult(String playerName)
+    public void deleteUnfinishedGame(String playerName)
     {
     	if (!unfinishedGames.containsKey(playerName))
     		throw new IllegalArgumentException("User doesn't have unfinished game.");
@@ -74,7 +74,7 @@ public class InMemoryRepository implements IAppRepository
     	if (!hasUnfinishedGame(playerName))
     		throw new IllegalArgumentException("User doesn't have unfinished game.");
     	Game unfinishedGame = unfinishedGames.get(playerName);
-    	deleteUnfinishedGameResult(playerName);
+    	deleteUnfinishedGame(playerName);
     	return unfinishedGame;
     }
 }

@@ -23,7 +23,7 @@ public class StopGameCommand extends CommandBase
     @Override
     public void execute()
     {
-        repository.addUnfinishedGameResult(session.getUsername(), currentGame);
+        repository.addUnfinishedGame(session.getUsername(), currentGame);
         stateMachine.changeState(new InitializedState(stateMachine, repository, writer, session));
     }
 }
