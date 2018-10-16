@@ -39,6 +39,11 @@ public class Bot implements IStateMachine
         isTerminated = true;
     }
 
+    @Override
+    public boolean isTerminated() {
+        return isTerminated;
+    }
+
     public void execute()
     {
         state.activate();
