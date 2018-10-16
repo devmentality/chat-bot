@@ -35,14 +35,9 @@ public class GameIsOnState extends StateBase
     @Override
     protected void handleNoncommandRequest(String request)
     {
-        doGameAttempt(request);
-    }
-
-    private void doGameAttempt(String attemptString)
-    {
         try
         {
-            int[] guessedDigits = GameController.parseGuess(attemptString);
+            int[] guessedDigits = GameController.parseGuess(request);
             GuessResult result = game.respondOnGuess(guessedDigits);
             writer.write(String.format(Strings.guessResultTemplate, result.amountOfBulls, result.amountOfCows));
             if (result.amountOfBulls == 4)

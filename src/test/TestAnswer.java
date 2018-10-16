@@ -9,7 +9,7 @@ import main.GameLogic.GuessResult;
 
 public class TestAnswer {
 	@Test
-    public final void testCorrectAnswer()
+    public final void testValidAnswer()
     {
         int [] answer = GameController.parseGuess("1234");
         assert(answer.length == 4);
@@ -18,7 +18,7 @@ public class TestAnswer {
     }
 	
 	@Test(expected = NumberFormatException.class)
-    public final void testIncorrectAnswer()
+    public final void testInvalidAnswer()
     {
 		GameController.parseGuess("123a");
 	}

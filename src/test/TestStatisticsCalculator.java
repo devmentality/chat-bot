@@ -13,7 +13,7 @@ import org.junit.Test;
 public class TestStatisticsCalculator
 {
     @Test
-    public final void testCalculateStatisticsNoGames()
+    public final void testCalculateStatisticsWithNoGames()
     {
         ArrayList<GameResult> results = new ArrayList<>();
         Statistics stat = StatisticsCalculator.calculate(results);

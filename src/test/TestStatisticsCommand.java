@@ -2,14 +2,9 @@ package test;
 
 import main.Commands.StatisticsCommand;
 import main.Data.InMemoryRepository;
-import main.GameLogic.Game;
-import main.GameLogic.GameResult;
 import main.IO.StringBufferWriter;
-import main.IState;
 import main.Resources.Strings;
 import main.Session;
-import main.States.GameIsOnState;
-import main.States.InitializedState;
 import org.junit.Test;
 import test.mocks.StateMachineMock;
 
@@ -20,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 public class TestStatisticsCommand
 {
     @Test
-    public final void testCorrectStatistics()
+    public final void testCorrectStatisticsFormat()
     {
         String username = "name";
         StateMachineMock stateMachine = new StateMachineMock();

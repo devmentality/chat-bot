@@ -6,7 +6,7 @@ import main.GameLogic.SampleGenerator;
 
 
 public class TestGenerator {
-	public static boolean checkUniqueDigits(int [] sampleDigits)
+	private static boolean checkUniqueDigits(int [] sampleDigits)
 	{
 		int digits = 10;
 		int[] count = new int[digits];

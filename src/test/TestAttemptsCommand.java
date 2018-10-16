@@ -64,6 +64,5 @@ public class TestAttemptsCommand
                 String.format(Strings.guessResultTemplate,
                 result.amountOfBulls, result.amountOfCows);
         Assert.assertEquals(expectedAttemptResult, output.get(1));
-
     }
 }
