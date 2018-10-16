@@ -35,27 +35,35 @@ public class GameIsOnState extends StateBase
     @Override
     protected void handleNoncommandRequest(String request)
     {
+        int[] guessedDigits;
         try
         {
-            int[] guessedDigits = GameController.parseGuess(request);
-            GuessResult result = game.respondOnGuess(guessedDigits);
-            writer.write(String.format(Strings.guessResultTemplate, result.amountOfBulls, result.amountOfCows));
-            if (result.amountOfBulls == 4)
-            {
-                writer.write(Strings.congratulations);
-                repository.addGameResult(session.getUsername(), new GameResult(true));
-                stateMachine.changeState(new InitializedState(stateMachine, repository, writer, session));
-            }
-            if(game.attempts.size() == 100)
-            {
-            	writer.write(Strings.losePhrase);
-            	repository.addGameResult(session.getUsername(), new GameResult(false));
-                stateMachine.changeState(new InitializedState(stateMachine, repository, writer, session));
-            }
+            guessedDigits = GameController.parseGuess(request);
         }
         catch (Exception ex)
         {
             writer.write(Strings.guessFormatFail);
+            return;
+        }
+
+        respondOnGameAttempt(guessedDigits);
+    }
+
+    private void respondOnGameAttempt(int[] guessedDigits)
+    {
+        GuessResult result = game.respondOnGuess(guessedDigits);
+        writer.write(String.format(Strings.guessResultTemplate, result.amountOfBulls, result.amountOfCows));
+        if (GameController.isVictoriousGuess(result))
+        {
+            writer.write(Strings.congratulations);
+            repository.addGameResult(session.getUsername(), new GameResult(true));
+            stateMachine.changeState(new InitializedState(stateMachine, repository, writer, session));
+        }
+        else if(GameController.isInLosingState(game))
+        {
+            writer.write(Strings.losePhrase);
+            repository.addGameResult(session.getUsername(), new GameResult(false));
+            stateMachine.changeState(new InitializedState(stateMachine, repository, writer, session));
         }
     }
 }

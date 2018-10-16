@@ -3,7 +3,8 @@ package main.GameLogic;
 import java.util.ArrayList;
 
 public class Game {
-    private static final int amountOfDigits = 4;
+    public static final int amountOfDigits = 4;
+    public static final int attemptsToLose = 100;
     private int[] digitsToGuess;
     public ArrayList<Attempt> attempts;
     
