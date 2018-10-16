@@ -33,7 +33,6 @@ public class TestTwoEqualCows
 	public void testCorrectBullsAndCows(int[] attempt)
 	{
 		GuessResult result = getResult(new int[] {1, 2, 3, 4}, attempt);
-		assumeTrue(result.amountOfCows == 2);
-		assumeTrue(result.amountOfBulls == 0);
+		assumeTrue(new GuessResult(0, 2).equals(result));
 	}
 }

@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.Assume.assumeTrue;
 
+import org.junit.Assert;
 import org.junit.experimental.theories.DataPoint;
 import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.Theories;
@@ -33,7 +34,6 @@ public class TestOneEqualCow
 	public void testCorrectBullsAndCows(int[] attempt)
 	{
 		GuessResult result = getResult(new int[] {1, 2, 3, 4}, attempt);
-		assumeTrue(result.amountOfCows == 1);
-		assumeTrue(result.amountOfBulls == 0);
+		assumeTrue(new GuessResult(0, 1).equals(result));
 	}
 }
