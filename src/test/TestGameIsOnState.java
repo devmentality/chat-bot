@@ -61,22 +61,21 @@ public class TestGameIsOnState
 
         for(int i = 0; i < numberAttempts; i++)
             game.attempts.add(new Attempt(wrongGuess, new GuessResult(3, 0)));
-
-        if (numberAttempts >= Game.attemptsToLose)
-        	state.processRequest(wrongGuessStr);
+        
+        state.processRequest(wrongGuessStr);
     }
 
     @Test
     public final void testSwitchesStateOnLoss()
     {
-        playGame(Game.attemptsToLose);
+        playGame(Game.attemptsToLose - 1);
         Assert.assertTrue(stateMachine.getCurrentState() instanceof InitializedState);
     }
     
     @Test
     public final void testNotSwitchesStateOnLoss()
     {
-    	playGame(Game.attemptsToLose - 1);
+    	playGame(Game.attemptsToLose - 2);
         Assert.assertTrue(stateMachine.getCurrentState() instanceof GameIsOnState);
     }
 
