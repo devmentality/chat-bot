@@ -7,28 +7,14 @@ import main.GameLogic.Game;
 import main.GameLogic.GameController;
 import main.GameLogic.GuessResult;
 
-public class TestAnswer {
-	@Test
-    public final void testValidAnswer()
-    {
-        int [] answer = GameController.parseGuess("1234");
-        assert(answer.length == 4);
-        for(int i = 0; i < 4; i++)
-        	Assert.assertTrue(answer[i] >= 0 && answer[i] <= 9);
-    }
-	
-	@Test(expected = NumberFormatException.class)
-    public final void testInvalidAnswer()
-    {
-		GameController.parseGuess("123a");
-	}
-	
+public class TestAnswer
+{
 	private GuessResult getResult(int[] guess, int[] digitsToGuess)
 	{
 		Game game = new Game(digitsToGuess);
 		return game.respondOnGuess(guess);
 	}
-	
+
 	@Test
     public final void testCorrectOneEqual()
     {	

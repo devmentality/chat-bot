@@ -7,7 +7,7 @@ import main.IO.StringBufferReader;
 import main.IO.StringBufferWriter;
 import main.Resources.Strings;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+import org.junit.Assert;
 import java.util.ArrayList;
 
 public class BotTest {
@@ -28,42 +28,38 @@ public class BotTest {
     public final void testBotBasicDialog() {
         assign(new String[]{"start", username, "help", "exit"});
 
-        ArrayList<String> expectedOutput = new ArrayList<>();
-        expectedOutput.add(Strings.startMessage);
-        expectedOutput.add(Strings.nameRequest);
-        expectedOutput.add(String.format(Strings.greetingNewUser, username));
-        expectedOutput.add(Strings.introduction);
-        expectedOutput.add(Strings.help);
-        expectedOutput.add(Strings.goodbye);
+        String[] expectedOutput = new String[]
+        {
+            Strings.startMessage,
+            Strings.nameRequest,
+            String.format(Strings.greetingNewUser, username),
+            Strings.introduction,
+            Strings.help,
+            Strings.goodbye
+        };
 
         bot.execute();
-
         ArrayList<String> output = writer.getBuffer();
-
-        assertEquals(expectedOutput.size(), output.size());
-        for (int index = 0; index < expectedOutput.size(); index++)
-            assertEquals(expectedOutput.get(index), output.get(index));
+        Assert.assertArrayEquals(expectedOutput, output.toArray());
     }
 
     @Test
     public final void testBotStartStopContinueGame() {
         assign(new String[]{"start", username, "newgame", "stop", "continue", "exit"});
 
-        ArrayList<String> expectedOutput = new ArrayList<>();
-        expectedOutput.add(Strings.startMessage);
-        expectedOutput.add(Strings.nameRequest);
-        expectedOutput.add(String.format(Strings.greetingNewUser, username));
-        expectedOutput.add(Strings.introduction);
-        expectedOutput.add(Strings.newGamePhrase);
-        expectedOutput.add(Strings.continueGamePhrase);
-        expectedOutput.add(Strings.goodbye);
+        String[] expectedOutput = new String[]
+        {
+            Strings.startMessage,
+            Strings.nameRequest,
+            String.format(Strings.greetingNewUser, username),
+            Strings.introduction,
+            Strings.newGamePhrase,
+            Strings.continueGamePhrase,
+            Strings.goodbye
+        };
 
         bot.execute();
-
         ArrayList<String> output = writer.getBuffer();
-
-        assertEquals(expectedOutput.size(), output.size());
-        for (int index = 0; index < expectedOutput.size(); index++)
-            assertEquals(expectedOutput.get(index), output.get(index));
+        Assert.assertArrayEquals(expectedOutput, output.toArray());
     }
 }
