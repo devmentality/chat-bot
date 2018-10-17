@@ -51,7 +51,16 @@ public class GameIsOnState extends StateBase
 
     private void respondOnGameAttempt(int[] guessedDigits)
     {
-        GuessResult result = game.respondOnGuess(guessedDigits);
+    	GuessResult result;
+    	try
+    	{
+    		result = game.respondOnGuess(guessedDigits);
+    	}
+    	catch (Exception ex)
+    	{
+    		writer.write(Strings.guessFormatFail);
+            return;
+    	}
         writer.write(String.format(Strings.guessResultTemplate, result.amountOfBulls, result.amountOfCows));
         if (GameController.isVictoriousGuess(result))
         {
