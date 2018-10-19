@@ -1,6 +1,8 @@
 out/
 /bin/
+lib/
 *.iml
+.idea/libraries/
 .idea/workspace.xml
 .idea/usage.statistics.xml
 .idea/tasks.xml
