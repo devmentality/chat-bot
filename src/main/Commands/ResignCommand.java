@@ -18,7 +18,7 @@ public class ResignCommand extends CommandBase
     }
 
     @Override
-    public void execute()
+    public void execute(String... value)
     {
         repository.addGameResult(session.getUsername(), new GameResult(false));
         stateMachine.changeState(new InitializedState(stateMachine, repository, writer, session));

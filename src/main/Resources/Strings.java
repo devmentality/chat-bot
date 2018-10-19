@@ -8,7 +8,8 @@ public class Strings
             "   Commands:\n" +
             "help - shows this message\n" +
             "exit - quit session\n" +
-            "newgame - start new game\n" +
+            "newgame N - start new game with N(1-10) digits\n" +
+            "newgame - start new game with 4 digits\n" +
             "resign - finish game\n" +
             "stop - stop and save game\n" +
             "continue - continue saved game";
@@ -27,13 +28,13 @@ public class Strings
 
     public static final String congratulations = "Congrats, you have won!";
     public static final String losePhrase = "You have lost:(";
-    public static final String guessFormatFail = "You have to provide 4 digits";
+    public static final String guessFormatFail = "You have to provide %d digits";
     public static final String guessResultTemplate = "%d bulls and %d cows";
 
     public static final String noSavedGames = "You don't have unfinished games";
     public static final String statisticsTemplate = "%d games played %d victories %d losses";
 
-    public static final String newGamePhrase = "Let's start. I've made a number with 4 different digits. You goal is to guess it.";
+    public static final String newGamePhrase = "Let's start. I've made a number with %d different digits. You goal is to guess it.";
     public static final String continueGamePhrase = "Go on playing.";
 
     public static final String noAttempts = "You don't have any attempts.";

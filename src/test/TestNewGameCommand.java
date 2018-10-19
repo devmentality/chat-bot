@@ -19,7 +19,7 @@ public class TestNewGameCommand
         NewGameCommand command = new NewGameCommand(stateMachine,
                 new InMemoryRepository(), new StringBufferWriter(), new Session("user"));
 
-        command.execute();
+        command.execute("4");
         Assert.assertTrue(stateMachine.getCurrentState() instanceof GameIsOnState);
     }
 }

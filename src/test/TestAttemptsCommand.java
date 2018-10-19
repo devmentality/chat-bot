@@ -30,7 +30,7 @@ public class TestAttemptsCommand
         writer = new StringBufferWriter();
         repository = new InMemoryRepository();
         repository.addUser(username);
-        game = new Game();
+        game = new Game(4);
         command = new AttemptsCommand(stateMachine, repository, writer, game);
     }
 

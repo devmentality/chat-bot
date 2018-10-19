@@ -10,9 +10,9 @@ public class GameController
         return digits;
     }
 
-    public static boolean isVictoriousGuess(GuessResult guessResult)
+    public static boolean isVictoriousGuess(GuessResult guessResult, int amountOfDigits)
     {
-        return guessResult.amountOfBulls == Game.amountOfDigits;
+        return guessResult.amountOfBulls == amountOfDigits;
     }
 
     public static boolean isInLosingState(Game game)

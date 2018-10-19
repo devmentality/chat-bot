@@ -25,7 +25,7 @@ public class AttemptsCommand extends CommandBase
 	}
 	
 	@Override
-	public void execute()
+	public void execute(String... value)
 	{
 		if (currentGame.attempts.size() == 0)
 		{

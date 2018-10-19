@@ -13,7 +13,7 @@ public class ExitCommand extends CommandBase
     }
 
     @Override
-    public void execute()
+    public void execute(String... value)
     {
         writer.write(Strings.goodbye);
         stateMachine.signalToTerminate();

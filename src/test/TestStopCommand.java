@@ -26,7 +26,7 @@ public class TestStopCommand
         repository = new InMemoryRepository();
         repository.addUser(username);
         command = new StopGameCommand(stateMachine, repository, new StringBufferWriter(),
-                new Session(username), new Game());
+                new Session(username), new Game(4));
     }
 
     @Test

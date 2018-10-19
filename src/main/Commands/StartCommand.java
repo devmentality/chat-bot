@@ -13,7 +13,7 @@ public class StartCommand extends CommandBase
     }
 
     @Override
-    public void execute()
+    public void execute(String... value)
     {
         stateMachine.changeState(new StartedState(stateMachine, repository, writer));
     }

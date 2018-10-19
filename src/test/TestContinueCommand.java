@@ -28,7 +28,7 @@ public class TestContinueCommand
         stateMachine = new StateMachineMock();
         repository = new InMemoryRepository();
         repository.addUser(username);
-        repository.addUnfinishedGame(username, new Game());
+        repository.addUnfinishedGame(username, new Game(4));
         writer = new StringBufferWriter();
         command = new ContinueGameCommand(stateMachine, repository, writer, new Session(username));
     }

@@ -62,7 +62,7 @@ public class TestInMemoryRepository
 	@Test
 	public final void testHasUnfinishedGameResult()
 	{
-		Game game = new Game();
+		Game game = new Game(4);
 		repository.addUnfinishedGame("user", game);
 		assertTrue(repository.hasUnfinishedGame("user"));
 		repository.getUnfinishedGame("user");
@@ -72,7 +72,7 @@ public class TestInMemoryRepository
 	@Test
 	public final void testCorrectDeleteUnfinishedGame()
 	{
-		Game game = new Game();
+		Game game = new Game(4);
 		repository.addUnfinishedGame("user", game);
 		repository.deleteUnfinishedGame("user");
 		assertFalse(repository.hasUnfinishedGame("user"));
@@ -87,8 +87,8 @@ public class TestInMemoryRepository
 	@Test
 	public final void testGetUnfinishedGame()
 	{
-		Game game1 = new Game();
-		Game game2 = new Game();
+		Game game1 = new Game(4);
+		Game game2 = new Game(4);
 		repository.addUnfinishedGame("user", game1);
 		repository.addUnfinishedGame("user", game2);
 		Game game3 = repository.getUnfinishedGame("user");

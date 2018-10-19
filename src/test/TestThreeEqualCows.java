@@ -17,7 +17,7 @@ public class TestThreeEqualCows
 	private GuessResult getResult(int[] guess, int[] digitsToGuess)
 	{
 		Game game = new Game(digitsToGuess);
-		return game.respondOnGuess(guess);
+		return game.respondOnGuess(guess, digitsToGuess.length);
 	}
 	
 	@DataPoints

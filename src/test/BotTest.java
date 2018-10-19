@@ -45,7 +45,7 @@ public class BotTest {
 
     @Test
     public final void testBotStartStopContinueGame() {
-        assign(new String[]{"start", username, "newgame", "stop", "continue", "exit"});
+        assign(new String[]{"start", username, "newgame 4", "stop", "continue", "exit"});
 
         String[] expectedOutput = new String[]
         {
@@ -53,7 +53,7 @@ public class BotTest {
             Strings.nameRequest,
             String.format(Strings.greetingNewUser, username),
             Strings.introduction,
-            Strings.newGamePhrase,
+            String.format(Strings.newGamePhrase, 4),
             Strings.continueGamePhrase,
             Strings.goodbye
         };

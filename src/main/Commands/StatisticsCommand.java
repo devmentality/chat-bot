@@ -22,7 +22,7 @@ public class StatisticsCommand extends CommandBase
     }
 
     @Override
-    public void execute()
+    public void execute(String... value)
     {
         Statistics stat = StatisticsCalculator.calculate(
                 repository.getGameResults(session.getUsername()));

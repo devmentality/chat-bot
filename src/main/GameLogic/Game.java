@@ -3,12 +3,11 @@ package main.GameLogic;
 import java.util.ArrayList;
 
 public class Game {
-    public static final int amountOfDigits = 4;
     public static final int attemptsToLose = 100;
-    private int[] digitsToGuess;
+    public int[] digitsToGuess;
     public ArrayList<Attempt> attempts;
     
-    public Game() {
+    public Game(int amountOfDigits) {
         digitsToGuess = new int[amountOfDigits];
         digitsToGuess = SampleGenerator.setDigitsToGuess(amountOfDigits);
         attempts = new ArrayList<>();
@@ -20,7 +19,7 @@ public class Game {
         attempts = new ArrayList<>();
     }
 
-    public GuessResult respondOnGuess(int[] guess) {
+    public GuessResult respondOnGuess(int[] guess, int amountOfDigits) {
         if (guess.length != amountOfDigits)
             throw new IllegalArgumentException();
         return countBullsAndCows(guess);

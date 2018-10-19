@@ -19,9 +19,18 @@ public class NewGameCommand extends CommandBase
     }
 
     @Override
-    public void execute()
+    public void execute(String... value)
     {
-        writer.write(Strings.newGamePhrase);
-        stateMachine.changeState(new GameIsOnState(stateMachine, repository, writer, new Game(), session));
+    	int number;									//Create new game with number digits(default - 4)
+    	try
+    	{
+    	    number = Integer.parseInt(value[0]);
+    	}
+    	catch(ArrayIndexOutOfBoundsException e)
+    	{
+    		number = 4;
+    	}
+        writer.write(String.format(Strings.newGamePhrase, number));
+        stateMachine.changeState(new GameIsOnState(stateMachine, repository, writer, new Game(number), session));
     }
 }

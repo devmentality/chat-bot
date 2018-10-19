@@ -54,15 +54,15 @@ public class GameIsOnState extends StateBase
     	GuessResult result;
     	try
     	{
-    		result = game.respondOnGuess(guessedDigits);
+    		result = game.respondOnGuess(guessedDigits, game.digitsToGuess.length);
     	}
     	catch (Exception ex)
     	{
-    		writer.write(Strings.guessFormatFail);
+    		writer.write(String.format(Strings.guessFormatFail, game.digitsToGuess.length));
             return;
     	}
         writer.write(String.format(Strings.guessResultTemplate, result.amountOfBulls, result.amountOfCows));
-        if (GameController.isVictoriousGuess(result))
+        if (GameController.isVictoriousGuess(result, guessedDigits.length))
         {
             writer.write(Strings.congratulations);
             repository.addGameResult(session.getUsername(), new GameResult(true));

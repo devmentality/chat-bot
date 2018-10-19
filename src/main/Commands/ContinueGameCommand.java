@@ -19,7 +19,7 @@ public class ContinueGameCommand extends CommandBase
     }
 
     @Override
-    public void execute()
+    public void execute(String... value)
     {
         if (!repository.hasUnfinishedGame(session.getUsername()))
         {
