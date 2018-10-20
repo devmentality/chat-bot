@@ -7,16 +7,13 @@ import main.States.BeforeStartState;
 
 public class Bot implements IStateMachine
 {
-    private IMessageReader reader;
     private IMessageWriter writer;
     private IAppRepository repository;
-    private String userName;
     private IState state;
     private boolean isTerminated;
 
-    public Bot(IMessageReader reader, IMessageWriter writer, IAppRepository repository)
+    public Bot(IMessageWriter writer, IAppRepository repository)
     {
-        this.reader = reader;
         this.writer = writer;
         this.repository = repository;
         state = new BeforeStartState(this, repository, writer);
@@ -44,13 +41,8 @@ public class Bot implements IStateMachine
         return isTerminated;
     }
 
-    public void execute()
+    public void processRequest(String message)
     {
-        state.activate();
-        while(!isTerminated)
-        {
-            String request = reader.read();
-            state.processRequest(request);
-        }
+        state.processRequest(message);
     }
 }
