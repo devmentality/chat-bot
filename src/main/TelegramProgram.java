@@ -13,17 +13,19 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 
-public class Program
+public class TelegramProgram
 {
     private static String PROXY_HOST = "207.154.222.224";
     private static Integer PROXY_PORT = 1080;
-    private static String PROXY_USER = "telegram";
-    private static String PROXY_PASSWORD = "Sigu482gekq8*5";
+    private static String PROXY_USER;
+    private static String PROXY_PASSWORD;
 
     public static void main(String[] args)
     {
         StringBufferWriter writer = new StringBufferWriter();
         IAppRepository repository = new InMemoryRepository();
+        PROXY_USER = args[0];
+        PROXY_PASSWORD = args[1];
 
         Bot chatBot = new Bot(writer, repository);
         try
