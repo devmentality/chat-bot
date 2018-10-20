@@ -4,3 +4,5 @@ out/
 .idea/workspace.xml
 .idea/usage.statistics.xml
 .idea/tasks.xml
+.idea/libraries/
+lib/
