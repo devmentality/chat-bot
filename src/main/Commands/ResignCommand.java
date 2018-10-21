@@ -2,25 +2,28 @@ package main.Commands;
 
 import main.Data.IAppRepository;
 import main.GameLogic.GameResult;
-import main.IO.IMessageWriter;
 import main.IStateMachine;
 import main.States.InitializedState;
 import main.Session;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ResignCommand extends CommandBase
 {
     private Session session;
 
-    public ResignCommand(IStateMachine stateMachine, IAppRepository repository, IMessageWriter writer, Session session)
+    public ResignCommand(IStateMachine stateMachine, IAppRepository repository, Session session)
     {
-        super(stateMachine, repository, writer, "resign");
+        super(stateMachine, repository, "resign");
         this.session = session;
     }
 
     @Override
-    public void execute(String... value)
+    public ArrayList<String> execute(String... value)
     {
         repository.addGameResult(session.getUsername(), new GameResult(false));
-        stateMachine.changeState(new InitializedState(stateMachine, repository, writer, session));
+        stateMachine.changeState(new InitializedState(stateMachine, repository, session));
+        return new ArrayList<>();
     }
 }

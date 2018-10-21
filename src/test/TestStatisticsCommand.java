@@ -23,11 +23,10 @@ public class TestStatisticsCommand
         InMemoryRepository repository = new InMemoryRepository();
         repository.addUser(username);
         StatisticsCommand command = new StatisticsCommand(
-                stateMachine, repository, writer, new Session(username));
+                stateMachine, repository, new Session(username));
 
-        command.execute();
+        ArrayList<String> output = command.execute();
 
-        ArrayList<String> output = writer.getBuffer();
         assertEquals(1, output.size());
         assertEquals(String.format(Strings.statisticsTemplate, 0, 0, 0), output.get(0));
     }

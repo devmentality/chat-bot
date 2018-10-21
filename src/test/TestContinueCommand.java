@@ -20,7 +20,6 @@ public class TestContinueCommand
     private IStateMachine stateMachine;
     private InMemoryRepository repository;
     private ContinueGameCommand command;
-    private StringBufferWriter writer;
 
     @Before
     public final void assign()
@@ -29,16 +28,14 @@ public class TestContinueCommand
         repository = new InMemoryRepository();
         repository.addUser(username);
         repository.addUnfinishedGame(username, new Game(4));
-        writer = new StringBufferWriter();
-        command = new ContinueGameCommand(stateMachine, repository, writer, new Session(username));
+        command = new ContinueGameCommand(stateMachine, repository, new Session(username));
     }
 
     @Test
     public final void testResponseWhenNoUnfinishedGame()
     {
         repository.deleteUnfinishedGame(username);
-        command.execute();
-        ArrayList<String> output = writer.getBuffer();
+        ArrayList<String> output = command.execute();
         Assert.assertEquals(1, output.size());
         Assert.assertEquals(Strings.noSavedGames, output.get(0));
     }
@@ -46,8 +43,7 @@ public class TestContinueCommand
     @Test
     public final void testResponseWhenHasUnfinishedGame()
     {
-        command.execute();
-        ArrayList<String> output = writer.getBuffer();
+        ArrayList<String> output = command.execute();
         Assert.assertEquals(1, output.size());
         Assert.assertEquals(Strings.continueGamePhrase, output.get(0));
     }

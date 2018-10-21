@@ -8,18 +8,21 @@ import main.IStateMachine;
 import main.Resources.Strings;
 import main.Session;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class NewGameCommand extends CommandBase
 {
     private Session session;
 
-    public NewGameCommand(IStateMachine stateMachine, IAppRepository repository, IMessageWriter writer, Session session)
+    public NewGameCommand(IStateMachine stateMachine, IAppRepository repository, Session session)
     {
-        super(stateMachine, repository, writer, "newgame");
+        super(stateMachine, repository, "newgame");
         this.session = session;
     }
 
     @Override
-    public void execute(String... value)
+    public ArrayList<String> execute(String... value)
     {
     	int number;									//Create new game with number digits(default - 4)
     	try
@@ -30,7 +33,8 @@ public class NewGameCommand extends CommandBase
     	{
     		number = 4;
     	}
-        writer.write(String.format(Strings.newGamePhrase, number));
-        stateMachine.changeState(new GameIsOnState(stateMachine, repository, writer, new Game(number), session));
+
+        stateMachine.changeState(new GameIsOnState(stateMachine, repository, new Game(number), session));
+        return constructOutput(String.format(Strings.newGamePhrase, number));
     }
 }

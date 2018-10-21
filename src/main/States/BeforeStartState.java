@@ -7,26 +7,23 @@ import main.IO.IMessageWriter;
 import main.IStateMachine;
 import main.Resources.Strings;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class BeforeStartState extends StateBase
 {
-    public BeforeStartState(IStateMachine stateMachine, IAppRepository repository, IMessageWriter writer)
+    public BeforeStartState(IStateMachine stateMachine, IAppRepository repository)
     {
-        super(stateMachine, repository, writer);
+        super(stateMachine, repository);
         commands = new ICommand[]
         {
-                new StartCommand(stateMachine, repository, writer)
+                new StartCommand(stateMachine, repository)
         };
     }
 
     @Override
-    public void activate()
+    protected ArrayList<String> handleNoncommandRequest(String request)
     {
-        writer.write(Strings.startMessage);
-    }
-
-    @Override
-    protected void handleNoncommandRequest(String request)
-    {
-        writer.write(Strings.startRequest);
+        return new ArrayList<>(Arrays.asList(Strings.startRequest));
     }
 }

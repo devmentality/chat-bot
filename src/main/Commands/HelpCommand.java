@@ -1,21 +1,20 @@
 package main.Commands;
 
-import main.Commands.CommandBase;
 import main.Data.IAppRepository;
-import main.IO.IMessageWriter;
 import main.IStateMachine;
 import main.Resources.Strings;
+import java.util.ArrayList;
 
 public class HelpCommand extends CommandBase
 {
-    public HelpCommand(IStateMachine stateMachine, IAppRepository repository, IMessageWriter writer)
+    public HelpCommand(IStateMachine stateMachine, IAppRepository repository)
     {
-        super(stateMachine, repository, writer, "help");
+        super(stateMachine, repository, "help");
     }
 
     @Override
-    public void execute(String... value)
+    public ArrayList<String> execute(String... value)
     {
-        writer.write(Strings.help);
+        return constructOutput(Strings.help);
     }
 }

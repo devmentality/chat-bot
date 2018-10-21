@@ -5,25 +5,24 @@ import main.IO.IMessageReader;
 import main.IO.IMessageWriter;
 import main.States.BeforeStartState;
 
+import java.util.ArrayList;
+
 public class Bot implements IStateMachine
 {
-    private IMessageWriter writer;
     private IAppRepository repository;
     private IState state;
     private boolean isTerminated;
 
-    public Bot(IMessageWriter writer, IAppRepository repository)
+    public Bot(IAppRepository repository)
     {
-        this.writer = writer;
         this.repository = repository;
-        state = new BeforeStartState(this, repository, writer);
+        state = new BeforeStartState(this, repository);
         isTerminated = false;
     }
 
     public void changeState(IState nextState)
     {
         state = nextState;
-        state.activate();
     }
 
     public IState getCurrentState()
@@ -41,8 +40,8 @@ public class Bot implements IStateMachine
         return isTerminated;
     }
 
-    public void processRequest(String message)
+    public ArrayList<String> processRequest(String message)
     {
-        state.processRequest(message);
+        return state.processRequest(message);
     }
 }

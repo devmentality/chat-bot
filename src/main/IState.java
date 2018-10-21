@@ -1,7 +1,8 @@
 package main;
 
+import java.util.ArrayList;
+
 public interface IState
 {
-    void activate();
-    void processRequest(String request);
+    ArrayList<String> processRequest(String request);
 }

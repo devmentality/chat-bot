@@ -8,14 +8,16 @@ import main.GameLogic.Game;
 import main.GameLogic.GuessResult;
 import main.IO.IMessageWriter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AttemptsCommand extends CommandBase 
 {	
 	private Game currentGame;
 	
-	public AttemptsCommand(IStateMachine stateMachine, IAppRepository repository, IMessageWriter writer,
-			Game currentGame)
+	public AttemptsCommand(IStateMachine stateMachine, IAppRepository repository, Game currentGame)
 	{
-		super(stateMachine, repository, writer, "attempts");
+		super(stateMachine, repository, "attempts");
 		this.currentGame = currentGame;
 	}
 
@@ -25,19 +27,19 @@ public class AttemptsCommand extends CommandBase
 	}
 	
 	@Override
-	public void execute(String... value)
+	public ArrayList<String> execute(String... value)
 	{
 		if (currentGame.attempts.size() == 0)
-		{
-			writer.write(Strings.noAttempts);
-			return;
-		}
+			return constructOutput(Strings.noAttempts);
 
+		ArrayList<String> output = new ArrayList<>();
         for (Attempt attempt: currentGame.attempts)
        	{
-        	writer.write(joinGuess(attempt.getGuess()));
-        	writer.write(makeString(attempt.getResult()));
+        	output.add(joinGuess(attempt.getGuess()));
+			output.add(makeString(attempt.getResult()));
         }
+
+        return output;
 	}
 
 	private String joinGuess(int []guess)

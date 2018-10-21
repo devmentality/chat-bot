@@ -31,10 +31,8 @@ public class TestGameIsOnState
         repository = new InMemoryRepository();
         repository.addUser(username);
         stateMachine = new StateMachineMock();
-        stateMachine.changeState(new GameIsOnState(stateMachine, repository,
-        		new StringBufferWriter(), game, new Session(username)));
-        state = new GameIsOnState(stateMachine, repository, new StringBufferWriter(),
-                game, new Session(username));
+        stateMachine.changeState(new GameIsOnState(stateMachine, repository, game, new Session(username)));
+        state = new GameIsOnState(stateMachine, repository, game, new Session(username));
     }
 
     @Test

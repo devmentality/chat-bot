@@ -25,17 +25,14 @@ public class TestStartedState
         stateMachine = new StateMachineMock();
         writer = new StringBufferWriter();
         repository = new InMemoryRepository();
-        state = new StartedState(stateMachine,repository, writer);
+        state = new StartedState(stateMachine,repository);
     }
 
     @Test
     public final void testGreetingNewUser()
     {
         String userName = "Lol";
-        state.processRequest(userName);
-
-        ArrayList<String> output = writer.getBuffer();
-
+        ArrayList<String> output = state.processRequest(userName);
         Assert.assertEquals(String.format(Strings.greetingNewUser, userName), output.get(0));
     }
 
@@ -45,9 +42,7 @@ public class TestStartedState
         String userName = "Lol";
         repository.addUser(userName);
 
-        state.processRequest(userName);
-
-        ArrayList<String> output = writer.getBuffer();
+        ArrayList<String> output = state.processRequest(userName);
         Assert.assertEquals(String.format(Strings.greetingOldUser, userName), output.get(0));
     }
 

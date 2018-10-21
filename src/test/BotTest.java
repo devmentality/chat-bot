@@ -10,28 +10,24 @@ import org.junit.Test;
 import org.junit.Assert;
 import java.util.ArrayList;
 
-public class BotTest {
-    /*
+public class BotTest
+{
     private String username = "Nik";
-    private StringBufferReader reader;
-    private StringBufferWriter writer;
     private IAppRepository repository;
     private Bot bot;
 
-    private void assign(String[] input) {
-        reader = new StringBufferReader(input);
-        writer = new StringBufferWriter();
+    private void assign()
+    {
         repository = new InMemoryRepository();
-        bot = new Bot(reader, writer, repository);
+        bot = new Bot(repository);
     }
 
     @Test
     public final void testBotBasicDialog() {
-        assign(new String[]{"start", username, "help", "exit"});
-
+        assign();
+        String[] inputCommands = new String[]{"start", username, "help", "exit"};
         String[] expectedOutput = new String[]
         {
-            Strings.startMessage,
             Strings.nameRequest,
             String.format(Strings.greetingNewUser, username),
             Strings.introduction,
@@ -39,18 +35,18 @@ public class BotTest {
             Strings.goodbye
         };
 
-        bot.execute();
-        ArrayList<String> output = writer.getBuffer();
-        Assert.assertArrayEquals(expectedOutput, output.toArray());
+        ArrayList<String> overallOutput = new ArrayList<>();
+        for(String command: inputCommands)
+            overallOutput.addAll(bot.processRequest(command));
+        Assert.assertArrayEquals(expectedOutput, overallOutput.toArray());
     }
 
     @Test
     public final void testBotStartStopContinueGame() {
-        assign(new String[]{"start", username, "newgame 4", "stop", "continue", "exit"});
-
+        assign();
+        String[] inputCommands = new String[]{"start", username, "newgame 4", "stop", "continue", "exit"};
         String[] expectedOutput = new String[]
         {
-            Strings.startMessage,
             Strings.nameRequest,
             String.format(Strings.greetingNewUser, username),
             Strings.introduction,
@@ -59,9 +55,9 @@ public class BotTest {
             Strings.goodbye
         };
 
-        bot.execute();
-        ArrayList<String> output = writer.getBuffer();
-        Assert.assertArrayEquals(expectedOutput, output.toArray());
+        ArrayList<String> overallOutput = new ArrayList<>();
+        for(String command: inputCommands)
+            overallOutput.addAll(bot.processRequest(command));
+        Assert.assertArrayEquals(expectedOutput, overallOutput.toArray());
     }
-    */
 }

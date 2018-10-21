@@ -27,7 +27,7 @@ public class TestResignCommand
         stateMachine = new StateMachineMock();
         repository = new InMemoryRepository();
         repository.addUser(username);
-        command = new ResignCommand(stateMachine, repository, new StringBufferWriter(), new Session(username));
+        command = new ResignCommand(stateMachine, repository, new Session(username));
     }
 
     @Test

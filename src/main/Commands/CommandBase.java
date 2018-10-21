@@ -1,21 +1,21 @@
 package main.Commands;
 
 import main.Data.IAppRepository;
-import main.IO.IMessageWriter;
 import main.IStateMachine;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public abstract class CommandBase implements ICommand
 {
     protected String commandName;
     protected IStateMachine stateMachine;
     protected IAppRepository repository;
-    protected IMessageWriter writer;
 
-    public CommandBase(IStateMachine stateMachine, IAppRepository repository, IMessageWriter writer, String commandName)
+    public CommandBase(IStateMachine stateMachine, IAppRepository repository, String commandName)
     {
         this.stateMachine = stateMachine;
         this.repository = repository;
-        this.writer = writer;
         this.commandName = commandName;
     }
 
@@ -23,5 +23,10 @@ public abstract class CommandBase implements ICommand
     public String getName()
     {
         return commandName;
+    }
+
+    protected ArrayList<String> constructOutput(String... values)
+    {
+        return new ArrayList<>(Arrays.asList(values));
     }
 }

@@ -12,13 +12,11 @@ import java.util.ArrayList;
 public class TelegramBot extends TelegramLongPollingBot
 {
     private Bot chatBot;
-    private StringBufferWriter writer;
 
-    public TelegramBot(DefaultBotOptions options, Bot chatBot, StringBufferWriter writer)
+    public TelegramBot(DefaultBotOptions options, Bot chatBot)
     {
         super(options);
         this.chatBot = chatBot;
-        this.writer = writer;
     }
 
     @Override
@@ -26,9 +24,7 @@ public class TelegramBot extends TelegramLongPollingBot
     {
         String message = update.getMessage().getText();
         System.out.println("LOG: " + message);
-        chatBot.processRequest(message);
-
-        ArrayList<String> replies = writer.getBuffer();
+        ArrayList<String> replies = chatBot.processRequest(message);
 
         for(String reply: replies)
             sendMsg(update.getMessage().getChatId().toString(), reply);

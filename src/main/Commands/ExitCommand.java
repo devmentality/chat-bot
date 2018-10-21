@@ -5,17 +5,20 @@ import main.IO.IMessageWriter;
 import main.IStateMachine;
 import main.Resources.Strings;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ExitCommand extends CommandBase
 {
-    public ExitCommand(IStateMachine stateMachine, IAppRepository repository, IMessageWriter writer)
+    public ExitCommand(IStateMachine stateMachine, IAppRepository repository)
     {
-        super(stateMachine, repository, writer, "exit");
+        super(stateMachine, repository, "exit");
     }
 
     @Override
-    public void execute(String... value)
+    public ArrayList<String> execute(String... value)
     {
-        writer.write(Strings.goodbye);
         stateMachine.signalToTerminate();
+        return constructOutput(Strings.goodbye);
     }
 }

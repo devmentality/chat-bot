@@ -8,27 +8,28 @@ import main.IStateMachine;
 import main.Resources.Strings;
 import main.Session;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ContinueGameCommand extends CommandBase
 {
     private Session session;
 
-    public ContinueGameCommand(IStateMachine stateMachine, IAppRepository repository, IMessageWriter writer, Session session)
+    public ContinueGameCommand(IStateMachine stateMachine, IAppRepository repository, Session session)
     {
-        super(stateMachine, repository, writer, "continue");
+        super(stateMachine, repository, "continue");
         this.session = session;
     }
 
     @Override
-    public void execute(String... value)
+    public ArrayList<String> execute(String... value)
     {
         if (!repository.hasUnfinishedGame(session.getUsername()))
-        {
-            writer.write(Strings.noSavedGames);
-            return;
-        }
+            return constructOutput(Strings.noSavedGames);
 
-        writer.write(Strings.continueGamePhrase);
         Game game = repository.getUnfinishedGame(session.getUsername());
-        stateMachine.changeState(new GameIsOnState(stateMachine, repository, writer, game, session));
+        stateMachine.changeState(new GameIsOnState(stateMachine, repository, game, session));
+
+        return constructOutput(Strings.continueGamePhrase);
     }
 }

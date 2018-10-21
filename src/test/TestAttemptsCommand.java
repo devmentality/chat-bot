@@ -17,7 +17,6 @@ import java.util.ArrayList;
 public class TestAttemptsCommand
 {
     private StateMachineMock stateMachine;
-    private StringBufferWriter writer;
     private InMemoryRepository repository;
     private Game game;
     private AttemptsCommand command;
@@ -27,19 +26,16 @@ public class TestAttemptsCommand
     public final void assignment()
     {
         stateMachine = new StateMachineMock();
-        writer = new StringBufferWriter();
         repository = new InMemoryRepository();
         repository.addUser(username);
         game = new Game(4);
-        command = new AttemptsCommand(stateMachine, repository, writer, game);
+        command = new AttemptsCommand(stateMachine, repository, game);
     }
 
     @Test
     public final void testNoAttempts()
     {
-        command.execute();
-
-        ArrayList<String> output = writer.getBuffer();
+        ArrayList<String> output = command.execute();
 
         Assert.assertEquals(1, output.size());
         Assert.assertEquals(Strings.noAttempts, output.get(0));
@@ -53,9 +49,7 @@ public class TestAttemptsCommand
         GuessResult result = new GuessResult(0, 1);
         game.attempts.add(new Attempt(guess, result));
 
-        command.execute();
-
-        ArrayList<String> output = writer.getBuffer();
+        ArrayList<String> output = command.execute();
 
         Assert.assertEquals(2, output.size());
         Assert.assertEquals(guessStr, output.get(0));

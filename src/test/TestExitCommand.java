@@ -14,7 +14,7 @@ public class TestExitCommand
     public final void testTerminatesMachine()
     {
         IStateMachine stateMachine = new StateMachineMock();
-        ExitCommand command = new ExitCommand(stateMachine, new InMemoryRepository(), new StringBufferWriter());
+        ExitCommand command = new ExitCommand(stateMachine, new InMemoryRepository());
 
         command.execute();
 

@@ -22,12 +22,11 @@ public class TelegramProgram
 
     public static void main(String[] args)
     {
-        StringBufferWriter writer = new StringBufferWriter();
         IAppRepository repository = new InMemoryRepository();
         PROXY_USER = args[0];
         PROXY_PASSWORD = args[1];
 
-        Bot chatBot = new Bot(writer, repository);
+        Bot chatBot = new Bot(repository);
         try
         {
             Authenticator.setDefault(new Authenticator() {
@@ -44,7 +43,7 @@ public class TelegramProgram
             options.setProxyHost(PROXY_HOST);
             options.setProxyPort(PROXY_PORT);
             options.setProxyType(DefaultBotOptions.ProxyType.SOCKS5);
-            botsApi.registerBot(new TelegramBot(options, chatBot, writer));
+            botsApi.registerBot(new TelegramBot(options, chatBot));
         }
         catch (TelegramApiException e)
         {

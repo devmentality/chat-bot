@@ -25,8 +25,8 @@ public class TestStopCommand
         stateMachine = new StateMachineMock();
         repository = new InMemoryRepository();
         repository.addUser(username);
-        command = new StopGameCommand(stateMachine, repository, new StringBufferWriter(),
-                new Session(username), new Game(4));
+        command = new StopGameCommand(stateMachine, repository, new Session(username),
+                new Game(4));
     }
 
     @Test
