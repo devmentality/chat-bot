@@ -6,6 +6,7 @@ import main.Data.InMemoryRepository;
 import main.IO.StringBufferReader;
 import main.IO.StringBufferWriter;
 import main.Resources.Strings;
+import main.Session;
 import org.junit.Test;
 import org.junit.Assert;
 import java.util.ArrayList;
@@ -19,13 +20,13 @@ public class BotTest
     private void assign()
     {
         repository = new InMemoryRepository();
-        bot = new Bot(repository);
+        bot = new Bot(repository, new Session(username));
     }
 
     @Test
     public final void testBotBasicDialog() {
         assign();
-        String[] inputCommands = new String[]{"start", username, "help", "exit"};
+        String[] inputCommands = new String[]{username, "help", "exit"};
         String[] expectedOutput = new String[]
         {
             Strings.nameRequest,
@@ -44,7 +45,7 @@ public class BotTest
     @Test
     public final void testBotStartStopContinueGame() {
         assign();
-        String[] inputCommands = new String[]{"start", username, "newgame 4", "stop", "continue", "exit"};
+        String[] inputCommands = new String[]{username, "newgame 4", "stop", "continue", "exit"};
         String[] expectedOutput = new String[]
         {
             Strings.nameRequest,

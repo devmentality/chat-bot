@@ -56,6 +56,15 @@ public abstract class StateBase implements IState
         return handleNoncommandRequest(request);
     }
 
+    @Override
+    public ArrayList<String> getAvailableCommands()
+    {
+        ArrayList<String> commandsNames = new ArrayList<>();
+        for(ICommand command: commands)
+            commandsNames.add(command.getName());
+        return commandsNames;
+    }
+
     protected ArrayList<String> handleNoncommandRequest(String request)
     {
         return new ArrayList<>(Arrays.asList("I don't understand:("));

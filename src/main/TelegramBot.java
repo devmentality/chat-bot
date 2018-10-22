@@ -1,6 +1,6 @@
 package main;
 
-import main.IO.StringBufferWriter;
+import main.Data.ConcurrentInMemoryRepo;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -8,15 +8,20 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.ArrayList;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class TelegramBot extends TelegramLongPollingBot
 {
-    private Bot chatBot;
+    private ConcurrentHashMap<Long, Bot> botsStorage;
+    private ConcurrentInMemoryRepo repository;
+    private String token;
 
-    public TelegramBot(DefaultBotOptions options, Bot chatBot)
+    public TelegramBot(String token, DefaultBotOptions options, ConcurrentInMemoryRepo repository)
     {
         super(options);
-        this.chatBot = chatBot;
+        botsStorage = new ConcurrentHashMap<>();
+        this.repository = repository;
+        this.token = token;
     }
 
     @Override
@@ -24,14 +29,26 @@ public class TelegramBot extends TelegramLongPollingBot
     {
         String message = update.getMessage().getText();
         System.out.println("LOG: " + message);
+
+        Bot chatBot;
+        Long chatId = update.getMessage().getChatId();
+        if (botsStorage.containsKey(chatId))
+            chatBot = botsStorage.get(chatId);
+        else
+        {
+            chatBot = new Bot(repository, new Session(chatId.toString()));
+            sendMsg(update.getMessage().getChatId().toString(), chatBot.introduce().get(0));
+            botsStorage.put(update.getMessage().getChatId(), chatBot);
+            return;
+        }
+
         ArrayList<String> replies = chatBot.processRequest(message);
 
         for(String reply: replies)
             sendMsg(update.getMessage().getChatId().toString(), reply);
-        replies.clear();
     }
 
-    private synchronized void sendMsg(String chatId, String s)
+    private void sendMsg(String chatId, String s)
     {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
@@ -56,6 +73,6 @@ public class TelegramBot extends TelegramLongPollingBot
     @Override
     public String getBotToken()
     {
-        return "687525211:AAFE8KvaUjjN4krtijHKKnDw8683EEWIhWY";
+        return token;
     }
 }

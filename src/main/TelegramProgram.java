@@ -1,5 +1,6 @@
 package main;
 
+import main.Data.ConcurrentInMemoryRepo;
 import main.Data.IAppRepository;
 import main.Data.InMemoryRepository;
 import main.IO.*;
@@ -19,14 +20,15 @@ public class TelegramProgram
     private static Integer PROXY_PORT = 1080;
     private static String PROXY_USER;
     private static String PROXY_PASSWORD;
+    private static String BOT_TOKEN;
 
     public static void main(String[] args)
     {
-        IAppRepository repository = new InMemoryRepository();
-        PROXY_USER = args[0];
-        PROXY_PASSWORD = args[1];
+        ConcurrentInMemoryRepo repository = new ConcurrentInMemoryRepo();
+        BOT_TOKEN = args[0];
+        PROXY_USER = args[1];
+        PROXY_PASSWORD = args[2];
 
-        Bot chatBot = new Bot(repository);
         try
         {
             Authenticator.setDefault(new Authenticator() {
@@ -43,7 +45,7 @@ public class TelegramProgram
             options.setProxyHost(PROXY_HOST);
             options.setProxyPort(PROXY_PORT);
             options.setProxyType(DefaultBotOptions.ProxyType.SOCKS5);
-            botsApi.registerBot(new TelegramBot(options, chatBot));
+            botsApi.registerBot(new TelegramBot(BOT_TOKEN, options, repository));
         }
         catch (TelegramApiException e)
         {
