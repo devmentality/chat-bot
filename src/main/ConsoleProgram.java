@@ -25,7 +25,6 @@ public class ConsoleProgram
             String username = sc.nextLine();
 
             Bot chatBot = new Bot(repository, new Session(username));
-            printReplies(chatBot.introduce());
 
             while (!chatBot.isTerminated())
             {

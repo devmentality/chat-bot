@@ -50,11 +50,6 @@ public class Bot implements IStateMachine
         return state.processRequest(message);
     }
 
-    public ArrayList<String> introduce()
-    {
-        return new ArrayList<>(Arrays.asList(Strings.introduction));
-    }
-
     public Session getSession()
     {
         return session;

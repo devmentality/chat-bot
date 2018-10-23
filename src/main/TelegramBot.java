@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class TelegramBot extends TelegramLongPollingBot
 {
-    private ConcurrentHashMap<Long, Bot> botsStorage;
+    private ConcurrentHashMap<Long, TelegramBotDecorator> botsStorage;
     private ConcurrentInMemoryRepo repository;
     private String token;
 
@@ -30,16 +30,14 @@ public class TelegramBot extends TelegramLongPollingBot
         String message = update.getMessage().getText();
         System.out.println("LOG: " + message);
 
-        Bot chatBot;
+        TelegramBotDecorator chatBot;
         Long chatId = update.getMessage().getChatId();
         if (botsStorage.containsKey(chatId))
             chatBot = botsStorage.get(chatId);
         else
         {
-            chatBot = new Bot(repository, new Session(chatId.toString()));
-            sendMsg(update.getMessage().getChatId().toString(), chatBot.introduce().get(0));
+            chatBot = new TelegramBotDecorator(repository, new Session(chatId.toString()));
             botsStorage.put(update.getMessage().getChatId(), chatBot);
-            return;
         }
 
         ArrayList<String> replies = chatBot.processRequest(message);
