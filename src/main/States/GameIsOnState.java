@@ -6,34 +6,35 @@ import main.GameLogic.Game;
 import main.GameLogic.GameController;
 import main.GameLogic.GameResult;
 import main.GameLogic.GuessResult;
-import main.IO.IMessageWriter;
 import main.IStateMachine;
 import main.Resources.Strings;
 import main.Session;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GameIsOnState extends StateBase
 {
     private Game game;
     private Session session;
 
-    public GameIsOnState(IStateMachine stateMachine, IAppRepository repository, IMessageWriter writer,
+    public GameIsOnState(IStateMachine stateMachine, IAppRepository repository,
                          Game game, Session session)
     {
-        super(stateMachine, repository, writer);
+        super(stateMachine, repository);
         this.game = game;
         this.session = session;
         commands = new ICommand[]
         {
-                new ExitCommand(stateMachine, repository, writer),
-                new HelpCommand(stateMachine, repository, writer),
-                new ResignCommand(stateMachine, repository, writer, session),
-                new StopGameCommand(stateMachine, repository, writer, session, game),
-                new AttemptsCommand(stateMachine, repository, writer, game)
+                new HelpCommand(stateMachine, repository),
+                new ResignCommand(stateMachine, repository, session),
+                new StopGameCommand(stateMachine, repository, session, game),
+                new AttemptsCommand(stateMachine, repository, game)
         };
     }
 
     @Override
-    protected void handleNoncommandRequest(String request)
+    protected ArrayList<String> handleNoncommandRequest(String request)
     {
         int[] guessedDigits;
         try
@@ -42,14 +43,14 @@ public class GameIsOnState extends StateBase
         }
         catch (Exception ex)
         {
-            writer.write(Strings.guessFormatFail);
-            return;
+            return new ArrayList<>(Arrays.asList(
+                    String.format(Strings.guessFormatFail, game.digitsToGuess.length)));
         }
 
-        respondOnGameAttempt(guessedDigits);
+        return respondOnGameAttempt(guessedDigits);
     }
 
-    private void respondOnGameAttempt(int[] guessedDigits)
+    private ArrayList<String> respondOnGameAttempt(int[] guessedDigits)
     {
     	GuessResult result;
     	try
@@ -58,21 +59,22 @@ public class GameIsOnState extends StateBase
     	}
     	catch (Exception ex)
     	{
-    		writer.write(String.format(Strings.guessFormatFail, game.digitsToGuess.length));
-            return;
+            return new ArrayList<>(Arrays.asList(String.format(Strings.guessFormatFail, game.digitsToGuess.length)));
     	}
-        writer.write(String.format(Strings.guessResultTemplate, result.amountOfBulls, result.amountOfCows));
+    	ArrayList<String> output = new ArrayList<>();
+        output.add(String.format(Strings.guessResultTemplate, result.amountOfBulls, result.amountOfCows));
         if (GameController.isVictoriousGuess(result, guessedDigits.length))
         {
-            writer.write(Strings.congratulations);
+            output.add(Strings.congratulations);
             repository.addGameResult(session.getUsername(), new GameResult(true));
-            stateMachine.changeState(new InitializedState(stateMachine, repository, writer, session));
+            stateMachine.changeState(new InitializedState(stateMachine, repository, session));
         }
         else if(GameController.isInLosingState(game))
         {
-            writer.write(Strings.losePhrase);
+            output.add(Strings.losePhrase);
             repository.addGameResult(session.getUsername(), new GameResult(false));
-            stateMachine.changeState(new InitializedState(stateMachine, repository, writer, session));
+            stateMachine.changeState(new InitializedState(stateMachine, repository, session));
         }
+        return output;
     }
 }

@@ -2,7 +2,11 @@ package main.GameLogic;
 
 import java.util.ArrayList;
 
-public class Game {
+public class Game
+{
+    /*
+        Класс, реализующий основную логику игры быки-коровы
+     */
     public static final int attemptsToLose = 100;
     public int[] digitsToGuess;
     public ArrayList<Attempt> attempts;

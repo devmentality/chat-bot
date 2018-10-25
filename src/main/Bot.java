@@ -1,32 +1,26 @@
 package main;
 
 import main.Data.IAppRepository;
-import main.IO.IMessageReader;
-import main.IO.IMessageWriter;
-import main.States.BeforeStartState;
+import main.States.IState;
+import main.States.InitializedState;
+import java.util.ArrayList;
 
 public class Bot implements IStateMachine
 {
-    private IMessageReader reader;
-    private IMessageWriter writer;
     private IAppRepository repository;
-    private String userName;
     private IState state;
-    private boolean isTerminated;
+    private Session session;
 
-    public Bot(IMessageReader reader, IMessageWriter writer, IAppRepository repository)
+    public Bot(IAppRepository repository, Session session)
     {
-        this.reader = reader;
-        this.writer = writer;
         this.repository = repository;
-        state = new BeforeStartState(this, repository, writer);
-        isTerminated = false;
+        this.session = session;
+        state = new InitializedState(this, repository, session);
     }
 
     public void changeState(IState nextState)
     {
         state = nextState;
-        state.activate();
     }
 
     public IState getCurrentState()
@@ -34,23 +28,13 @@ public class Bot implements IStateMachine
         return state;
     }
 
-    public void signalToTerminate()
+    public ArrayList<String> processRequest(String message)
     {
-        isTerminated = true;
+        return state.processRequest(message);
     }
 
-    @Override
-    public boolean isTerminated() {
-        return isTerminated;
-    }
-
-    public void execute()
+    public Session getSession()
     {
-        state.activate();
-        while(!isTerminated)
-        {
-            String request = reader.read();
-            state.processRequest(request);
-        }
+        return session;
     }
 }

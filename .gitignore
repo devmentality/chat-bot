@@ -1,8 +1,13 @@
 out/
 /bin/
+lib/
 *.iml
+.idea/libraries/
 .idea/workspace.xml
 .idea/usage.statistics.xml
 .idea/tasks.xml
 .idea/libraries/
 lib/
+.idea/misc.xml
+.idea/modules.xml
+.idea/uiDesigner.xml

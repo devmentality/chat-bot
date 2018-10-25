@@ -4,26 +4,32 @@ import main.Data.IAppRepository;
 import main.GameLogic.Game;
 import main.IO.IMessageWriter;
 import main.IStateMachine;
+import main.Resources.Strings;
 import main.States.InitializedState;
 import main.Session;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class StopGameCommand extends CommandBase
 {
     private Session session;
     private Game currentGame;
 
-    public StopGameCommand(IStateMachine stateMachine, IAppRepository repository, IMessageWriter writer,
+    public StopGameCommand(IStateMachine stateMachine, IAppRepository repository,
                            Session session, Game currentGame)
     {
-        super(stateMachine, repository, writer, "stop");
+        super(stateMachine, repository, "stop");
         this.session = session;
         this.currentGame = currentGame;
     }
 
     @Override
-    public void execute(String... value)
+    public ArrayList<String> execute(String... value)
     {
         repository.addUnfinishedGame(session.getUsername(), currentGame);
-        stateMachine.changeState(new InitializedState(stateMachine, repository, writer, session));
+        stateMachine.changeState(new InitializedState(stateMachine, repository, session));
+        return new ArrayList<>(Arrays.asList(Strings.onGameStop));
     }
 }

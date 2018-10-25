@@ -8,8 +8,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public class SampleGenerator {
-	
+public class SampleGenerator
+{
+	/*
+		Генератор примеров для игры быки-коровы
+	*/
 	public static int [] setDigitsToGuess(int amountOfDigits)
     {
 		int maxValue = 10;

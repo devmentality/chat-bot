@@ -8,29 +8,32 @@ import main.IStateMachine;
 import main.Resources.Strings;
 import main.Session;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class NewGameCommand extends CommandBase
 {
     private Session session;
 
-    public NewGameCommand(IStateMachine stateMachine, IAppRepository repository, IMessageWriter writer, Session session)
+    public NewGameCommand(IStateMachine stateMachine, IAppRepository repository, Session session)
     {
-        super(stateMachine, repository, writer, "newgame");
+        super(stateMachine, repository, "newgame");
         this.session = session;
     }
 
     @Override
-    public void execute(String... value)
+    public ArrayList<String> execute(String... value)
     {
-    	int number;									//Create new game with number digits(default - 4)
-    	try
-    	{
-    	    number = Integer.parseInt(value[0]);
-    	}
-    	catch(ArrayIndexOutOfBoundsException e)
-    	{
-    		number = 4;
-    	}
-        writer.write(String.format(Strings.newGamePhrase, number));
-        stateMachine.changeState(new GameIsOnState(stateMachine, repository, writer, new Game(number), session));
+        int number = 4;
+        if (value.length == 0)      //Create new game with 4 digits on request "newgame"
+        {
+            stateMachine.changeState(new GameIsOnState(stateMachine, repository, new Game(number), session));
+            return constructOutput(String.format(Strings.newGamePhrase, number));
+        }
+        number = Integer.parseInt(value[0]);        //try to create game with value[0] digits
+        if (number < 1 || number > 10)
+            throw new IllegalArgumentException();
+        stateMachine.changeState(new GameIsOnState(stateMachine, repository, new Game(number), session));
+        return constructOutput(String.format(Strings.newGamePhrase, number));
     }
 }

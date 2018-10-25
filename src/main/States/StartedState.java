@@ -1,37 +1,32 @@
 package main.States;
 
 import main.Data.IAppRepository;
-import main.IO.IMessageWriter;
 import main.IStateMachine;
 import main.Resources.Strings;
 import main.Session;
+import java.util.ArrayList;
 
 public class StartedState extends StateBase
 {
-    public StartedState(IStateMachine stateMachine, IAppRepository repository, IMessageWriter writer)
+    public StartedState(IStateMachine stateMachine, IAppRepository repository)
     {
-        super(stateMachine, repository, writer);
+        super(stateMachine, repository);
     }
 
     @Override
-    public void activate()
+    public ArrayList<String> processRequest(String name)
     {
-        writer.write(Strings.nameRequest);
-    }
-
-    @Override
-    public void processRequest(String request)
-    {
-        String name = request;
         Session session = new Session(name);
+        ArrayList<String> output = new ArrayList<>();
         if (repository.hasUser(name))
-            writer.write(String.format(Strings.greetingOldUser, name));
+            output.add(String.format(Strings.greetingOldUser, name));
         else
         {
-            writer.write(String.format(Strings.greetingNewUser, name));
+            output.add(String.format(Strings.greetingNewUser, name));
             repository.addUser(name);
         }
-        writer.write(Strings.introduction);
-        stateMachine.changeState(new InitializedState(stateMachine, repository, writer, session));
+        output.add(Strings.introduction);
+        stateMachine.changeState(new InitializedState(stateMachine, repository, session));
+        return output;
     }
 }
