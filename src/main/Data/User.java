@@ -12,5 +12,28 @@ public class User implements Cloneable
     public Game unfinishedGame;
     public ArrayList<GameResult> gameResults;
 
+    public User()
+    {
+        gameResults = new ArrayList<>();
+    }
 
+    @Override
+    public Object clone()
+    {
+        try
+        {
+            User clone = (User) super.clone();
+            if (unfinishedGame != null)
+                clone.unfinishedGame = (Game)unfinishedGame.clone();
+            ArrayList<GameResult> clonedResults = new ArrayList<>();
+            for (GameResult result: gameResults)
+                clonedResults.add((GameResult)result.clone());
+            clone.gameResults = clonedResults;
+            return clone;
+        }
+        catch (CloneNotSupportedException ex)
+        {
+            return null;
+        }
+    }
 }

@@ -1,6 +1,6 @@
 package main.GameLogic;
 
-public class GuessResult
+public class GuessResult implements Cloneable
 {
     public int amountOfBulls;
     public int amountOfCows;
@@ -23,5 +23,11 @@ public class GuessResult
         GuessResult other = (GuessResult)obj;
         return other.amountOfBulls == amountOfBulls &&
                 other.amountOfCows == amountOfCows;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException
+    {
+        return super.clone();
     }
 }

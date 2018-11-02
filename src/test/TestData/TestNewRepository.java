@@ -66,4 +66,31 @@ public class TestNewRepository
     {
         repository.getUser(10);
     }
+
+    @Test
+    public final void updateUser_shouldUpdateUserInfo_whenUserAlreadyExists()
+    {
+        User user = new User();
+        user.id = 10;
+        user.username = "user";
+
+        repository.addUser(user);
+
+        User updatedUser = new User();
+        updatedUser.id = 10;
+        updatedUser.username = "updatedname";
+
+        repository.updateUser(updatedUser);
+
+        Assert.assertEquals("updatedname", repository.getUser(10).username);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public final void updateUser_shouldThrow_whenNoUserWithThisId()
+    {
+        User user = new User();
+        user.id = 10;
+
+        repository.updateUser(user);
+    }
 }

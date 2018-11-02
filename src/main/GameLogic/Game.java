@@ -2,7 +2,7 @@ package main.GameLogic;
 
 import java.util.ArrayList;
 
-public class Game
+public class Game implements Cloneable
 {
     /*
         Класс, реализующий основную логику игры быки-коровы
@@ -47,5 +47,16 @@ public class Game
         	if (guessedDigit == digit)
                 return true;
         return false;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException
+    {
+        Game clonedGame = (Game)super.clone();
+        clonedGame.attempts = new ArrayList<>();
+        for(Attempt attempt: attempts)
+            clonedGame.attempts.add((Attempt)attempt.clone());
+        clonedGame.digitsToGuess = digitsToGuess.clone();
+        return clonedGame;
     }
 }

@@ -15,7 +15,10 @@ public class ConcurrentNewInMemoryRepo implements INewRepository
     @Override
     public synchronized ArrayList<User> getAll()
     {
-        return new ArrayList<>(users.values());
+        ArrayList<User> allUsers = new ArrayList<>();
+        for(User user: users.values())
+            allUsers.add((User)user.clone());
+        return allUsers;
     }
 
     @Override
@@ -23,17 +26,17 @@ public class ConcurrentNewInMemoryRepo implements INewRepository
     {
         if (!users.containsKey(id))
             throw new IllegalArgumentException("user with this id does not exist");
-        return users.get(id);
+        return (User)users.get(id).clone();
     }
 
     @Override
-    public synchronized User getUser(String username) {
-        return null;
-    }
-
-    @Override
-    public synchronized void updateUser(User user) {
-
+    public synchronized void updateUser(User user)
+    {
+        if (user == null)
+            throw new IllegalArgumentException("null is not allowed");
+        if (!users.containsKey(user.id))
+            throw new IllegalArgumentException("user with this id does not exist");
+        users.put(user.id, (User)user.clone());
     }
 
     @Override
@@ -42,7 +45,7 @@ public class ConcurrentNewInMemoryRepo implements INewRepository
         if (user == null)
             throw new IllegalArgumentException("null is not allowed");
         if (users.containsKey(user.id))
-            throw new IllegalArgumentException("user with this id already exist");
-        users.put(user.id, user);
+            throw new IllegalArgumentException("user with this id already exists");
+        users.put(user.id, (User)user.clone());
     }
 }
