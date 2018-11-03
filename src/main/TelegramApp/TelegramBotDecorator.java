@@ -2,8 +2,9 @@ package main.TelegramApp;
 
 import main.Bot;
 import main.Data.ConcurrentInMemoryRepo;
+import main.Data.ConcurrentNewInMemoryRepo;
+import main.Data.User;
 import main.Resources.Strings;
-import main.Session;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,18 +16,18 @@ public class TelegramBotDecorator
      */
     private Bot chatBot;
 
-    public TelegramBotDecorator(ConcurrentInMemoryRepo repository, Session session)
+    public TelegramBotDecorator(ConcurrentNewInMemoryRepo repository)
     {
-        chatBot = new Bot(repository, session);
+        chatBot = new Bot(repository);
     }
 
-    public ArrayList<String> processRequest(String request)
+    public ArrayList<String> processRequest(User user, String request)
     {
         request = validateRequest(request);
         if (request.equals("/start"))
             return new ArrayList<>(Arrays.asList(Strings.introduction));
 
-        return chatBot.processRequest(request);
+        return chatBot.processRequest(user, request);
     }
 
     private String validateRequest(String request)

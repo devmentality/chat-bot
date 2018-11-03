@@ -1,10 +1,11 @@
 package test.BotTest;
 
 import main.Bot;
+import main.Data.ConcurrentNewInMemoryRepo;
 import main.Data.IAppRepository;
+import main.Data.INewRepository;
 import main.Data.InMemoryRepository;
 import main.Resources.Strings;
-import main.Session;
 import org.junit.Test;
 import org.junit.Assert;
 import java.util.ArrayList;
@@ -12,13 +13,13 @@ import java.util.ArrayList;
 public class BotTest
 {
     private String username = "Nik";
-    private IAppRepository repository;
+    private INewRepository repository;
     private Bot bot;
-
+    /*
     private void assign()
     {
-        repository = new InMemoryRepository();
-        bot = new Bot(repository, new Session(username));
+        repository = new ConcurrentNewInMemoryRepo();
+        bot = new Bot(repository);
     }
 
     @Test
@@ -81,8 +82,8 @@ public class BotTest
         repository.addUser(username1);
         repository.addUser(username2);
 
-        Bot firstBot = new Bot(repository, new Session(username1));
-        Bot secondBot = new Bot(repository, new Session(username2));
+        Bot firstBot = new Bot(repository);
+        Bot secondBot = new Bot(repository);
 
         firstBot.processRequest("newgame");
         firstBot.processRequest("resign");
@@ -90,4 +91,5 @@ public class BotTest
         Assert.assertFalse(repository.getGameResults(username1).isEmpty());
         Assert.assertTrue(repository.getGameResults(username2).isEmpty());
     }
+    */
 }

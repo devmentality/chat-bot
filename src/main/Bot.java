@@ -1,21 +1,20 @@
 package main;
 
-import main.Data.IAppRepository;
+import main.Data.INewRepository;
+import main.Data.User;
 import main.States.IState;
 import main.States.InitializedState;
 import java.util.ArrayList;
 
 public class Bot implements IStateMachine
 {
-    private IAppRepository repository;
+    private INewRepository repository;
     private IState state;
-    private Session session;
 
-    public Bot(IAppRepository repository, Session session)
+    public Bot(INewRepository repository)
     {
         this.repository = repository;
-        this.session = session;
-        state = new InitializedState(this, repository, session);
+        state = new InitializedState(this, repository);
     }
 
     public void changeState(IState nextState)
@@ -28,13 +27,8 @@ public class Bot implements IStateMachine
         return state;
     }
 
-    public ArrayList<String> processRequest(String message)
+    public ArrayList<String> processRequest(User user, String message)
     {
-        return state.processRequest(message);
-    }
-
-    public Session getSession()
-    {
-        return session;
+        return state.processRequest(user, message);
     }
 }

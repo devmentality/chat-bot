@@ -1,12 +1,12 @@
 package test.TestCommands;
 
 import main.Commands.ContinueGameCommand;
+import main.Data.ConcurrentNewInMemoryRepo;
 import main.Data.InMemoryRepository;
+import main.Data.User;
 import main.GameLogic.Game;
-import main.IO.StringBufferWriter;
 import main.IStateMachine;
 import main.Resources.Strings;
-import main.Session;
 import main.States.GameIsOnState;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,26 +16,26 @@ import java.util.ArrayList;
 
 public class TestContinueCommand
 {
-    private String username = "user";
     private IStateMachine stateMachine;
-    private InMemoryRepository repository;
+    private ConcurrentNewInMemoryRepo repository;
     private ContinueGameCommand command;
+    private User user;
 
     @Before
     public final void assign()
     {
         stateMachine = new StateMachineMock();
-        repository = new InMemoryRepository();
-        repository.addUser(username);
-        repository.addUnfinishedGame(username, new Game(4));
-        command = new ContinueGameCommand(stateMachine, repository, new Session(username));
+        repository = new ConcurrentNewInMemoryRepo();
+        user = new User();
+        user.unfinishedGame = new Game(4);
+        command = new ContinueGameCommand(stateMachine, repository);
     }
 
     @Test
     public final void testResponseWhenNoUnfinishedGame()
     {
-        repository.deleteUnfinishedGame(username);
-        ArrayList<String> output = command.execute();
+        user.unfinishedGame = null;
+        ArrayList<String> output = command.execute(user);
         Assert.assertEquals(1, output.size());
         Assert.assertEquals(Strings.noSavedGames, output.get(0));
     }
@@ -43,7 +43,7 @@ public class TestContinueCommand
     @Test
     public final void testResponseWhenHasUnfinishedGame()
     {
-        ArrayList<String> output = command.execute();
+        ArrayList<String> output = command.execute(user);
         Assert.assertEquals(1, output.size());
         Assert.assertEquals(Strings.continueGamePhrase, output.get(0));
     }
@@ -51,14 +51,7 @@ public class TestContinueCommand
     @Test
     public final void testSwitchesState()
     {
-        command.execute();
+        command.execute(user);
         Assert.assertTrue(stateMachine.getCurrentState() instanceof GameIsOnState);
-    }
-
-    @Test
-    public final void testRemovesUnfinishedGame()
-    {
-        command.execute();
-        Assert.assertFalse(repository.hasUnfinishedGame(username));
     }
 }

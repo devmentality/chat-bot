@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class ConcurrentNewInMemoryRepo implements INewRepository
 {
-    private HashMap<Integer, User> users;
+    private HashMap<Long, User> users;
 
     public ConcurrentNewInMemoryRepo()
     {
@@ -22,7 +22,7 @@ public class ConcurrentNewInMemoryRepo implements INewRepository
     }
 
     @Override
-    public synchronized User getUser(int id)
+    public synchronized User getUser(long id)
     {
         if (!users.containsKey(id))
             throw new IllegalArgumentException("user with this id does not exist");

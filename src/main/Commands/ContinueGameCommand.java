@@ -1,35 +1,28 @@
 package main.Commands;
 
-import main.Data.IAppRepository;
+import main.Data.INewRepository;
+import main.Data.User;
 import main.States.GameIsOnState;
 import main.GameLogic.Game;
-import main.IO.IMessageWriter;
 import main.IStateMachine;
 import main.Resources.Strings;
-import main.Session;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ContinueGameCommand extends CommandBase
 {
-    private Session session;
-
-    public ContinueGameCommand(IStateMachine stateMachine, IAppRepository repository, Session session)
+    public ContinueGameCommand(IStateMachine stateMachine, INewRepository repository)
     {
-        super(stateMachine, repository, "continue");
-        this.session = session;
+        super(stateMachine, repository,"continue");
     }
 
     @Override
-    public ArrayList<String> execute(String... value)
+    public ArrayList<String> execute(User user, String... value)
     {
-        if (!repository.hasUnfinishedGame(session.getUsername()))
+        if (user.unfinishedGame == null)
             return constructOutput(Strings.noSavedGames);
 
-        Game game = repository.getUnfinishedGame(session.getUsername());
-        stateMachine.changeState(new GameIsOnState(stateMachine, repository, game, session));
-
+        stateMachine.changeState(new GameIsOnState(stateMachine, repository));
         return constructOutput(Strings.continueGamePhrase);
     }
 }

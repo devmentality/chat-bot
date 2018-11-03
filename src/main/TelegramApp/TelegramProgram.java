@@ -1,6 +1,7 @@
 package main.TelegramApp;
 
 import main.Data.ConcurrentInMemoryRepo;
+import main.Data.ConcurrentNewInMemoryRepo;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.meta.ApiContext;
@@ -19,7 +20,7 @@ public class TelegramProgram
 
     public static void main(String[] args)
     {
-        ConcurrentInMemoryRepo repository = new ConcurrentInMemoryRepo();
+        ConcurrentNewInMemoryRepo repository = new ConcurrentNewInMemoryRepo();
         BOT_TOKEN = args[0];
         PROXY_USER = args[1];
         PROXY_PASSWORD = args[2];

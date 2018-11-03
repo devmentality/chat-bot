@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public interface INewRepository
 {
     ArrayList<User> getAll();
-    User getUser(int id);
+    User getUser(long id);
     void updateUser(User user);
     void addUser(User user);
 }

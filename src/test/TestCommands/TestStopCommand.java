@@ -1,11 +1,11 @@
 package test.TestCommands;
 
 import main.Commands.StopGameCommand;
+import main.Data.ConcurrentNewInMemoryRepo;
 import main.Data.InMemoryRepository;
+import main.Data.User;
 import main.GameLogic.Game;
-import main.IO.StringBufferWriter;
 import main.IStateMachine;
-import main.Session;
 import main.States.InitializedState;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,34 +14,24 @@ import test.mocks.StateMachineMock;
 
 public class TestStopCommand
 {
-    private String username = "user";
     private IStateMachine stateMachine;
-    private InMemoryRepository repository;
+    private ConcurrentNewInMemoryRepo repository;
     private StopGameCommand command;
+    private User user;
 
     @Before
     public final void assign()
     {
         stateMachine = new StateMachineMock();
-        repository = new InMemoryRepository();
-        repository.addUser(username);
-        command = new StopGameCommand(stateMachine, repository, new Session(username),
-                new Game(4));
+        repository = new ConcurrentNewInMemoryRepo();
+        command = new StopGameCommand(stateMachine, repository);
     }
 
     @Test
     public final void testSwitchesState()
     {
-        command.execute();
+        command.execute(user);
 
         Assert.assertTrue(stateMachine.getCurrentState() instanceof InitializedState);
-    }
-
-    @Test
-    public final void testAddsUnfinishedGame()
-    {
-        command.execute();
-
-        Assert.assertTrue(repository.hasUnfinishedGame(username));
     }
 }

@@ -1,24 +1,19 @@
 package main.Commands;
 
+import main.Data.INewRepository;
+import main.Data.User;
 import main.GameLogic.Attempt;
 import main.IStateMachine;
 import main.Resources.Strings;
-import main.Data.IAppRepository;
-import main.GameLogic.Game;
 import main.GameLogic.GuessResult;
-import main.IO.IMessageWriter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class AttemptsCommand extends CommandBase 
-{	
-	private Game currentGame;
-	
-	public AttemptsCommand(IStateMachine stateMachine, IAppRepository repository, Game currentGame)
+{
+	public AttemptsCommand(IStateMachine stateMachine, INewRepository repository)
 	{
 		super(stateMachine, repository, "attempts");
-		this.currentGame = currentGame;
 	}
 
 	private String makeString(GuessResult result)
@@ -27,13 +22,13 @@ public class AttemptsCommand extends CommandBase
 	}
 	
 	@Override
-	public ArrayList<String> execute(String... value)
+	public ArrayList<String> execute(User user, String... value)
 	{
-		if (currentGame.attempts.size() == 0)
+		if (user.unfinishedGame.attempts.size() == 0)
 			return constructOutput(Strings.noAttempts);
 
 		ArrayList<String> output = new ArrayList<>();
-        for (Attempt attempt: currentGame.attempts)
+        for (Attempt attempt: user.unfinishedGame.attempts)
        	{
         	output.add(joinGuess(attempt.getGuess()));
 			output.add(makeString(attempt.getResult()));

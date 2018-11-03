@@ -1,11 +1,11 @@
 package main.ConsoleApp;
 
 import main.Bot;
+import main.Data.ConcurrentNewInMemoryRepo;
 import main.Data.InMemoryRepository;
 import main.IO.IMessageReader;
 import main.IO.IMessageWriter;
 import main.Resources.Strings;
-import main.Session;
 
 import java.util.ArrayList;
 
@@ -14,11 +14,11 @@ public class ConsoleBotExecutor
     /*
         Класс, реализующий цикл работы с консольной версией бота
      */
-    private InMemoryRepository repository;
+    private ConcurrentNewInMemoryRepo repository;
     private IMessageWriter writer;
     private IMessageReader reader;
 
-    public ConsoleBotExecutor(InMemoryRepository repository, IMessageReader reader, IMessageWriter writer)
+    public ConsoleBotExecutor(ConcurrentNewInMemoryRepo repository, IMessageReader reader, IMessageWriter writer)
     {
         this.repository = repository;
         this.reader = reader;
@@ -27,10 +27,11 @@ public class ConsoleBotExecutor
 
     public void execute()
     {
+        /*
         writer.write(Strings.nameRequest);
         String username = reader.read();
 
-        Bot chatBot = new Bot(repository, new Session(username));
+        Bot chatBot = new Bot(repository);
         writer.write(Strings.introduction);
 
         while (true)
@@ -42,6 +43,6 @@ public class ConsoleBotExecutor
             ArrayList<String> replies = chatBot.processRequest(message);
             for(String reply: replies)
                 writer.write(reply);
-        }
+        }*/
     }
 }

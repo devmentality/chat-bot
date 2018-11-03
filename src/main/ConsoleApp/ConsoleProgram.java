@@ -1,6 +1,7 @@
 package main.ConsoleApp;
 
 import main.ConsoleApp.ConsoleBotExecutor;
+import main.Data.ConcurrentNewInMemoryRepo;
 import main.Data.InMemoryRepository;
 import main.IO.ConsoleReader;
 import main.IO.ConsoleWriter;
@@ -21,7 +22,7 @@ public class ConsoleProgram
 
     public static void main(String[] args)
     {
-        InMemoryRepository repository = new InMemoryRepository();
+        ConcurrentNewInMemoryRepo repository = new ConcurrentNewInMemoryRepo();
         IMessageReader reader = new ConsoleReader();
         IMessageWriter writer = new ConsoleWriter();
 

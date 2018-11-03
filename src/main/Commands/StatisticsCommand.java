@@ -1,30 +1,25 @@
 package main.Commands;
 
-import main.Data.IAppRepository;
+import main.Data.INewRepository;
+import main.Data.User;
 import main.GameLogic.Statistics;
 import main.GameLogic.StatisticsCalculator;
 import main.IStateMachine;
 import main.Resources.Strings;
-import main.Session;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class StatisticsCommand extends CommandBase
 {
-    private Session session;
-
-    public StatisticsCommand(IStateMachine stateMachine, IAppRepository repository, Session session)
+    public StatisticsCommand(IStateMachine stateMachine, INewRepository repository)
     {
         super(stateMachine, repository, "stat");
-        this.session = session;
     }
 
     @Override
-    public ArrayList<String> execute(String... value)
+    public ArrayList<String> execute(User user, String... value)
     {
-        Statistics stat = StatisticsCalculator.calculate(
-                repository.getGameResults(session.getUsername()));
+        Statistics stat = StatisticsCalculator.calculate(user.gameResults);
 
         return constructOutput(String.format(Strings.statisticsTemplate, stat.getTotal(),
                 stat.getVictories(), stat.getLosses()));

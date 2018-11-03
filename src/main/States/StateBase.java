@@ -5,15 +5,17 @@ import main.Data.IAppRepository;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import main.Data.INewRepository;
+import main.Data.User;
 import main.IStateMachine;
 
 public abstract class StateBase implements IState
 {
-    protected IAppRepository repository;
+    protected INewRepository repository;
     protected IStateMachine stateMachine;
     protected ICommand[] commands;
 
-    public StateBase(IStateMachine stateMachine, IAppRepository repository)
+    public StateBase(IStateMachine stateMachine, INewRepository repository)
     {
         this.stateMachine = stateMachine;
         this.repository = repository;
@@ -21,12 +23,12 @@ public abstract class StateBase implements IState
 
     
     @Override
-    public ArrayList<String> processRequest(String request)
+    public ArrayList<String> processRequest(User user, String request)
     {
         for(ICommand command: commands)
         {   
             if (request.equals(command.getName()))
-                return command.execute();
+                return command.execute(user);
             
             String[] requestParts = request.split(" ");
             if (requestParts[0].equals(command.getName()))  //check command with number
@@ -34,7 +36,7 @@ public abstract class StateBase implements IState
                 ArrayList <String> output;
                 try
                 {
-                    output = command.execute(requestParts[1]);
+                    output = command.execute(user, requestParts[1]);
                 }
                 catch(IllegalArgumentException | ArrayIndexOutOfBoundsException e)
                 {
@@ -43,7 +45,7 @@ public abstract class StateBase implements IState
                 return output;
             }
         }
-        return handleNoncommandRequest(request);
+        return handleNoncommandRequest(user, request);
     }
 
     @Override
@@ -55,7 +57,7 @@ public abstract class StateBase implements IState
         return commandsNames;
     }
 
-    protected ArrayList<String> handleNoncommandRequest(String request)
+    protected ArrayList<String> handleNoncommandRequest(User user, String request)
     {
         return new ArrayList<>(Arrays.asList("I don't understand:("));
     }

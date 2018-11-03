@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class User implements Cloneable
 {
-    public int id;
+    public long id;
     public String username;
     public Game unfinishedGame;
     public ArrayList<GameResult> gameResults;
