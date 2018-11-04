@@ -3,6 +3,7 @@ package main.Commands;
 import main.Data.INewRepository;
 import main.Data.User;
 import main.IStateMachine;
+import main.PlainResponse;
 import main.Resources.Strings;
 import main.Response;
 
@@ -18,6 +19,6 @@ public class HelpCommand extends CommandBase
     @Override
     public ArrayList<Response> execute(User user, String... value)
     {
-        return Response.compose(new Response(user.id, Strings.help));
+        return Response.compose(new PlainResponse(user.id, Strings.help));
     }
 }

@@ -6,6 +6,7 @@ import main.Data.InMemoryRepository;
 import main.Data.User;
 import main.GameLogic.Game;
 import main.IStateMachine;
+import main.PlainResponse;
 import main.Resources.Strings;
 import main.States.GameIsOnState;
 import org.junit.Before;
@@ -35,7 +36,7 @@ public class TestContinueCommand
     public final void testResponseWhenNoUnfinishedGame()
     {
         user.unfinishedGame = null;
-        ArrayList<String> output = command.execute(user).get(0).getContent();
+        ArrayList<String> output = ((PlainResponse)command.execute(user).get(0)).getContent();
         Assert.assertEquals(1, output.size());
         Assert.assertEquals(Strings.noSavedGames, output.get(0));
     }
@@ -43,7 +44,7 @@ public class TestContinueCommand
     @Test
     public final void testResponseWhenHasUnfinishedGame()
     {
-        ArrayList<String> output = command.execute(user).get(0).getContent();
+        ArrayList<String> output = ((PlainResponse)command.execute(user).get(0)).getContent();
         Assert.assertEquals(1, output.size());
         Assert.assertEquals(Strings.continueGamePhrase, output.get(0));
     }

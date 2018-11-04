@@ -4,6 +4,7 @@ import main.Data.INewRepository;
 import main.Data.User;
 import main.GameLogic.Attempt;
 import main.IStateMachine;
+import main.PlainResponse;
 import main.Resources.Strings;
 import main.GameLogic.GuessResult;
 import main.Response;
@@ -26,9 +27,9 @@ public class AttemptsCommand extends CommandBase
 	public ArrayList<Response> execute(User user, String... value)
 	{
 		if (user.unfinishedGame.attempts.size() == 0)
-			return Response.compose(new Response(user.id, Strings.noAttempts));
+			return Response.compose(new PlainResponse(user.id, Strings.noAttempts));
 
-		Response response = new Response(user.id);
+		PlainResponse response = new PlainResponse(user.id);
         for (Attempt attempt: user.unfinishedGame.attempts)
        	{
         	response.addMessageToContent(joinGuess(attempt.getGuess()));

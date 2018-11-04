@@ -4,6 +4,7 @@ import main.Data.INewRepository;
 import main.Data.User;
 import main.GameLogic.Game;
 import main.IStateMachine;
+import main.PlainResponse;
 import main.Resources.Strings;
 import main.Response;
 import main.States.InitializedState;
@@ -21,6 +22,6 @@ public class StopGameCommand extends CommandBase
     public ArrayList<Response> execute(User user, String... value)
     {
         stateMachine.changeState(new InitializedState(stateMachine, repository));
-        return Response.compose(new Response(user.id, Strings.onGameStop));
+        return Response.compose(new PlainResponse(user.id, Strings.onGameStop));
     }
 }

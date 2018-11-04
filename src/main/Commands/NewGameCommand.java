@@ -3,6 +3,7 @@ package main.Commands;
 import main.Data.INewRepository;
 import main.Data.User;
 import main.GameLogic.Game;
+import main.PlainResponse;
 import main.Response;
 import main.States.GameIsOnState;
 import main.IStateMachine;
@@ -25,13 +26,13 @@ public class NewGameCommand extends CommandBase
         {
             user.unfinishedGame = new Game(number);
             stateMachine.changeState(new GameIsOnState(stateMachine, repository));
-            return Response.compose(new Response(user.id, String.format(Strings.newGamePhrase, number)));
+            return Response.compose(new PlainResponse(user.id, String.format(Strings.newGamePhrase, number)));
         }
         number = Integer.parseInt(value[0]);        //try to create game with value[0] digits
         if (number < 1 || number > 10)
             throw new IllegalArgumentException();
         user.unfinishedGame = new Game(number);
         stateMachine.changeState(new GameIsOnState(stateMachine, repository));
-        return Response.compose(new Response(user.id, String.format(Strings.newGamePhrase, number)));
+        return Response.compose(new PlainResponse(user.id, String.format(Strings.newGamePhrase, number)));
     }
 }

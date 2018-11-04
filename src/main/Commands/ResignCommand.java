@@ -4,6 +4,7 @@ import main.Data.INewRepository;
 import main.Data.User;
 import main.GameLogic.GameResult;
 import main.IStateMachine;
+import main.PlainResponse;
 import main.Resources.Strings;
 import main.Response;
 import main.States.InitializedState;
@@ -23,6 +24,6 @@ public class ResignCommand extends CommandBase
     {
         user.gameResults.add(new GameResult(false));
         stateMachine.changeState(new InitializedState(stateMachine, repository));
-        return Response.compose(new Response(user.id, Strings.onGameResign));
+        return Response.compose(new PlainResponse(user.id, Strings.onGameResign));
     }
 }

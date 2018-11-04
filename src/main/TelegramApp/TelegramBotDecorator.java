@@ -4,6 +4,7 @@ import main.Bot;
 import main.Data.ConcurrentInMemoryRepo;
 import main.Data.ConcurrentNewInMemoryRepo;
 import main.Data.User;
+import main.PlainResponse;
 import main.Resources.Strings;
 import main.Response;
 
@@ -26,7 +27,7 @@ public class TelegramBotDecorator
     {
         request = validateRequest(request);
         if (request.equals("/start"))
-            return Response.compose(new Response(user.id, Strings.introduction));
+            return Response.compose(new PlainResponse(user.id, Strings.introduction));
 
         return chatBot.processRequest(user, request);
     }

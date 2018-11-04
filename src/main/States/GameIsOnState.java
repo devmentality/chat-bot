@@ -8,6 +8,7 @@ import main.GameLogic.GameController;
 import main.GameLogic.GameResult;
 import main.GameLogic.GuessResult;
 import main.IStateMachine;
+import main.PlainResponse;
 import main.Resources.Strings;
 import main.Response;
 
@@ -42,14 +43,14 @@ public class GameIsOnState extends StateBase
         }
         catch (Exception ex)
         {
-            return Response.compose(new Response(user.id,
+            return Response.compose(new PlainResponse(user.id,
                     String.format(Strings.guessFormatFail, user.unfinishedGame.digitsToGuess.length)));
         }
     }
 
     private Response respondOnGameAttempt(User user, int[] guessedDigits, GuessResult result)
     {
-    	Response response = new Response(user.id);
+        PlainResponse response = new PlainResponse(user.id);
         response.addMessageToContent(
                 String.format(Strings.guessResultTemplate, result.amountOfBulls, result.amountOfCows));
         if (GameController.isVictoriousGuess(result, guessedDigits.length))

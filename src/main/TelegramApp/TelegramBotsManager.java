@@ -2,12 +2,16 @@ package main.TelegramApp;
 
 import main.Data.ConcurrentNewInMemoryRepo;
 import main.Data.User;
+import main.PlainResponse;
 import main.Response;
 import main.ResponseType;
+import main.SelectorResponse;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.ArrayList;
@@ -60,17 +64,54 @@ public class TelegramBotsManager extends TelegramLongPollingBot
 
     private void handleResponse(Response response)
     {
-        if (response.getType() == ResponseType.PLAIN_TEXT)
-            for (String message: response.getContent())
-                sendMessage(response.getReceiverId(), message);
+        if (response instanceof PlainResponse)
+            for (String message: ((PlainResponse)response).getContent())
+                sendPlainMessage(response.getReceiverId(), message);
+        else if (response instanceof SelectorResponse)
+        {
+            sendKeyboardMarkup((SelectorResponse)response);
+        }
     }
 
-    private void sendMessage(long chatId, String message)
+    private void sendPlainMessage(long chatId, String message)
     {
         SendMessage messageToSend = new SendMessage();
         messageToSend.enableMarkdown(true);
         messageToSend.setChatId(chatId);
         messageToSend.setText(message);
+        try
+        {
+            execute(messageToSend);
+        }
+        catch (TelegramApiException e)
+        {
+            System.out.println("Exception: " + e.toString());
+        }
+    }
+
+    private void sendKeyboardMarkup(SelectorResponse response)
+    {
+        System.out.println("keyboard");
+        SendMessage messageToSend = new SendMessage();
+        messageToSend.enableMarkdown(true);
+        messageToSend.setText(response.getPreamble());
+        messageToSend.setChatId(response.getReceiverId());
+        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
+        keyboardMarkup.setSelective(true);
+        keyboardMarkup.setResizeKeyboard(true);
+        keyboardMarkup.setOneTimeKeyboard(true);
+
+        ArrayList<KeyboardRow> rows = new ArrayList<>();
+        for(String buttonLabel: response.getOptions())
+        {
+            KeyboardRow row = new KeyboardRow();
+            row.add(buttonLabel);
+            rows.add(row);
+        }
+
+        keyboardMarkup.setKeyboard(rows);
+        messageToSend.setReplyMarkup(keyboardMarkup);
+
         try
         {
             execute(messageToSend);

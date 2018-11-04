@@ -2,6 +2,7 @@ package main.Commands;
 
 import main.Data.INewRepository;
 import main.Data.User;
+import main.PlainResponse;
 import main.Response;
 import main.States.GameIsOnState;
 import main.IStateMachine;
@@ -20,9 +21,9 @@ public class ContinueGameCommand extends CommandBase
     public ArrayList<Response> execute(User user, String... value)
     {
         if (user.unfinishedGame == null)
-            return Response.compose(new Response(user.id, Strings.noSavedGames));
+            return Response.compose(new PlainResponse(user.id, Strings.noSavedGames));
 
         stateMachine.changeState(new GameIsOnState(stateMachine, repository));
-        return Response.compose(new Response(user.id, Strings.continueGamePhrase));
+        return Response.compose(new PlainResponse(user.id, Strings.continueGamePhrase));
     }
 }

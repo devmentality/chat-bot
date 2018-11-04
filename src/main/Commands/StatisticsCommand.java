@@ -5,6 +5,7 @@ import main.Data.User;
 import main.GameLogic.Statistics;
 import main.GameLogic.StatisticsCalculator;
 import main.IStateMachine;
+import main.PlainResponse;
 import main.Resources.Strings;
 import main.Response;
 
@@ -22,7 +23,7 @@ public class StatisticsCommand extends CommandBase
     {
         Statistics stat = StatisticsCalculator.calculate(user.gameResults);
 
-        return Response.compose(new Response(user.id, String.format(Strings.statisticsTemplate, stat.getTotal(),
+        return Response.compose(new PlainResponse(user.id, String.format(Strings.statisticsTemplate, stat.getTotal(),
                 stat.getVictories(), stat.getLosses())));
     }
 }

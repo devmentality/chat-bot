@@ -14,7 +14,7 @@ public class InitializedState extends StateBase
         commands = new ICommand[]
         {
                 new HelpCommand(stateMachine, repository),
-                new NewGameCommand(stateMachine, repository),
+                new StartGameCommand(stateMachine, repository),
                 new StatisticsCommand(stateMachine, repository),
                 new ContinueGameCommand(stateMachine, repository)
         };

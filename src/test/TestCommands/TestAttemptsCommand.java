@@ -9,6 +9,7 @@ import main.GameLogic.Game;
 import main.GameLogic.GameController;
 import main.GameLogic.GuessResult;
 import main.IO.StringBufferWriter;
+import main.PlainResponse;
 import main.Resources.Strings;
 import main.Response;
 import org.junit.Before;
@@ -39,10 +40,9 @@ public class TestAttemptsCommand
     @Test
     public final void testNoAttempts()
     {
-        ArrayList<Response> output = command.execute(user);
-        Assert.assertEquals(1, output.size());
-        Assert.assertEquals(1, output.get(0).getContent().size());
-        Assert.assertEquals(Strings.noAttempts, output.get(0).getContent().get(0));
+        PlainResponse output = (PlainResponse) command.execute(user).get(0);
+        Assert.assertEquals(1, output.getContent().size());
+        Assert.assertEquals(Strings.noAttempts, output.getContent().get(0));
     }
 
     @Test
@@ -53,11 +53,10 @@ public class TestAttemptsCommand
         GuessResult result = new GuessResult(0, 1);
         game.attempts.add(new Attempt(guess, result));
 
-        ArrayList<Response> output = command.execute(user);
+        PlainResponse output = (PlainResponse)command.execute(user).get(0);
 
-        Assert.assertEquals(1, output.size());
-        Assert.assertEquals(2, output.get(0).getContent().size());
-        ArrayList<String> content = output.get(0).getContent();
+        Assert.assertEquals(2, output.getContent().size());
+        ArrayList<String> content = output.getContent();
         Assert.assertEquals(guessStr, content.get(0));
 
         String expectedAttemptResult =

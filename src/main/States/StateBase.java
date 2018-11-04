@@ -8,6 +8,7 @@ import java.util.Arrays;
 import main.Data.INewRepository;
 import main.Data.User;
 import main.IStateMachine;
+import main.PlainResponse;
 import main.Resources.Strings;
 import main.Response;
 
@@ -21,6 +22,7 @@ public abstract class StateBase implements IState
     {
         this.stateMachine = stateMachine;
         this.repository = repository;
+        this.commands = new ICommand[]{};
     }
 
     
@@ -59,6 +61,6 @@ public abstract class StateBase implements IState
 
     protected ArrayList<Response> handleNoncommandRequest(User user, String request)
     {
-        return Response.compose(new Response(user.id, Strings.iDontUnderstand));
+        return Response.compose(new PlainResponse(user.id, Strings.iDontUnderstand));
     }
 }

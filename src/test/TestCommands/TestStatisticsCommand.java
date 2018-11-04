@@ -5,6 +5,7 @@ import main.Data.ConcurrentNewInMemoryRepo;
 import main.Data.InMemoryRepository;
 import main.Data.User;
 import main.IO.StringBufferWriter;
+import main.PlainResponse;
 import main.Resources.Strings;
 import org.junit.Test;
 import test.mocks.StateMachineMock;
@@ -24,7 +25,7 @@ public class TestStatisticsCommand
         User user = new User();
         StatisticsCommand command = new StatisticsCommand(stateMachine, repository);
 
-        ArrayList<String> output = command.execute(user).get(0).getContent();
+        ArrayList<String> output = ((PlainResponse)command.execute(user).get(0)).getContent();
 
         assertEquals(1, output.size());
         assertEquals(String.format(Strings.statisticsTemplate, 0, 0, 0), output.get(0));
