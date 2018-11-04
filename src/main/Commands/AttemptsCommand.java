@@ -6,6 +6,7 @@ import main.GameLogic.Attempt;
 import main.IStateMachine;
 import main.Resources.Strings;
 import main.GameLogic.GuessResult;
+import main.Response;
 
 import java.util.ArrayList;
 
@@ -22,19 +23,19 @@ public class AttemptsCommand extends CommandBase
 	}
 	
 	@Override
-	public ArrayList<String> execute(User user, String... value)
+	public ArrayList<Response> execute(User user, String... value)
 	{
 		if (user.unfinishedGame.attempts.size() == 0)
-			return constructOutput(Strings.noAttempts);
+			return Response.compose(new Response(user.id, Strings.noAttempts));
 
-		ArrayList<String> output = new ArrayList<>();
+		Response response = new Response(user.id);
         for (Attempt attempt: user.unfinishedGame.attempts)
        	{
-        	output.add(joinGuess(attempt.getGuess()));
-			output.add(makeString(attempt.getResult()));
+        	response.addMessageToContent(joinGuess(attempt.getGuess()));
+			response.addMessageToContent(makeString(attempt.getResult()));
         }
 
-        return output;
+        return Response.compose(response);
 	}
 
 	private String joinGuess(int []guess)

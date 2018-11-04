@@ -10,6 +10,7 @@ import main.GameLogic.GameController;
 import main.GameLogic.GuessResult;
 import main.IO.StringBufferWriter;
 import main.Resources.Strings;
+import main.Response;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert;
@@ -38,10 +39,10 @@ public class TestAttemptsCommand
     @Test
     public final void testNoAttempts()
     {
-        ArrayList<String> output = command.execute(user);
-
+        ArrayList<Response> output = command.execute(user);
         Assert.assertEquals(1, output.size());
-        Assert.assertEquals(Strings.noAttempts, output.get(0));
+        Assert.assertEquals(1, output.get(0).getContent().size());
+        Assert.assertEquals(Strings.noAttempts, output.get(0).getContent().get(0));
     }
 
     @Test
@@ -52,14 +53,16 @@ public class TestAttemptsCommand
         GuessResult result = new GuessResult(0, 1);
         game.attempts.add(new Attempt(guess, result));
 
-        ArrayList<String> output = command.execute(user);
+        ArrayList<Response> output = command.execute(user);
 
-        Assert.assertEquals(2, output.size());
-        Assert.assertEquals(guessStr, output.get(0));
+        Assert.assertEquals(1, output.size());
+        Assert.assertEquals(2, output.get(0).getContent().size());
+        ArrayList<String> content = output.get(0).getContent();
+        Assert.assertEquals(guessStr, content.get(0));
 
         String expectedAttemptResult =
                 String.format(Strings.guessResultTemplate,
                 result.amountOfBulls, result.amountOfCows);
-        Assert.assertEquals(expectedAttemptResult, output.get(1));
+        Assert.assertEquals(expectedAttemptResult, content.get(1));
     }
 }

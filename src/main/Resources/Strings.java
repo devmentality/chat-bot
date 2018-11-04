@@ -42,4 +42,5 @@ public class Strings
     public static final String noAttempts = "You don't have any attempts.";
     public static final String onGameStop = "Game is stopped. Use 'continue' to go on playing";
     public static final String onGameResign = "Don't worry! Try another game:)";
+    public static final String iDontUnderstand = "I don't understand:(";
 }

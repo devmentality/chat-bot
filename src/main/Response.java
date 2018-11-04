@@ -1,21 +1,23 @@
 package main;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Response
 {
-    private int receiverId;
+    private long receiverId;
     private ArrayList<String> content;
     private ResponseType type;
 
-    public Response(int receiverId)
+    public Response(long receiverId, String... messages)
     {
         this.receiverId = receiverId;
-        this.content = new ArrayList<>();
+        this.content = new ArrayList<>(Arrays.asList(messages));
         this.type = ResponseType.PLAIN_TEXT;
     }
 
-    public int getReceiverId() {
+    public long getReceiverId() {
         return receiverId;
     }
 
@@ -24,7 +26,7 @@ public class Response
         return content;
     }
 
-    public void addLineToContent(String line)
+    public void addMessageToContent(String line)
     {
         content.add(line);
     }
@@ -35,5 +37,10 @@ public class Response
 
     public void setType(ResponseType type) {
         this.type = type;
+    }
+
+    public static ArrayList<Response> compose(Response... responses)
+    {
+        return new ArrayList<>(Arrays.asList(responses));
     }
 }

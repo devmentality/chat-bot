@@ -6,6 +6,7 @@ import main.GameLogic.Statistics;
 import main.GameLogic.StatisticsCalculator;
 import main.IStateMachine;
 import main.Resources.Strings;
+import main.Response;
 
 import java.util.ArrayList;
 
@@ -17,11 +18,11 @@ public class StatisticsCommand extends CommandBase
     }
 
     @Override
-    public ArrayList<String> execute(User user, String... value)
+    public ArrayList<Response> execute(User user, String... value)
     {
         Statistics stat = StatisticsCalculator.calculate(user.gameResults);
 
-        return constructOutput(String.format(Strings.statisticsTemplate, stat.getTotal(),
-                stat.getVictories(), stat.getLosses()));
+        return Response.compose(new Response(user.id, String.format(Strings.statisticsTemplate, stat.getTotal(),
+                stat.getVictories(), stat.getLosses())));
     }
 }

@@ -24,7 +24,7 @@ public class TestStatisticsCommand
         User user = new User();
         StatisticsCommand command = new StatisticsCommand(stateMachine, repository);
 
-        ArrayList<String> output = command.execute(user);
+        ArrayList<String> output = command.execute(user).get(0).getContent();
 
         assertEquals(1, output.size());
         assertEquals(String.format(Strings.statisticsTemplate, 0, 0, 0), output.get(0));

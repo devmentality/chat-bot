@@ -5,6 +5,7 @@ import main.Data.ConcurrentInMemoryRepo;
 import main.Data.ConcurrentNewInMemoryRepo;
 import main.Data.User;
 import main.Resources.Strings;
+import main.Response;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,11 +22,11 @@ public class TelegramBotDecorator
         chatBot = new Bot(repository);
     }
 
-    public ArrayList<String> processRequest(User user, String request)
+    public ArrayList<Response> processRequest(User user, String request)
     {
         request = validateRequest(request);
         if (request.equals("/start"))
-            return new ArrayList<>(Arrays.asList(Strings.introduction));
+            return Response.compose(new Response(user.id, Strings.introduction));
 
         return chatBot.processRequest(user, request);
     }

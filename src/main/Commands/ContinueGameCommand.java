@@ -2,8 +2,8 @@ package main.Commands;
 
 import main.Data.INewRepository;
 import main.Data.User;
+import main.Response;
 import main.States.GameIsOnState;
-import main.GameLogic.Game;
 import main.IStateMachine;
 import main.Resources.Strings;
 
@@ -17,12 +17,12 @@ public class ContinueGameCommand extends CommandBase
     }
 
     @Override
-    public ArrayList<String> execute(User user, String... value)
+    public ArrayList<Response> execute(User user, String... value)
     {
         if (user.unfinishedGame == null)
-            return constructOutput(Strings.noSavedGames);
+            return Response.compose(new Response(user.id, Strings.noSavedGames));
 
         stateMachine.changeState(new GameIsOnState(stateMachine, repository));
-        return constructOutput(Strings.continueGamePhrase);
+        return Response.compose(new Response(user.id, Strings.continueGamePhrase));
     }
 }

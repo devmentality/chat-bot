@@ -9,6 +9,7 @@ import main.GameLogic.GameResult;
 import main.GameLogic.GuessResult;
 import main.IStateMachine;
 import main.Resources.Strings;
+import main.Response;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +29,7 @@ public class GameIsOnState extends StateBase
     }
 
     @Override
-    protected ArrayList<String> handleNoncommandRequest(User user, String request)
+    protected ArrayList<Response> handleNoncommandRequest(User user, String request)
     {
         int[] guessedDigits;
         GuessResult result;
@@ -37,31 +38,32 @@ public class GameIsOnState extends StateBase
             guessedDigits = GameController.parseGuess(request);
             result = user.unfinishedGame.respondOnGuess(guessedDigits, user.unfinishedGame.digitsToGuess.length);
 
-            return respondOnGameAttempt(user, guessedDigits, result);
+            return Response.compose(respondOnGameAttempt(user, guessedDigits, result));
         }
         catch (Exception ex)
         {
-            return new ArrayList<>(Arrays.asList(
+            return Response.compose(new Response(user.id,
                     String.format(Strings.guessFormatFail, user.unfinishedGame.digitsToGuess.length)));
         }
     }
 
-    private ArrayList<String> respondOnGameAttempt(User user, int[] guessedDigits, GuessResult result)
+    private Response respondOnGameAttempt(User user, int[] guessedDigits, GuessResult result)
     {
-    	ArrayList<String> output = new ArrayList<>();
-        output.add(String.format(Strings.guessResultTemplate, result.amountOfBulls, result.amountOfCows));
+    	Response response = new Response(user.id);
+        response.addMessageToContent(
+                String.format(Strings.guessResultTemplate, result.amountOfBulls, result.amountOfCows));
         if (GameController.isVictoriousGuess(result, guessedDigits.length))
         {
-            output.add(Strings.congratulations);
+            response.addMessageToContent(Strings.congratulations);
             user.gameResults.add(new GameResult(true));
             stateMachine.changeState(new InitializedState(stateMachine, repository));
         }
         else if(GameController.isInLosingState(user.unfinishedGame))
         {
-            output.add(Strings.losePhrase);
+            response.addMessageToContent(Strings.losePhrase);
             user.gameResults.add(new GameResult(false));
             stateMachine.changeState(new InitializedState(stateMachine, repository));
         }
-        return output;
+        return response;
     }
 }

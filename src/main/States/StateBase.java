@@ -8,6 +8,8 @@ import java.util.Arrays;
 import main.Data.INewRepository;
 import main.Data.User;
 import main.IStateMachine;
+import main.Resources.Strings;
+import main.Response;
 
 public abstract class StateBase implements IState
 {
@@ -23,7 +25,7 @@ public abstract class StateBase implements IState
 
     
     @Override
-    public ArrayList<String> processRequest(User user, String request)
+    public ArrayList<Response> processRequest(User user, String request)
     {
         for(ICommand command: commands)
         {   
@@ -33,16 +35,14 @@ public abstract class StateBase implements IState
             String[] requestParts = request.split(" ");
             if (requestParts[0].equals(command.getName()))  //check command with number
             {
-                ArrayList <String> output;
                 try
                 {
-                    output = command.execute(user, requestParts[1]);
+                    return command.execute(user, requestParts[1]);
                 }
                 catch(IllegalArgumentException | ArrayIndexOutOfBoundsException e)
                 {
                     continue;
                 }
-                return output;
             }
         }
         return handleNoncommandRequest(user, request);
@@ -57,8 +57,8 @@ public abstract class StateBase implements IState
         return commandsNames;
     }
 
-    protected ArrayList<String> handleNoncommandRequest(User user, String request)
+    protected ArrayList<Response> handleNoncommandRequest(User user, String request)
     {
-        return new ArrayList<>(Arrays.asList("I don't understand:("));
+        return Response.compose(new Response(user.id, Strings.iDontUnderstand));
     }
 }

@@ -3,6 +3,7 @@ package main.Commands;
 import main.Data.IAppRepository;
 import main.Data.INewRepository;
 import main.IStateMachine;
+import main.Response;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,10 +25,5 @@ public abstract class CommandBase implements ICommand
     public String getName()
     {
         return commandName;
-    }
-
-    protected ArrayList<String> constructOutput(String... values)
-    {
-        return new ArrayList<>(Arrays.asList(values));
     }
 }

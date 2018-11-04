@@ -5,6 +5,7 @@ import main.Data.User;
 import main.GameLogic.Game;
 import main.IStateMachine;
 import main.Resources.Strings;
+import main.Response;
 import main.States.InitializedState;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,9 +18,9 @@ public class StopGameCommand extends CommandBase
     }
 
     @Override
-    public ArrayList<String> execute(User user, String... value)
+    public ArrayList<Response> execute(User user, String... value)
     {
         stateMachine.changeState(new InitializedState(stateMachine, repository));
-        return new ArrayList<>(Arrays.asList(Strings.onGameStop));
+        return Response.compose(new Response(user.id, Strings.onGameStop));
     }
 }

@@ -2,6 +2,8 @@ package main.TelegramApp;
 
 import main.Data.ConcurrentNewInMemoryRepo;
 import main.Data.User;
+import main.Response;
+import main.ResponseType;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -49,19 +51,26 @@ public class TelegramBotsManager extends TelegramLongPollingBot
             botsStorage.put(chatId, chatBot);
         }
 
-        ArrayList<String> replies = chatBot.processRequest(currentUser, message);
+        ArrayList<Response> responses = chatBot.processRequest(currentUser, message);
 
         repository.updateUser(currentUser);
-        for(String reply: replies)
-            sendMessage(update.getMessage().getChatId().toString(), reply);
+        for(Response response: responses)
+            handleResponse(response);
     }
 
-    private void sendMessage(String chatId, String s)
+    private void handleResponse(Response response)
+    {
+        if (response.getType() == ResponseType.PLAIN_TEXT)
+            for (String message: response.getContent())
+                sendMessage(response.getReceiverId(), message);
+    }
+
+    private void sendMessage(long chatId, String message)
     {
         SendMessage messageToSend = new SendMessage();
         messageToSend.enableMarkdown(true);
         messageToSend.setChatId(chatId);
-        messageToSend.setText(s);
+        messageToSend.setText(message);
         try
         {
             execute(messageToSend);

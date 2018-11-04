@@ -5,6 +5,7 @@ import main.Data.User;
 import main.GameLogic.GameResult;
 import main.IStateMachine;
 import main.Resources.Strings;
+import main.Response;
 import main.States.InitializedState;
 
 import java.util.ArrayList;
@@ -18,10 +19,10 @@ public class ResignCommand extends CommandBase
     }
 
     @Override
-    public ArrayList<String> execute(User user, String... value)
+    public ArrayList<Response> execute(User user, String... value)
     {
         user.gameResults.add(new GameResult(false));
         stateMachine.changeState(new InitializedState(stateMachine, repository));
-        return new ArrayList<>(Arrays.asList(Strings.onGameResign));
+        return Response.compose(new Response(user.id, Strings.onGameResign));
     }
 }

@@ -27,7 +27,7 @@ public class Bot implements IStateMachine
         return state;
     }
 
-    public ArrayList<String> processRequest(User user, String message)
+    public ArrayList<Response> processRequest(User user, String message)
     {
         return state.processRequest(user, message);
     }
