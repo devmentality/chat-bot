@@ -1,6 +1,8 @@
 package test.TestCommands;
 
+import main.Bot;
 import main.Commands.ResignCommand;
+import main.Data.ChallengeRepository;
 import main.Data.ConcurrentNewInMemoryRepo;
 import main.Data.InMemoryRepository;
 import main.Data.User;
@@ -17,17 +19,19 @@ import java.util.ArrayList;
 
 public class TestResignCommand
 {
-    private IStateMachine stateMachine;
+    private Bot bot;
     private ConcurrentNewInMemoryRepo repository;
+    private ChallengeRepository challengeRepository;
     private ResignCommand command;
     private User user;
 
     @Before
     public final void assign()
     {
-        stateMachine = new StateMachineMock();
         repository = new ConcurrentNewInMemoryRepo();
-        command = new ResignCommand(stateMachine, repository);
+        challengeRepository = new ChallengeRepository();
+        bot = new Bot(repository, challengeRepository);
+        command = new ResignCommand(bot, repository);
         user = new User();
         user.unfinishedGame = new Game(4);
     }
@@ -36,7 +40,7 @@ public class TestResignCommand
     public final void testSwitchesState()
     {
         command.execute(user);
-        Assert.assertTrue(stateMachine.getCurrentState() instanceof InitializedState);
+        Assert.assertTrue(bot.getCurrentState() instanceof InitializedState);
     }
 
     @Test

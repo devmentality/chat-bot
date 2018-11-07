@@ -1,5 +1,6 @@
 package main.TelegramApp;
 
+import main.Data.ChallengeRepository;
 import main.Data.ConcurrentNewInMemoryRepo;
 import main.Data.User;
 import main.PlainResponse;
@@ -21,13 +22,16 @@ public class TelegramBotsManager extends TelegramLongPollingBot
 {
     private ConcurrentHashMap<Long, TelegramBotDecorator> botsStorage;
     private ConcurrentNewInMemoryRepo repository;
+    private ChallengeRepository challengeRepository;
     private String token;
 
-    public TelegramBotsManager(String token, DefaultBotOptions options, ConcurrentNewInMemoryRepo repository)
+    public TelegramBotsManager(String token, DefaultBotOptions options,
+                               ConcurrentNewInMemoryRepo repository, ChallengeRepository challengeRepository)
     {
         super(options);
         botsStorage = new ConcurrentHashMap<>();
         this.repository = repository;
+        this.challengeRepository = challengeRepository;
         this.token = token;
     }
 
@@ -51,7 +55,7 @@ public class TelegramBotsManager extends TelegramLongPollingBot
             currentUser.id = chatId;
             repository.addUser(currentUser);
 
-            chatBot = new TelegramBotDecorator(repository);
+            chatBot = new TelegramBotDecorator(repository, challengeRepository);
             botsStorage.put(chatId, chatBot);
         }
 

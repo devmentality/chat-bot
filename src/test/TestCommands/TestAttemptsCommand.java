@@ -1,6 +1,8 @@
 package test.TestCommands;
 
+import main.Bot;
 import main.Commands.AttemptsCommand;
+import main.Data.ChallengeRepository;
 import main.Data.ConcurrentNewInMemoryRepo;
 import main.Data.InMemoryRepository;
 import main.Data.User;
@@ -20,8 +22,9 @@ import java.util.ArrayList;
 
 public class TestAttemptsCommand
 {
-    private StateMachineMock stateMachine;
+    private Bot bot;
     private ConcurrentNewInMemoryRepo repository;
+    private ChallengeRepository challengeRepository;
     private Game game;
     private AttemptsCommand command;
     private User user;
@@ -29,12 +32,14 @@ public class TestAttemptsCommand
     @Before
     public final void assignment()
     {
-        stateMachine = new StateMachineMock();
         repository = new ConcurrentNewInMemoryRepo();
+        challengeRepository = new ChallengeRepository();
+        bot = new Bot(repository, challengeRepository);
+
         game = new Game(4);
         user = new User();
         user.unfinishedGame = game;
-        command = new AttemptsCommand(stateMachine, repository);
+        command = new AttemptsCommand(bot, repository);
     }
 
     @Test

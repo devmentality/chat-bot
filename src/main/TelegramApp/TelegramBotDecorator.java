@@ -1,6 +1,7 @@
 package main.TelegramApp;
 
 import main.Bot;
+import main.Data.ChallengeRepository;
 import main.Data.ConcurrentInMemoryRepo;
 import main.Data.ConcurrentNewInMemoryRepo;
 import main.Data.User;
@@ -18,9 +19,9 @@ public class TelegramBotDecorator
      */
     private Bot chatBot;
 
-    public TelegramBotDecorator(ConcurrentNewInMemoryRepo repository)
+    public TelegramBotDecorator(ConcurrentNewInMemoryRepo repository, ChallengeRepository challengeRepository)
     {
-        chatBot = new Bot(repository);
+        chatBot = new Bot(repository, challengeRepository);
     }
 
     public ArrayList<Response> processRequest(User user, String request)

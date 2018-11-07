@@ -1,5 +1,6 @@
 package main.TelegramApp;
 
+import main.Data.ChallengeRepository;
 import main.Data.ConcurrentInMemoryRepo;
 import main.Data.ConcurrentNewInMemoryRepo;
 import org.telegram.telegrambots.ApiContextInitializer;
@@ -21,6 +22,7 @@ public class TelegramProgram
     public static void main(String[] args)
     {
         ConcurrentNewInMemoryRepo repository = new ConcurrentNewInMemoryRepo();
+        ChallengeRepository challengeRepository = new ChallengeRepository();
         BOT_TOKEN = args[0];
         PROXY_USER = args[1];
         PROXY_PASSWORD = args[2];
@@ -41,7 +43,7 @@ public class TelegramProgram
             options.setProxyHost(PROXY_HOST);
             options.setProxyPort(PROXY_PORT);
             options.setProxyType(DefaultBotOptions.ProxyType.SOCKS5);
-            botsApi.registerBot(new TelegramBotsManager(BOT_TOKEN, options, repository));
+            botsApi.registerBot(new TelegramBotsManager(BOT_TOKEN, options, repository, challengeRepository));
         }
         catch (TelegramApiException e)
         {

@@ -1,5 +1,6 @@
 package main.Commands;
 
+import main.Bot;
 import main.Data.INewRepository;
 import main.Data.User;
 import main.GameLogic.Game;
@@ -13,15 +14,15 @@ import java.util.Arrays;
 
 public class StopGameCommand extends CommandBase
 {
-    public StopGameCommand(IStateMachine stateMachine, INewRepository repository)
+    public StopGameCommand(Bot bot, INewRepository repository)
     {
-        super(stateMachine, repository, "stop");
+        super(bot, repository, "stop");
     }
 
     @Override
     public ArrayList<Response> execute(User user, String... value)
     {
-        stateMachine.changeState(new InitializedState(stateMachine, repository));
+        bot.changeState(bot.initializedState);
         return Response.compose(new PlainResponse(user.id, Strings.onGameStop));
     }
 }

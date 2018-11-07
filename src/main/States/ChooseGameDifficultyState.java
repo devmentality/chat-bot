@@ -1,5 +1,6 @@
 package main.States;
 
+import main.Bot;
 import main.Data.INewRepository;
 import main.Data.User;
 import main.GameLogic.Game;
@@ -11,9 +12,9 @@ import java.util.ArrayList;
 
 public class ChooseGameDifficultyState extends StateBase
 {
-    public ChooseGameDifficultyState(IStateMachine stateMachine, INewRepository repository)
+    public ChooseGameDifficultyState(Bot bot, INewRepository repository)
     {
-        super(stateMachine, repository);
+        super(bot, repository);
     }
 
     @Override
@@ -28,7 +29,7 @@ public class ChooseGameDifficultyState extends StateBase
             numberOfDigits = 6;
 
         user.unfinishedGame = new Game(numberOfDigits);
-        stateMachine.changeState(new GameIsOnState(stateMachine, repository));
+        bot.changeState(bot.gameIsOnState);
         return Response.compose(new PlainResponse(user.id, String.format(Strings.newGamePhrase, numberOfDigits)));
     }
 }

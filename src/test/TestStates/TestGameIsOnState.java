@@ -1,5 +1,7 @@
 package test.TestStates;
 
+import main.Bot;
+import main.Data.ChallengeRepository;
 import main.Data.ConcurrentNewInMemoryRepo;
 import main.Data.InMemoryRepository;
 import main.Data.User;
@@ -15,7 +17,7 @@ import test.mocks.StateMachineMock;
 
 public class TestGameIsOnState
 {
-    private StateMachineMock stateMachine;
+    private Bot bot;
     private GameIsOnState state;
     private ConcurrentNewInMemoryRepo repository;
     private Game game;
@@ -28,9 +30,9 @@ public class TestGameIsOnState
     {
         game = new Game(guessedDigits);
         repository = new ConcurrentNewInMemoryRepo();
-        stateMachine = new StateMachineMock();
-        state = new GameIsOnState(stateMachine, repository);
-        stateMachine.changeState(state);
+        bot = new Bot(repository, new ChallengeRepository());
+        state = new GameIsOnState(bot, repository);
+        bot.changeState(state);
         user = new User();
         user.unfinishedGame = game;
     }
@@ -40,7 +42,7 @@ public class TestGameIsOnState
     {
         state.processRequest(user, victoriousGuess);
 
-        Assert.assertTrue(stateMachine.getCurrentState() instanceof InitializedState);
+        Assert.assertTrue(bot.getCurrentState() instanceof InitializedState);
     }
 
     @Test
@@ -67,14 +69,14 @@ public class TestGameIsOnState
     public final void testSwitchesStateOnLoss()
     {
         playGame(Game.attemptsToLose - 1);
-        Assert.assertTrue(stateMachine.getCurrentState() instanceof InitializedState);
+        Assert.assertTrue(bot.getCurrentState() instanceof InitializedState);
     }
     
     @Test
     public final void testNotSwitchesStateOnLoss()
     {
     	playGame(Game.attemptsToLose - 2);
-        Assert.assertTrue(stateMachine.getCurrentState() instanceof GameIsOnState);
+        Assert.assertTrue(bot.getCurrentState() instanceof GameIsOnState);
     }
 
     @Test

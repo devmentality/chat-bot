@@ -1,5 +1,6 @@
 package main.States;
 
+import main.Bot;
 import main.Commands.ICommand;
 import main.Data.IAppRepository;
 import java.util.ArrayList;
@@ -15,12 +16,12 @@ import main.Response;
 public abstract class StateBase implements IState
 {
     protected INewRepository repository;
-    protected IStateMachine stateMachine;
+    protected Bot bot;
     protected ICommand[] commands;
 
-    public StateBase(IStateMachine stateMachine, INewRepository repository)
+    public StateBase(Bot bot, INewRepository repository)
     {
-        this.stateMachine = stateMachine;
+        this.bot = bot;
         this.repository = repository;
         this.commands = new ICommand[]{};
     }

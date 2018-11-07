@@ -1,5 +1,6 @@
 package main.Commands;
 
+import main.Bot;
 import main.Data.INewRepository;
 import main.Data.User;
 import main.GameLogic.GameResult;
@@ -14,16 +15,16 @@ import java.util.Arrays;
 
 public class ResignCommand extends CommandBase
 {
-    public ResignCommand(IStateMachine stateMachine, INewRepository repository)
+    public ResignCommand(Bot bot, INewRepository repository)
     {
-        super(stateMachine, repository, "resign");
+        super(bot, repository, "resign");
     }
 
     @Override
     public ArrayList<Response> execute(User user, String... value)
     {
         user.gameResults.add(new GameResult(false));
-        stateMachine.changeState(new InitializedState(stateMachine, repository));
+        bot.changeState(bot.initializedState);
         return Response.compose(new PlainResponse(user.id, Strings.onGameResign));
     }
 }

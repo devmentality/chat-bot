@@ -1,6 +1,8 @@
 package test.TestCommands;
 
+import main.Bot;
 import main.Commands.StopGameCommand;
+import main.Data.ChallengeRepository;
 import main.Data.ConcurrentNewInMemoryRepo;
 import main.Data.InMemoryRepository;
 import main.Data.User;
@@ -14,17 +16,20 @@ import test.mocks.StateMachineMock;
 
 public class TestStopCommand
 {
-    private IStateMachine stateMachine;
+    private Bot bot;
     private ConcurrentNewInMemoryRepo repository;
+    private ChallengeRepository challengeRepository;
     private StopGameCommand command;
     private User user;
 
     @Before
     public final void assign()
     {
-        stateMachine = new StateMachineMock();
         repository = new ConcurrentNewInMemoryRepo();
-        command = new StopGameCommand(stateMachine, repository);
+        challengeRepository = new ChallengeRepository();
+        bot = new Bot(repository, challengeRepository);
+        user = new User();
+        command = new StopGameCommand(bot, repository);
     }
 
     @Test
@@ -32,6 +37,6 @@ public class TestStopCommand
     {
         command.execute(user);
 
-        Assert.assertTrue(stateMachine.getCurrentState() instanceof InitializedState);
+        Assert.assertTrue(bot.getCurrentState() instanceof InitializedState);
     }
 }

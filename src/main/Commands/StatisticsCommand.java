@@ -1,5 +1,6 @@
 package main.Commands;
 
+import main.Bot;
 import main.Data.INewRepository;
 import main.Data.User;
 import main.GameLogic.Statistics;
@@ -13,9 +14,9 @@ import java.util.ArrayList;
 
 public class StatisticsCommand extends CommandBase
 {
-    public StatisticsCommand(IStateMachine stateMachine, INewRepository repository)
+    public StatisticsCommand(Bot bot, INewRepository repository)
     {
-        super(stateMachine, repository, "stat");
+        super(bot, repository, "stat");
     }
 
     @Override

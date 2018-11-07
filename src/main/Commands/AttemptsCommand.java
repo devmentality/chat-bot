@@ -1,5 +1,6 @@
 package main.Commands;
 
+import main.Bot;
 import main.Data.INewRepository;
 import main.Data.User;
 import main.GameLogic.Attempt;
@@ -13,9 +14,9 @@ import java.util.ArrayList;
 
 public class AttemptsCommand extends CommandBase 
 {
-	public AttemptsCommand(IStateMachine stateMachine, INewRepository repository)
+	public AttemptsCommand(Bot bot, INewRepository repository)
 	{
-		super(stateMachine, repository, "attempts");
+		super(bot, repository, "attempts");
 	}
 
 	private String makeString(GuessResult result)

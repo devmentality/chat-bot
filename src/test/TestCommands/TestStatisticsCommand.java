@@ -1,6 +1,8 @@
 package test.TestCommands;
 
+import main.Bot;
 import main.Commands.StatisticsCommand;
+import main.Data.ChallengeRepository;
 import main.Data.ConcurrentNewInMemoryRepo;
 import main.Data.InMemoryRepository;
 import main.Data.User;
@@ -19,11 +21,12 @@ public class TestStatisticsCommand
     @Test
     public final void testCorrectStatisticsFormat()
     {
-        StateMachineMock stateMachine = new StateMachineMock();
-        StringBufferWriter writer = new StringBufferWriter();
         ConcurrentNewInMemoryRepo repository = new ConcurrentNewInMemoryRepo();
+        ChallengeRepository challengeRepository = new ChallengeRepository();
+
+        Bot bot = new Bot(repository, challengeRepository);
         User user = new User();
-        StatisticsCommand command = new StatisticsCommand(stateMachine, repository);
+        StatisticsCommand command = new StatisticsCommand(bot, repository);
 
         ArrayList<String> output = ((PlainResponse)command.execute(user).get(0)).getContent();
 

@@ -1,5 +1,6 @@
 package main.Commands;
 
+import main.Bot;
 import main.Data.INewRepository;
 import main.Data.User;
 import main.IStateMachine;
@@ -11,9 +12,9 @@ import java.util.ArrayList;
 
 public class HelpCommand extends CommandBase
 {
-    public HelpCommand(IStateMachine stateMachine, INewRepository repository)
+    public HelpCommand(Bot bot, INewRepository repository)
     {
-        super(stateMachine, repository,"help");
+        super(bot, repository,"help");
     }
 
     @Override

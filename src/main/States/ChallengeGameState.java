@@ -1,31 +1,21 @@
 package main.States;
 
 import main.Bot;
-import main.Commands.*;
 import main.Data.INewRepository;
 import main.Data.User;
-import main.GameLogic.Game;
 import main.GameLogic.GameController;
 import main.GameLogic.GameResult;
 import main.GameLogic.GuessResult;
-import main.IStateMachine;
 import main.PlainResponse;
 import main.Resources.Strings;
 import main.Response;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class GameIsOnState extends StateBase
+public class ChallengeGameState extends StateBase
 {
-    public GameIsOnState(Bot bot, INewRepository repository)
+    public ChallengeGameState(Bot bot, INewRepository repository)
     {
         super(bot, repository);
-        commands = new ICommand[]
-        {
-                new ResignCommand(bot, repository),
-                new AttemptsCommand(bot, repository)
-        };
     }
 
     @Override
@@ -38,7 +28,7 @@ public class GameIsOnState extends StateBase
             guessedDigits = GameController.parseGuess(request);
             result = user.unfinishedGame.respondOnGuess(guessedDigits, user.unfinishedGame.digitsToGuess.length);
 
-            return Response.compose(respondOnGameAttempt(user, guessedDigits, result));
+            return respondOnGameAttempt(user, guessedDigits, result);
         }
         catch (Exception ex)
         {
@@ -47,23 +37,30 @@ public class GameIsOnState extends StateBase
         }
     }
 
-    private Response respondOnGameAttempt(User user, int[] guessedDigits, GuessResult result)
+    private ArrayList<Response> respondOnGameAttempt(User user, int[] guessedDigits, GuessResult result)
     {
-        PlainResponse response = new PlainResponse(user.id);
-        response.addMessageToContent(
+        PlainResponse responseToPlayer = new PlainResponse(user.id);
+        PlainResponse responseToCreator = new PlainResponse(user.challengeDescription.creatorId);
+        responseToPlayer.addMessageToContent(
                 String.format(Strings.guessResultTemplate, result.amountOfBulls, result.amountOfCows));
         if (GameController.isVictoriousGuess(result, guessedDigits.length))
         {
-            response.addMessageToContent(Strings.congratulations);
+            responseToPlayer.addMessageToContent(Strings.congratulations);
             user.gameResults.add(new GameResult(true));
+
+            responseToCreator.addMessageToContent("Your challenge was successfully passed");
+
             bot.changeState(bot.initializedState);
         }
         else if(GameController.isInLosingState(user.unfinishedGame))
         {
-            response.addMessageToContent(Strings.losePhrase);
+            responseToPlayer.addMessageToContent(Strings.losePhrase);
             user.gameResults.add(new GameResult(false));
+
+            responseToCreator.addMessageToContent("Your challenge was not passed");
+
             bot.changeState(bot.initializedState);
         }
-        return response;
+        return Response.compose(responseToCreator, responseToPlayer);
     }
 }

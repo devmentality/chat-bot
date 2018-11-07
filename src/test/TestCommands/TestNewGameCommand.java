@@ -1,6 +1,8 @@
 package test.TestCommands;
 
+import main.Bot;
 import main.Commands.NewGameCommand;
+import main.Data.ChallengeRepository;
 import main.Data.ConcurrentNewInMemoryRepo;
 import main.Data.InMemoryRepository;
 import main.Data.User;
@@ -13,23 +15,27 @@ import test.mocks.StateMachineMock;
 
 public class TestNewGameCommand
 {
-    private IStateMachine stateMachine;
+    private Bot bot;
+    private ConcurrentNewInMemoryRepo repository;
+    private ChallengeRepository challengeRepository;
     private NewGameCommand command;
     private User user;
 
     @Before
     public final void arrange()
     {
-        stateMachine = new StateMachineMock();
+        repository = new ConcurrentNewInMemoryRepo();
+        challengeRepository = new ChallengeRepository();
+        bot = new Bot(repository, challengeRepository);
         user = new User();
-        command = new NewGameCommand(stateMachine, new ConcurrentNewInMemoryRepo());
+        command = new NewGameCommand(bot, repository);
     }
 
     @Test
     public final void testSwitchesState()
     {
         command.execute(user, "4");
-        Assert.assertTrue(stateMachine.getCurrentState() instanceof GameIsOnState);
+        Assert.assertTrue(bot.getCurrentState() instanceof GameIsOnState);
     }
 
     @Test(expected = NumberFormatException.class)

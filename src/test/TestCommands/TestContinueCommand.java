@@ -1,6 +1,8 @@
 package test.TestCommands;
 
+import main.Bot;
 import main.Commands.ContinueGameCommand;
+import main.Data.ChallengeRepository;
 import main.Data.ConcurrentNewInMemoryRepo;
 import main.Data.InMemoryRepository;
 import main.Data.User;
@@ -17,19 +19,21 @@ import java.util.ArrayList;
 
 public class TestContinueCommand
 {
-    private IStateMachine stateMachine;
+    private Bot bot;
     private ConcurrentNewInMemoryRepo repository;
+    private ChallengeRepository challengeRepository;
     private ContinueGameCommand command;
     private User user;
 
     @Before
     public final void assign()
     {
-        stateMachine = new StateMachineMock();
         repository = new ConcurrentNewInMemoryRepo();
+        challengeRepository = new ChallengeRepository();
+        bot = new Bot(repository, challengeRepository);
         user = new User();
         user.unfinishedGame = new Game(4);
-        command = new ContinueGameCommand(stateMachine, repository);
+        command = new ContinueGameCommand(bot, repository);
     }
 
     @Test
@@ -53,6 +57,6 @@ public class TestContinueCommand
     public final void testSwitchesState()
     {
         command.execute(user);
-        Assert.assertTrue(stateMachine.getCurrentState() instanceof GameIsOnState);
+        Assert.assertTrue(bot.getCurrentState() instanceof GameIsOnState);
     }
 }

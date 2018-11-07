@@ -11,6 +11,7 @@ public class User implements Cloneable
     public String username;
     public Game unfinishedGame;
     public ArrayList<GameResult> gameResults;
+    public ChallengeDescription challengeDescription;
 
     public User()
     {
