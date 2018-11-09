@@ -1,14 +1,8 @@
 package test.BotTest;
 
 import main.Bot;
-import main.Data.ConcurrentNewInMemoryRepo;
-import main.Data.IAppRepository;
 import main.Data.INewRepository;
-import main.Data.InMemoryRepository;
-import main.Resources.Strings;
-import org.junit.Test;
-import org.junit.Assert;
-import java.util.ArrayList;
+
 
 public class BotTest
 {

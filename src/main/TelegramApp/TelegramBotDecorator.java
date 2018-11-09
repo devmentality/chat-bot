@@ -2,7 +2,6 @@ package main.TelegramApp;
 
 import main.Bot;
 import main.Data.ChallengeRepository;
-import main.Data.ConcurrentInMemoryRepo;
 import main.Data.ConcurrentNewInMemoryRepo;
 import main.Data.User;
 import main.PlainResponse;
@@ -10,7 +9,6 @@ import main.Resources.Strings;
 import main.Response;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class TelegramBotDecorator
 {

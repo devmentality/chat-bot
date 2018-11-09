@@ -1,7 +1,6 @@
 package main.TelegramApp;
 
 import main.Data.ChallengeRepository;
-import main.Data.ConcurrentInMemoryRepo;
 import main.Data.ConcurrentNewInMemoryRepo;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
