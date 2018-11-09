@@ -1,6 +1,6 @@
 package main.Data;
 
-public class ChallengeDescription
+public class ChallengeDescription implements Cloneable
 {
     public long creatorId;
     public int points;
@@ -9,6 +9,12 @@ public class ChallengeDescription
     {
         this.creatorId = creatorId;
         this.points = points;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException
+    {
+        return  super.clone();
     }
 }
 

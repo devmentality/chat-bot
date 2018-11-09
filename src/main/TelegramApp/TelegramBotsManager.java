@@ -42,24 +42,25 @@ public class TelegramBotsManager extends TelegramLongPollingBot
         System.out.println("LOG: " + message);
 
         Long chatId = update.getMessage().getChatId();
-        TelegramBotDecorator chatBot;
+        TelegramBotDecorator currentChatBot;
         User currentUser;
         try
         {
             currentUser = repository.getUser(chatId);
-            chatBot = botsStorage.get(chatId);
+            currentChatBot = botsStorage.get(chatId);
         }
         catch (Exception ex)
         {
             currentUser = new User();
             currentUser.id = chatId;
-            repository.addUser(currentUser);
+            currentUser.username = update.getMessage().getContact().getFirstName();
 
-            chatBot = new TelegramBotDecorator(repository, challengeRepository);
-            botsStorage.put(chatId, chatBot);
+            repository.addUser(currentUser);
+            currentChatBot = new TelegramBotDecorator(repository, challengeRepository);
+            botsStorage.put(chatId, currentChatBot);
         }
 
-        ArrayList<Response> responses = chatBot.processRequest(currentUser, message);
+        ArrayList<Response> responses = currentChatBot.processRequest(currentUser, message);
 
         repository.updateUser(currentUser);
         for(Response response: responses)
@@ -72,10 +73,9 @@ public class TelegramBotsManager extends TelegramLongPollingBot
             for (String message: ((PlainResponse)response).getContent())
                 sendPlainMessage(response.getReceiverId(), message);
         else if (response instanceof SelectorResponse)
-        {
             sendKeyboardMarkup((SelectorResponse)response);
-        }
     }
+
 
     private void sendPlainMessage(long chatId, String message)
     {
@@ -83,23 +83,24 @@ public class TelegramBotsManager extends TelegramLongPollingBot
         messageToSend.enableMarkdown(true);
         messageToSend.setChatId(chatId);
         messageToSend.setText(message);
-        try
-        {
-            execute(messageToSend);
-        }
-        catch (TelegramApiException e)
-        {
-            System.out.println("Exception: " + e.toString());
-        }
+
+        sendMessage(messageToSend);
     }
 
     private void sendKeyboardMarkup(SelectorResponse response)
     {
-        System.out.println("keyboard");
         SendMessage messageToSend = new SendMessage();
         messageToSend.enableMarkdown(true);
         messageToSend.setText(response.getPreamble());
         messageToSend.setChatId(response.getReceiverId());
+
+        messageToSend.setReplyMarkup(setupKeyboardMarkup(response));
+
+        sendMessage(messageToSend);
+    }
+
+    private ReplyKeyboardMarkup setupKeyboardMarkup(SelectorResponse response)
+    {
         ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
         keyboardMarkup.setSelective(true);
         keyboardMarkup.setResizeKeyboard(true);
@@ -114,11 +115,15 @@ public class TelegramBotsManager extends TelegramLongPollingBot
         }
 
         keyboardMarkup.setKeyboard(rows);
-        messageToSend.setReplyMarkup(keyboardMarkup);
+        return keyboardMarkup;
+    }
 
+
+    private void sendMessage(SendMessage message)
+    {
         try
         {
-            execute(messageToSend);
+            execute(message);
         }
         catch (TelegramApiException e)
         {

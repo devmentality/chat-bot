@@ -5,10 +5,11 @@ import main.GameLogic.GameResult;
 
 import java.util.ArrayList;
 
-public class User implements Cloneable
+public class User implements Cloneable, Comparable<User>
 {
     public long id;
     public String username;
+    public int points;
     public Game unfinishedGame;
     public ArrayList<GameResult> gameResults;
     public ChallengeDescription challengeDescription;
@@ -30,11 +31,18 @@ public class User implements Cloneable
             for (GameResult result: gameResults)
                 clonedResults.add((GameResult)result.clone());
             clone.gameResults = clonedResults;
+            clone.challengeDescription = (ChallengeDescription) challengeDescription.clone();
             return clone;
         }
         catch (CloneNotSupportedException ex)
         {
             return null;
         }
+    }
+
+    @Override
+    public int compareTo(User other)
+    {
+        return Integer.compare(points, other.points);
     }
 }
