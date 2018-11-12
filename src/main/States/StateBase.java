@@ -2,13 +2,11 @@ package main.States;
 
 import main.Bot;
 import main.Commands.ICommand;
-import main.Data.IAppRepository;
-import java.util.ArrayList;
-import java.util.Arrays;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import main.Data.INewRepository;
 import main.Data.User;
-import main.IStateMachine;
 import main.PlainResponse;
 import main.Resources.Strings;
 import main.Response;
@@ -31,22 +29,15 @@ public abstract class StateBase implements IState
     public ArrayList<Response> processRequest(User user, String request)
     {
         for(ICommand command: commands)
-        {   
-            if (request.equals(command.getName()))
-                return command.execute(user);
-            
+        {
             String[] requestParts = request.split(" ");
-            if (requestParts[0].equals(command.getName()))  //check command with number
-            {
-                try
-                {
-                    return command.execute(user, requestParts[1]);
-                }
-                catch(IllegalArgumentException | ArrayIndexOutOfBoundsException e)
-                {
-                    continue;
-                }
-            }
+            String commandName = requestParts[0];
+            String[] args = new String[requestParts.length - 1];
+            for(int i = 1; i < requestParts.length; i++)
+                args[i] = requestParts[i];
+
+            if (commandName.equals(command.getName()) && command.getAmountOfArgs() == args.length)
+                return command.execute(user, args);
         }
         return handleNoncommandRequest(user, request);
     }

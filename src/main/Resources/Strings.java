@@ -15,15 +15,6 @@ public class Strings
         "attempts - get all attempts in current game (only during playing)\n" +
         "resign - admit loss (only during playing)\n";
 
-
-    public static final String startMessage = "Hi, I'm bot. Send 'start' to start dialog";
-
-    public static final String greetingNewUser = "Nice to meet you, %s";
-    public static final String greetingOldUser = "Yeah, my old friend, %s";
-    public static final String nameRequest = "What is your name?";
-    public static final String goodbye = "Goodbye!";
-
-    public static final String startRequest = "Send 'start' to start dialog.";
     public static final String introduction =
             "Now you are ready for playing.\n" +
             "Send 'help' to get to know how to use me.";
@@ -43,4 +34,16 @@ public class Strings
     public static final String onGameStop = "Game is stopped. Use 'continue' to go on playing";
     public static final String onGameResign = "Don't worry! Try another game:)";
     public static final String iDontUnderstand = "I don't understand:(";
+
+    public static final String challengeCreated = "Challenge successfully created";
+    public static final String alreadyHaveChallenge = "You already have a challenge";
+    public static final String noSuchMode = "There is no such mode";
+
+    public static final String yourChallengePassed = "Your challenge was successfully passed";
+    public static final String yourChallengeNotPassed = "Your challenge was not passed";
+    public static final String yourChallengeAccepted = "Your challenge was accepted";
+
+    public static final String challengeSelectorPreamble = "Choose challenge:";
+    public static final String challengeDescriptionsPreamble = "Available challenges:";
+    public static final String difficutySelectorPreamble = "Choose difficulty";
 }

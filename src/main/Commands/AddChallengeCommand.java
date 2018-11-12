@@ -8,6 +8,7 @@ import main.Data.User;
 import main.GameLogic.Game;
 import main.IStateMachine;
 import main.PlainResponse;
+import main.Resources.Strings;
 import main.Response;
 
 import java.util.ArrayList;
@@ -26,15 +27,12 @@ public class AddChallengeCommand extends CommandBase
     @Override
     public ArrayList<Response> execute(User user, String... args)
     {
-        try
+        if (!challengeRepository.hasChallenge(user.id))
         {
             challengeRepository.addChallenge(user.id, new Challenge(user.id, new Game(4),0));
+            return Response.compose(new PlainResponse(user.id, Strings.challengeCreated));
         }
-        catch (Exception ex)
-        {
-            return Response.compose(new PlainResponse(user.id, "You already have a challenge"));
-        }
-
-        return Response.compose(new PlainResponse(user.id, "Challenge successfully created"));
+        else
+            return Response.compose(new PlainResponse(user.id, Strings.alreadyHaveChallenge));
     }
 }

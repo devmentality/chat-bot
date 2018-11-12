@@ -23,7 +23,13 @@ public class ResignCommand extends CommandBase
     @Override
     public ArrayList<Response> execute(User user, String... value)
     {
+        if (user.unfinishedGame == null)
+            return Response.compose(new PlainResponse(user.id, Strings.noSavedGames));
+
+        user.unfinishedGame = null;
         user.gameResults.add(new GameResult(false));
+
+        repository.updateUser(user);
         bot.changeState(bot.initializedState);
         return Response.compose(new PlainResponse(user.id, Strings.onGameResign));
     }

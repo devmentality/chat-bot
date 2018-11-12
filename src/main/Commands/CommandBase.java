@@ -1,13 +1,7 @@
 package main.Commands;
 
 import main.Bot;
-import main.Data.IAppRepository;
 import main.Data.INewRepository;
-import main.IStateMachine;
-import main.Response;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public abstract class CommandBase implements ICommand
 {
@@ -26,5 +20,11 @@ public abstract class CommandBase implements ICommand
     public String getName()
     {
         return commandName;
+    }
+
+    @Override
+    public int getAmountOfArgs()
+    {
+        return 0;
     }
 }

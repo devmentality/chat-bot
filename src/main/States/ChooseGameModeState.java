@@ -7,6 +7,7 @@ import main.Data.INewRepository;
 import main.Data.User;
 import main.Resources.Strings;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ChooseGameModeState extends StateBase
@@ -24,7 +25,7 @@ public class ChooseGameModeState extends StateBase
     {
         if (query.equals("classic"))
         {
-            SelectorResponse difficultySelector = new SelectorResponse(user.id, "Choose difficulty");
+            SelectorResponse difficultySelector = new SelectorResponse(user.id, Strings.difficutySelectorPreamble);
             difficultySelector.addOption("easy");
             difficultySelector.addOption("medium");
             difficultySelector.addOption("hard");
@@ -32,22 +33,40 @@ public class ChooseGameModeState extends StateBase
             bot.changeState(bot.chooseGameDifficultyState);
             return Response.compose(difficultySelector);
         }
-        else if (query.equals("challenge")) {
-            PlainResponse challengeDescriptions = new PlainResponse(user.id);
-            challengeDescriptions.addMessageToContent("Available challenges");
+        else if (query.equals("challenge"))
+        {
+            ArrayList<ChallengeDescription> allDescriptions = challengeRepository.allChallengesDescriptions();
 
-            SelectorResponse challengeSelector = new SelectorResponse(user.id, "Choose challenge:");
-            for (ChallengeDescription challengeDescription : challengeRepository.allChallengesDescriptions())
-            {
-                challengeSelector.addOption(String.format("%d", challengeDescription.creatorId));
-                challengeDescriptions.addMessageToContent(
-                        String.format("%d Default challenge", challengeDescription.creatorId));
-            }
-            challengeSelector.addOption("decline");
+            SelectorResponse challengeSelector = constructChallengeSelector(user, allDescriptions);
+            PlainResponse challengeDescriptions = constructChallengeDescriptions(user, allDescriptions);
+
             bot.changeState(bot.chooseChallengeState);
             return Response.compose(challengeDescriptions, challengeSelector);
         }
         bot.changeState(bot.initializedState);
         return Response.compose(new PlainResponse(user.id, Strings.iDontUnderstand));
+    }
+
+    private SelectorResponse constructChallengeSelector(User user, ArrayList<ChallengeDescription> allChallenges)
+    {
+        SelectorResponse challengeSelector = new SelectorResponse(user.id, Strings.challengeSelectorPreamble);
+
+        for (ChallengeDescription challengeDescription : allChallenges)
+            challengeSelector.addOption(String.format("%d", challengeDescription.creatorId));
+
+        challengeSelector.addOption("decline");
+        return challengeSelector;
+    }
+
+    private PlainResponse constructChallengeDescriptions(User user, ArrayList<ChallengeDescription> allChallenges)
+    {
+        PlainResponse challengeDescriptions = new PlainResponse(user.id);
+        challengeDescriptions.addMessageToContent(Strings.challengeDescriptionsPreamble);
+
+        for (ChallengeDescription challengeDescription : allChallenges)
+            challengeDescriptions.addMessageToContent(
+                    String.format("%d points %d", challengeDescription.creatorId, challengeDescription.points));
+
+        return challengeDescriptions;
     }
 }

@@ -4,16 +4,13 @@ import main.Bot;
 import main.Commands.ResignCommand;
 import main.Data.ChallengeRepository;
 import main.Data.ConcurrentNewInMemoryRepo;
-import main.Data.InMemoryRepository;
 import main.Data.User;
 import main.GameLogic.Game;
 import main.GameLogic.GameResult;
-import main.IStateMachine;
 import main.States.InitializedState;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert;
-import test.mocks.StateMachineMock;
 
 import java.util.ArrayList;
 
@@ -34,6 +31,8 @@ public class TestResignCommand
         command = new ResignCommand(bot, repository);
         user = new User();
         user.unfinishedGame = new Game(4);
+
+        repository.addUser(user);
     }
 
     @Test

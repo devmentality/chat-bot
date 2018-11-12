@@ -25,10 +25,14 @@ public class ChooseGameDifficultyState extends StateBase
             numberOfDigits = 2;
         else if (request.equals("medium"))
             numberOfDigits = 4;
-        else
+        else if (request.equals("hard"))
             numberOfDigits = 6;
+        else
+            return Response.compose(new PlainResponse(user.id, Strings.noSuchMode));
 
         user.unfinishedGame = new Game(numberOfDigits);
+        repository.updateUser(user);
+
         bot.changeState(bot.gameIsOnState);
         return Response.compose(new PlainResponse(user.id, String.format(Strings.newGamePhrase, numberOfDigits)));
     }

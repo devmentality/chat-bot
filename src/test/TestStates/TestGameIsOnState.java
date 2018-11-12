@@ -3,7 +3,6 @@ package test.TestStates;
 import main.Bot;
 import main.Data.ChallengeRepository;
 import main.Data.ConcurrentNewInMemoryRepo;
-import main.Data.InMemoryRepository;
 import main.Data.User;
 import main.GameLogic.Attempt;
 import main.GameLogic.Game;
@@ -13,7 +12,6 @@ import main.States.InitializedState;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import test.mocks.StateMachineMock;
 
 public class TestGameIsOnState
 {

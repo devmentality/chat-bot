@@ -4,20 +4,15 @@ import main.Bot;
 import main.Commands.AttemptsCommand;
 import main.Data.ChallengeRepository;
 import main.Data.ConcurrentNewInMemoryRepo;
-import main.Data.InMemoryRepository;
 import main.Data.User;
 import main.GameLogic.Attempt;
 import main.GameLogic.Game;
-import main.GameLogic.GameController;
 import main.GameLogic.GuessResult;
-import main.IO.StringBufferWriter;
 import main.PlainResponse;
 import main.Resources.Strings;
-import main.Response;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert;
-import test.mocks.StateMachineMock;
 import java.util.ArrayList;
 
 public class TestAttemptsCommand

@@ -5,7 +5,6 @@ import main.Data.ConcurrentNewInMemoryRepo;
 import main.Data.User;
 import main.PlainResponse;
 import main.Response;
-import main.ResponseType;
 import main.SelectorResponse;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -53,8 +52,8 @@ public class TelegramBotsManager extends TelegramLongPollingBot
         {
             currentUser = new User();
             currentUser.id = chatId;
-            currentUser.username = update.getMessage().getContact().getFirstName();
-
+            currentUser.username = update.getMessage().getFrom().getFirstName();
+            System.out.println(currentUser.username);
             repository.addUser(currentUser);
             currentChatBot = new TelegramBotDecorator(repository, challengeRepository);
             botsStorage.put(chatId, currentChatBot);
@@ -62,7 +61,6 @@ public class TelegramBotsManager extends TelegramLongPollingBot
 
         ArrayList<Response> responses = currentChatBot.processRequest(currentUser, message);
 
-        repository.updateUser(currentUser);
         for(Response response: responses)
             handleResponse(response);
     }
@@ -93,7 +91,6 @@ public class TelegramBotsManager extends TelegramLongPollingBot
         messageToSend.enableMarkdown(true);
         messageToSend.setText(response.getPreamble());
         messageToSend.setChatId(response.getReceiverId());
-
         messageToSend.setReplyMarkup(setupKeyboardMarkup(response));
 
         sendMessage(messageToSend);

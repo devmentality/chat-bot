@@ -14,6 +14,10 @@ import java.util.ArrayList;
 
 public class NewGameCommand extends CommandBase
 {
+    /*
+        Outdated
+        refactor or remove
+     */
     public NewGameCommand(Bot bot, INewRepository repository)
     {
         super(bot, repository, "newgame");

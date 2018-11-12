@@ -9,4 +9,5 @@ public interface ICommand
 {
     ArrayList<Response> execute(User user, String... value);
     String getName();
+    int getAmountOfArgs();
 }

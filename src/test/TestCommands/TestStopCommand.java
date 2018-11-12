@@ -4,15 +4,11 @@ import main.Bot;
 import main.Commands.StopGameCommand;
 import main.Data.ChallengeRepository;
 import main.Data.ConcurrentNewInMemoryRepo;
-import main.Data.InMemoryRepository;
 import main.Data.User;
-import main.GameLogic.Game;
-import main.IStateMachine;
 import main.States.InitializedState;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert;
-import test.mocks.StateMachineMock;
 
 public class TestStopCommand
 {

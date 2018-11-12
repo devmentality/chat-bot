@@ -22,12 +22,21 @@ public class GetRatingCommand extends CommandBase
         final int top = 10;
         PlainResponse ratingResponse = new PlainResponse(user.id);
         ArrayList<User> users = repository.getAll();
-        Collections.sort(users, Collections.reverseOrder());
-        for(int i = 0; i < top; i++)
+        ArrayList<User> rating = getTop(top, users);
+        for(int i = 0; i < rating.size(); i++)
             ratingResponse.addMessageToContent(
                     String.format(
                             "%d place %s with %d points",
                             i + 1, users.get(i).username, users.get(i).points));
         return Response.compose(ratingResponse);
+    }
+
+    public ArrayList<User> getTop(int top, ArrayList<User> users)
+    {
+        ArrayList<User> rating = new ArrayList<>();
+        Collections.sort(users, Collections.reverseOrder());
+        for(int i = 0; i < Math.min(top, users.size()); i++)
+            rating.add(users.get(i));
+        return rating;
     }
 }

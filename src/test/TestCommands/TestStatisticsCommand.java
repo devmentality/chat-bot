@@ -4,13 +4,10 @@ import main.Bot;
 import main.Commands.StatisticsCommand;
 import main.Data.ChallengeRepository;
 import main.Data.ConcurrentNewInMemoryRepo;
-import main.Data.InMemoryRepository;
 import main.Data.User;
-import main.IO.StringBufferWriter;
 import main.PlainResponse;
 import main.Resources.Strings;
 import org.junit.Test;
-import test.mocks.StateMachineMock;
 
 import java.util.ArrayList;
 

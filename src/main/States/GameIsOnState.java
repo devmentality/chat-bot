@@ -4,17 +4,13 @@ import main.Bot;
 import main.Commands.*;
 import main.Data.INewRepository;
 import main.Data.User;
-import main.GameLogic.Game;
 import main.GameLogic.GameController;
 import main.GameLogic.GameResult;
 import main.GameLogic.GuessResult;
-import main.IStateMachine;
 import main.PlainResponse;
 import main.Resources.Strings;
 import main.Response;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class GameIsOnState extends StateBase
 {
@@ -64,6 +60,7 @@ public class GameIsOnState extends StateBase
             user.gameResults.add(new GameResult(false));
             bot.changeState(bot.initializedState);
         }
+        repository.updateUser(user);
         return response;
     }
 }

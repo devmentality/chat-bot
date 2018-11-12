@@ -4,17 +4,14 @@ import main.Bot;
 import main.Commands.ContinueGameCommand;
 import main.Data.ChallengeRepository;
 import main.Data.ConcurrentNewInMemoryRepo;
-import main.Data.InMemoryRepository;
 import main.Data.User;
 import main.GameLogic.Game;
-import main.IStateMachine;
 import main.PlainResponse;
 import main.Resources.Strings;
 import main.States.GameIsOnState;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert;
-import test.mocks.StateMachineMock;
 import java.util.ArrayList;
 
 public class TestContinueCommand

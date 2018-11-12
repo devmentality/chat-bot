@@ -47,8 +47,8 @@ public class ChallengeGameState extends StateBase
         {
             responseToPlayer.addMessageToContent(Strings.congratulations);
             user.gameResults.add(new GameResult(true));
-
-            responseToCreator.addMessageToContent("Your challenge was successfully passed");
+            user.unfinishedGame = null;
+            responseToCreator.addMessageToContent(Strings.yourChallengePassed);
 
             bot.changeState(bot.initializedState);
         }
@@ -56,11 +56,12 @@ public class ChallengeGameState extends StateBase
         {
             responseToPlayer.addMessageToContent(Strings.losePhrase);
             user.gameResults.add(new GameResult(false));
-
-            responseToCreator.addMessageToContent("Your challenge was not passed");
+            user.unfinishedGame = null;
+            responseToCreator.addMessageToContent(Strings.yourChallengeNotPassed);
 
             bot.changeState(bot.initializedState);
         }
+        repository.updateUser(user);
         return Response.compose(responseToCreator, responseToPlayer);
     }
 }

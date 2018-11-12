@@ -31,7 +31,8 @@ public class User implements Cloneable, Comparable<User>
             for (GameResult result: gameResults)
                 clonedResults.add((GameResult)result.clone());
             clone.gameResults = clonedResults;
-            clone.challengeDescription = (ChallengeDescription) challengeDescription.clone();
+            if (challengeDescription != null)
+                clone.challengeDescription = (ChallengeDescription) challengeDescription.clone();
             return clone;
         }
         catch (CloneNotSupportedException ex)
