@@ -11,6 +11,7 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
@@ -20,6 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class TelegramBotsManager extends TelegramLongPollingBot
 {
     private ConcurrentHashMap<Long, TelegramBotDecorator> botsStorage;
+    private ConcurrentHashMap<Long, Boolean> removeKeyboardFor;
     private ConcurrentNewInMemoryRepo repository;
     private ChallengeRepository challengeRepository;
     private String token;
@@ -29,6 +31,7 @@ public class TelegramBotsManager extends TelegramLongPollingBot
     {
         super(options);
         botsStorage = new ConcurrentHashMap<>();
+        removeKeyboardFor = new ConcurrentHashMap<>();
         this.repository = repository;
         this.challengeRepository = challengeRepository;
         this.token = token;
@@ -39,7 +42,6 @@ public class TelegramBotsManager extends TelegramLongPollingBot
     {
         String message = update.getMessage().getText();
         System.out.println("LOG: " + message);
-
         Long chatId = update.getMessage().getChatId();
         TelegramBotDecorator currentChatBot;
         User currentUser;
@@ -71,9 +73,8 @@ public class TelegramBotsManager extends TelegramLongPollingBot
             for (String message: ((PlainResponse)response).getContent())
                 sendPlainMessage(response.getReceiverId(), message);
         else if (response instanceof SelectorResponse)
-            sendKeyboardMarkup((SelectorResponse)response);
+            sendSelectorMessage((SelectorResponse)response);
     }
-
 
     private void sendPlainMessage(long chatId, String message)
     {
@@ -82,26 +83,31 @@ public class TelegramBotsManager extends TelegramLongPollingBot
         messageToSend.setChatId(chatId);
         messageToSend.setText(message);
 
+        Boolean shouldRemoveKeyboard = removeKeyboardFor.get(chatId);
+        if (shouldRemoveKeyboard != null && shouldRemoveKeyboard)
+            attachRemovingKeyboard(chatId, messageToSend);
+
         sendMessage(messageToSend);
     }
 
-    private void sendKeyboardMarkup(SelectorResponse response)
+    private void sendSelectorMessage(SelectorResponse response)
     {
         SendMessage messageToSend = new SendMessage();
         messageToSend.enableMarkdown(true);
         messageToSend.setText(response.getPreamble());
         messageToSend.setChatId(response.getReceiverId());
-        messageToSend.setReplyMarkup(setupKeyboardMarkup(response));
+        messageToSend.setReplyMarkup(setupKeyboardMarkup(response, true));
 
+        removeKeyboardFor.put(response.getReceiverId(), true);
         sendMessage(messageToSend);
     }
 
-    private ReplyKeyboardMarkup setupKeyboardMarkup(SelectorResponse response)
+    private ReplyKeyboardMarkup setupKeyboardMarkup(SelectorResponse response, Boolean isOneTime)
     {
         ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
         keyboardMarkup.setSelective(true);
         keyboardMarkup.setResizeKeyboard(true);
-        keyboardMarkup.setOneTimeKeyboard(true);
+        keyboardMarkup.setOneTimeKeyboard(isOneTime);
 
         ArrayList<KeyboardRow> rows = new ArrayList<>();
         for(String buttonLabel: response.getOptions())
@@ -126,6 +132,13 @@ public class TelegramBotsManager extends TelegramLongPollingBot
         {
             System.out.println("Exception: " + e.toString());
         }
+    }
+
+    private void attachRemovingKeyboard(long userId, SendMessage message)
+    {
+        ReplyKeyboardRemove removeKeyboard = new ReplyKeyboardRemove();
+        message.setReplyMarkup(removeKeyboard);
+        removeKeyboardFor.put(userId, false);
     }
 
     @Override

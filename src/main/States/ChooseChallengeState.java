@@ -26,8 +26,19 @@ public class ChooseChallengeState extends StateBase
             bot.changeState(bot.initializedState);
             return new ArrayList<>();
         }
-        long challengeId = Long.parseLong(request);
-        Challenge challenge = challengeRepository.pickChallenge(challengeId);
+        long challengeId;
+        Challenge challenge;
+        try
+        {
+            challengeId = Long.parseLong(request);
+            challenge = challengeRepository.pickChallenge(challengeId);
+        }
+        catch (IllegalArgumentException ex)
+        {
+            bot.changeState(bot.initializedState);
+            return Response.compose(new PlainResponse(user.id, "Can't pick the challenge:("));
+        }
+
         user.unfinishedGame = challenge.game;
         user.challengeDescription = new ChallengeDescription(challengeId, challenge.points);
         repository.updateUser(user);

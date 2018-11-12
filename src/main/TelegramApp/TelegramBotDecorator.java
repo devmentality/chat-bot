@@ -44,4 +44,9 @@ public class TelegramBotDecorator
         }
         return request;
     }
+
+    public ArrayList<String> getAvailableCommands()
+    {
+        return chatBot.getCurrentState().getAvailableCommands();
+    }
 }
