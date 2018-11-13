@@ -24,7 +24,7 @@ public class ChooseChallengeState extends StateBase
         if (request.equals("decline"))
         {
             bot.changeState(bot.initializedState);
-            return new ArrayList<>();
+            return Response.compose(new PlainResponse(user.id, Strings.onDeclineChallenges));
         }
         long challengeId;
         Challenge challenge;

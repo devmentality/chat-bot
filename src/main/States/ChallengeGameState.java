@@ -48,6 +48,9 @@ public class ChallengeGameState extends StateBase
             responseToPlayer.addMessageToContent(Strings.congratulations);
             user.gameResults.add(new GameResult(true));
             user.unfinishedGame = null;
+            user.points += user.challengeDescription.points;
+            user.challengeDescription = null;
+
             responseToCreator.addMessageToContent(Strings.yourChallengePassed);
 
             bot.changeState(bot.initializedState);
@@ -57,6 +60,14 @@ public class ChallengeGameState extends StateBase
             responseToPlayer.addMessageToContent(Strings.losePhrase);
             user.gameResults.add(new GameResult(false));
             user.unfinishedGame = null;
+            user.points -= user.challengeDescription.points;
+
+            User opponent = repository.getUser(user.challengeDescription.creatorId);
+            opponent.points += user.challengeDescription.points;
+            repository.updateUser(opponent);
+
+            user.challengeDescription = null;
+
             responseToCreator.addMessageToContent(Strings.yourChallengeNotPassed);
 
             bot.changeState(bot.initializedState);

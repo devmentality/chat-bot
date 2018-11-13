@@ -52,4 +52,6 @@ public class Strings
 
     public static final String challengeCancelled = "You challenge is cancelled";
     public static final String cantCancelChallenge = "You don't have challenges or your challenge was accepted.";
+    public static final String onDeclineChallenges = "Don't be afraid the next time ;)";
+    public static final String noAvailableChallenges = "There is no challenges yet";
 }

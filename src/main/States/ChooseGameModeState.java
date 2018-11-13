@@ -37,6 +37,12 @@ public class ChooseGameModeState extends StateBase
         {
             ArrayList<ChallengeDescription> allDescriptions = challengeRepository.allChallengesDescriptions();
 
+            if (allDescriptions.isEmpty())
+            {
+                bot.changeState(bot.initializedState);
+                return Response.compose(new PlainResponse(user.id, Strings.noAvailableChallenges));
+            }
+
             SelectorResponse challengeSelector = constructChallengeSelector(user, allDescriptions);
             PlainResponse challengeDescriptions = constructChallengeDescriptions(user, allDescriptions);
 
