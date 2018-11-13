@@ -34,7 +34,7 @@ public abstract class StateBase implements IState
             String commandName = requestParts[0];
             String[] args = new String[requestParts.length - 1];
             for(int i = 1; i < requestParts.length; i++)
-                args[i] = requestParts[i];
+                args[i - 1] = requestParts[i];
 
             if (commandName.equals(command.getName()) && command.getAmountOfArgs() == args.length)
                 return command.execute(user, args);
