@@ -47,4 +47,7 @@ public class Strings
     public static final String challengeSelectorPreamble = "Choose challenge:";
     public static final String challengeDescriptionsPreamble = "Available challenges:";
     public static final String difficutySelectorPreamble = "Choose difficulty";
+
+    public static final String challengeCancelled = "You challenge is cancelled";
+    public static final String cantCancelChallenge = "You don't have challenges or your challenge was accepted.";
 }

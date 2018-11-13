@@ -19,6 +19,30 @@ public class User implements Cloneable, Comparable<User>
         gameResults = new ArrayList<>();
     }
 
+    public User(long id, String username)
+    {
+        this.id = id;
+        this.username = username;
+        gameResults = new ArrayList<>();
+    }
+
+    @Override
+    public boolean equals(Object other)
+    {
+        if (other == null)
+            return false;
+        if (!(other instanceof User))
+            return false;
+        User user = (User)other;
+        return user.id == id;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return (int)id;
+    }
+
     @Override
     public Object clone()
     {
