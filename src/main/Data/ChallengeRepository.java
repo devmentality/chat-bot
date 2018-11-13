@@ -27,14 +27,13 @@ public class ChallengeRepository
         return result;
     }
 
-    public void addChallenge(Long id, int number, int points)
+    public void addChallenge(Long id, Challenge challenge)
     {
         repositoryLock.lock();
 
         if (hasChallenge(id))
             throw new IllegalArgumentException("User already create other challenge");
-        int[] digits = GameController.parseGuess(String.valueOf(number));
-        challenges.put(id, new Challenge(id, digits, points));
+        challenges.put(id, challenge);
 
         repositoryLock.unlock();
     }

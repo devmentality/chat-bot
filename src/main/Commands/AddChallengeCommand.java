@@ -6,6 +6,7 @@ import main.Data.ChallengeRepository;
 import main.Data.INewRepository;
 import main.Data.User;
 import main.GameLogic.Game;
+import main.GameLogic.GameController;
 import main.IStateMachine;
 import main.PlainResponse;
 import main.Resources.Strings;
@@ -52,18 +53,21 @@ public class AddChallengeCommand extends CommandBase
         {
             try
             {
-                int number = Integer.parseInt(args[0]);
                 int points = Integer.parseInt(args[1]);
                 if (user.points < points)
-                    throw new Exception("Not enough points");
+                    return Response.compose(new PlainResponse(user.id, Strings.yourChallengeHasIncorrectPoints));
+
+                int number = Integer.parseInt(args[0]);
+                int[] digits = GameController.parseGuess(String.valueOf(number));
+
                 if (checkUniqueDigits(number))
-                    challengeRepository.addChallenge(user.id, number, points);
+                    challengeRepository.addChallenge(user.id, new Challenge(user.id, digits, points));
                 user.points -= points;
                 repository.updateUser(user);
             }
             catch(Exception e)
             {
-                return Response.compose(new PlainResponse(user.id, Strings.yourChallengeIncorrect));
+                return Response.compose(new PlainResponse(user.id, Strings.yourChallengeHasIncorrectNumber));
             }
 
             return Response.compose(new PlainResponse(user.id, Strings.challengeCreated));
