@@ -51,17 +51,28 @@ public class AddChallengeCommand extends CommandBase
     {
         if (!challengeRepository.hasChallenge(user.id))
         {
+            int points;
             try
             {
-                int points = Integer.parseInt(args[1]);
-                if (user.points < points)
+                points = Integer.parseInt(args[1]);
+            }
+            catch(Exception e)
+            {
+                return Response.compose(new PlainResponse(user.id, Strings.yourChallengeHasIncorrectPoints));
+            }
+
+            try
+            {
+                if (user.points < points || points < 0)
                     return Response.compose(new PlainResponse(user.id, Strings.yourChallengeHasIncorrectPoints));
 
                 int number = Integer.parseInt(args[0]);
                 int[] digits = GameController.parseGuess(String.valueOf(number));
 
-                if (checkUniqueDigits(number))
+                if (checkUniqueDigits(number) && args[0].length() == 4)
                     challengeRepository.addChallenge(user.id, new Challenge(user.id, digits, points));
+                else
+                    throw new Exception();
                 user.points -= points;
                 repository.updateUser(user);
             }
