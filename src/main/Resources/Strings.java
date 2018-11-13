@@ -42,6 +42,7 @@ public class Strings
     public static final String yourChallengePassed = "Your challenge was successfully passed";
     public static final String yourChallengeNotPassed = "Your challenge was not passed";
     public static final String yourChallengeAccepted = "Your challenge was accepted";
+    public static final String yourChallengeIncorrect = "Your challenge is incorrect";
 
     public static final String challengeSelectorPreamble = "Choose challenge:";
     public static final String challengeDescriptionsPreamble = "Available challenges:";

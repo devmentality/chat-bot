@@ -1,5 +1,7 @@
 package main.Data;
 
+import main.GameLogic.GameController;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.locks.ReentrantLock;
@@ -25,13 +27,14 @@ public class ChallengeRepository
         return result;
     }
 
-    public void addChallenge(Long id, Challenge challenge)
+    public void addChallenge(Long id, int number, int points)
     {
         repositoryLock.lock();
 
         if (hasChallenge(id))
             throw new IllegalArgumentException("User already create other challenge");
-        challenges.put(id, challenge);
+        int[] digits = GameController.parseGuess(String.valueOf(number));
+        challenges.put(id, new Challenge(id, digits, points));
 
         repositoryLock.unlock();
     }
