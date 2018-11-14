@@ -1,5 +1,7 @@
 package main.Resources;
 
+import java.lang.String;
+
 public class Strings
 {
     public static final String help =
@@ -54,4 +56,7 @@ public class Strings
     public static final String cantCancelChallenge = "You don't have challenges or your challenge was accepted.";
     public static final String onDeclineChallenges = "Don't be afraid the next time ;)";
     public static final String noAvailableChallenges = "There is no challenges yet";
+
+    public static final String enoughPoints = "You have enough points";
+    public static final String gotPoints = "You got %d points";
 }

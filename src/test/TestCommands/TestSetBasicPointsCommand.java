@@ -2,6 +2,7 @@ package test.TestCommands;
 
 import main.Bot;
 import main.Commands.AddChallengeCommand;
+import main.Commands.SetBasicPointsCommand;
 import main.Data.ChallengeRepository;
 import main.Data.ConcurrentNewInMemoryRepo;
 import main.Data.User;
@@ -26,7 +27,7 @@ public class TestSetBasicPointsCommand
         user = new User(1,"Name");
         user.points = 5;
         repository.addUser(user);
-        command = new SetBasicPointsCommand(bot, repository, challengeRepository);
+        command = new SetBasicPointsCommand(bot, repository);
     }
 
     @Test

@@ -21,7 +21,8 @@ public class InitializedState extends StateBase
                 new StatisticsCommand(bot, repository),
                 new AddChallengeCommand(bot, repository, challengeRepository),
                 new CancelChallengeCommand(bot, repository, challengeRepository),
-                new GetRatingCommand(bot, repository)
+                new GetRatingCommand(bot, repository),
+                new SetBasicPointsCommand(bot, repository)
         };
     }
 }
