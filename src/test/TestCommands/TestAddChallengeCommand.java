@@ -8,9 +8,6 @@ import main.Data.User;
 import main.PlainResponse;
 import main.Resources.Strings;
 import main.Response;
-import main.States.ChallengeGameState;
-import main.States.GameIsOnState;
-import main.States.InitializedState;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,8 +30,8 @@ public class TestAddChallengeCommand
         challengeRepository = new ChallengeRepository();
         bot = new Bot(repository, challengeRepository);
         user = new User(1,"Name");
-        repository.addUser(user);
         user.points = 10;
+        repository.addUser(user);
         command = new AddChallengeCommand(bot, repository, challengeRepository);
     }
 
