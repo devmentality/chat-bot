@@ -5,15 +5,12 @@ import main.Data.Challenge;
 import main.Data.ChallengeRepository;
 import main.Data.INewRepository;
 import main.Data.User;
-import main.GameLogic.Game;
 import main.GameLogic.GameController;
-import main.IStateMachine;
 import main.PlainResponse;
 import main.Resources.Strings;
 import main.Response;
-
 import java.util.ArrayList;
-import java.util.HashSet;
+
 
 public class AddChallengeCommand extends CommandBase
 {
@@ -32,58 +29,44 @@ public class AddChallengeCommand extends CommandBase
         return 2;
     }
 
-    public boolean checkUniqueDigits(int number)
-    {
-        if (number < 0)
-            return false;
-        HashSet<Integer> digits = new HashSet<>();
-        while(number != 0)
-        {
-            digits.add(number % 10);
-            number /= 10;
-        }
-        return digits.size() == 4;
-    }
-
-
     @Override
     public ArrayList<Response> execute(User user, String... args)
     {
-        if (!challengeRepository.hasChallenge(user.id))
+        int points;
+        try
         {
-            int points;
-            try
-            {
-                points = Integer.parseInt(args[1]);
-            }
-            catch(Exception e)
-            {
-                return Response.compose(new PlainResponse(user.id, Strings.yourChallengeHasIncorrectPoints));
-            }
+            points = Integer.parseInt(args[1]);
+            if (user.points < points || points < 0)
+                throw new NumberFormatException();
+        }
+        catch(NumberFormatException ex)
+        {
+            return Response.compose(new PlainResponse(user.id, Strings.yourChallengeHasIncorrectPoints));
+        }
 
-            try
-            {
-                if (user.points < points || points < 0)
-                    return Response.compose(new PlainResponse(user.id, Strings.yourChallengeHasIncorrectPoints));
+        int[] digits;
+        try
+        {
+            digits = GameController.parseGuess(args[0]);
+            if (!GameController.checkUniqueDigits(digits) || args[0].length() != 4)
+                throw new NumberFormatException();
+        }
+        catch (NumberFormatException ex)
+        {
+            return Response.compose(new PlainResponse(user.id, Strings.yourChallengeHasIncorrectNumber));
+        }
 
-                int number = Integer.parseInt(args[0]);
-                int[] digits = GameController.parseGuess(String.valueOf(number));
-
-                if (checkUniqueDigits(number) && args[0].length() == 4)
-                    challengeRepository.addChallenge(user.id, new Challenge(user.id, digits, points));
-                else
-                    throw new Exception();
-                user.points -= points;
-                repository.updateUser(user);
-            }
-            catch(Exception e)
-            {
-                return Response.compose(new PlainResponse(user.id, Strings.yourChallengeHasIncorrectNumber));
-            }
+        try
+        {
+            challengeRepository.addChallenge(user.id, new Challenge(user.id, digits, points));
+            user.points -= points;
+            repository.updateUser(user);
 
             return Response.compose(new PlainResponse(user.id, Strings.challengeCreated));
         }
-        else
+        catch (IllegalArgumentException ex)
+        {
             return Response.compose(new PlainResponse(user.id, Strings.alreadyHaveChallenge));
+        }
     }
 }

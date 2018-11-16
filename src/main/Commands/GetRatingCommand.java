@@ -37,6 +37,7 @@ public class GetRatingCommand extends CommandBase
         Collections.sort(users, Collections.reverseOrder());
         for(int i = 0; i < Math.min(top, users.size()); i++)
             rating.add(users.get(i));
+
         return rating;
     }
 }

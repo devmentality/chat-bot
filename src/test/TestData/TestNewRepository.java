@@ -44,12 +44,6 @@ public class TestNewRepository
         Assert.assertEquals(1, repository.getAll().size());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public final void addUser_shouldThrow_whenNullAdded()
-    {
-        repository.addUser(null);
-    }
-
     @Test
     public final void getUserById_shouldReturnUserWithSameId_whenUserWasAdded()
     {
