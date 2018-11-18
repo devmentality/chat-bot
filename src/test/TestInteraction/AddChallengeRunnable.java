@@ -6,15 +6,15 @@ import main.Data.ChallengeRepository;
 import main.Data.ConcurrentNewInMemoryRepo;
 import main.Data.User;
 
-public class AddChallengeRunner implements Runnable
+public class AddChallengeRunnable implements Runnable
 {
     private User user;
     private ConcurrentNewInMemoryRepo repository;
     private ChallengeRepository challengeRepository;
     private AddChallengeCommand command;
 
-    public AddChallengeRunner(User user, Bot bot,
-                              ConcurrentNewInMemoryRepo repository, ChallengeRepository challengeRepository)
+    public AddChallengeRunnable(User user, Bot bot,
+                                ConcurrentNewInMemoryRepo repository, ChallengeRepository challengeRepository)
     {
         this.user = user;
         this.repository = repository;
