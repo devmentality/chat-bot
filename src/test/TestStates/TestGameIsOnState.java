@@ -33,6 +33,7 @@ public class TestGameIsOnState
         bot.changeState(state);
         user = new User();
         user.unfinishedGame = game;
+        repository.addUser(user);
     }
 
     @Test
@@ -48,8 +49,9 @@ public class TestGameIsOnState
     {
         state.processRequest(user, victoriousGuess);
 
-        Assert.assertEquals(1, user.gameResults.size());
-        Assert.assertTrue(user.gameResults.get(0).isVictory());
+        User updatedUser = repository.getUser(user.id);
+        Assert.assertEquals(1, updatedUser.gameResults.size());
+        Assert.assertTrue(updatedUser.gameResults.get(0).isVictory());
     }
 
     private void playGame(int numberAttempts)
@@ -81,7 +83,8 @@ public class TestGameIsOnState
     public final void testAddsGameResultOnLoss()
     {
         playGame(Game.attemptsToLose);
-        Assert.assertEquals(1, user.gameResults.size());
-        Assert.assertFalse(user.gameResults.get(0).isVictory());
+        User updatedUser = repository.getUser(user.id);
+        Assert.assertEquals(1, updatedUser.gameResults.size());
+        Assert.assertFalse(updatedUser.gameResults.get(0).isVictory());
     }
 }

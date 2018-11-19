@@ -24,33 +24,40 @@ public class ChooseGameModeState extends StateBase
     public ArrayList<Response> handleNoncommandRequest(User user, String query)
     {
         if (query.equals("classic"))
-        {
-            SelectorResponse difficultySelector = new SelectorResponse(user.id, Strings.difficutySelectorPreamble);
-            difficultySelector.addOption("easy");
-            difficultySelector.addOption("medium");
-            difficultySelector.addOption("hard");
-
-            bot.changeState(bot.chooseGameDifficultyState);
-            return Response.compose(difficultySelector);
-        }
+            return handleClassicMode(user);
         else if (query.equals("challenge"))
-        {
-            ArrayList<ChallengeDescription> allDescriptions = challengeRepository.allChallengesDescriptions();
+            return handleChallengeMode(user);
 
-            if (allDescriptions.isEmpty())
-            {
-                bot.changeState(bot.initializedState);
-                return Response.compose(new PlainResponse(user.id, Strings.noAvailableChallenges));
-            }
-
-            SelectorResponse challengeSelector = constructChallengeSelector(user, allDescriptions);
-            PlainResponse challengeDescriptions = constructChallengeDescriptions(user, allDescriptions);
-
-            bot.changeState(bot.chooseChallengeState);
-            return Response.compose(challengeDescriptions, challengeSelector);
-        }
         bot.changeState(bot.initializedState);
         return Response.compose(new PlainResponse(user.id, Strings.iDontUnderstand));
+    }
+
+    private ArrayList<Response> handleClassicMode(User user)
+    {
+        SelectorResponse difficultySelector = new SelectorResponse(user.id, Strings.difficutySelectorPreamble);
+        difficultySelector.addOption("easy");
+        difficultySelector.addOption("medium");
+        difficultySelector.addOption("hard");
+
+        bot.changeState(bot.chooseGameDifficultyState);
+        return Response.compose(difficultySelector);
+    }
+
+    private ArrayList<Response> handleChallengeMode(User user)
+    {
+        ArrayList<ChallengeDescription> allDescriptions = challengeRepository.allChallengesDescriptions();
+
+        if (allDescriptions.isEmpty())
+        {
+            bot.changeState(bot.initializedState);
+            return Response.compose(new PlainResponse(user.id, Strings.noAvailableChallenges));
+        }
+
+        SelectorResponse challengeSelector = constructChallengeSelector(user, allDescriptions);
+        PlainResponse challengeDescriptions = constructChallengeDescriptions(user, allDescriptions);
+
+        bot.changeState(bot.chooseChallengeState);
+        return Response.compose(challengeDescriptions, challengeSelector);
     }
 
     private SelectorResponse constructChallengeSelector(User user, ArrayList<ChallengeDescription> allChallenges)

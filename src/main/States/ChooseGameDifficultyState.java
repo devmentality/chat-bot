@@ -21,14 +21,20 @@ public class ChooseGameDifficultyState extends StateBase
     protected ArrayList<Response> handleNoncommandRequest(User user, String request)
     {
         int numberOfDigits;
-        if (request.equals("easy"))
-            numberOfDigits = 2;
-        else if (request.equals("medium"))
-            numberOfDigits = 4;
-        else if (request.equals("hard"))
-            numberOfDigits = 6;
-        else
-            return Response.compose(new PlainResponse(user.id, Strings.noSuchMode));
+        switch(request)
+        {
+            case "easy":
+                numberOfDigits = 2;
+                break;
+            case "medium":
+                numberOfDigits = 4;
+                break;
+            case "hard":
+                numberOfDigits = 6;
+                break;
+            default:
+                return Response.compose(new PlainResponse(user.id, Strings.noSuchMode));
+        }
 
         user.unfinishedGame = new Game(numberOfDigits);
         repository.updateUser(user);

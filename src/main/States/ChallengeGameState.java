@@ -30,7 +30,7 @@ public class ChallengeGameState extends StateBase
 
             return respondOnGameAttempt(user, guessedDigits, result);
         }
-        catch (Exception ex)
+        catch (IllegalArgumentException ex)
         {
             return Response.compose(new PlainResponse(user.id,
                     String.format(Strings.guessFormatFail, user.unfinishedGame.digitsToGuess.length)));
@@ -43,36 +43,44 @@ public class ChallengeGameState extends StateBase
         PlainResponse responseToCreator = new PlainResponse(user.challengeDescription.creatorId);
         responseToPlayer.addMessageToContent(
                 String.format(Strings.guessResultTemplate, result.amountOfBulls, result.amountOfCows));
+
         if (GameController.isVictoriousGuess(result, guessedDigits.length))
-        {
-            responseToPlayer.addMessageToContent(Strings.congratulations);
-            user.gameResults.add(new GameResult(true));
-            user.unfinishedGame = null;
-            user.points += user.challengeDescription.points;
-            user.challengeDescription = null;
-
-            responseToCreator.addMessageToContent(Strings.yourChallengePassed);
-
-            bot.changeState(bot.initializedState);
-        }
+            handleVictory(user, responseToPlayer, responseToCreator);
         else if(GameController.isInLosingState(user.unfinishedGame))
-        {
-            responseToPlayer.addMessageToContent(Strings.losePhrase);
-            user.gameResults.add(new GameResult(false));
-            user.unfinishedGame = null;
-            user.points -= user.challengeDescription.points;
+            handleLoss(user, responseToPlayer, responseToCreator);
 
-            User opponent = repository.getUser(user.challengeDescription.creatorId);
-            opponent.points += user.challengeDescription.points;
-            repository.updateUser(opponent);
-
-            user.challengeDescription = null;
-
-            responseToCreator.addMessageToContent(Strings.yourChallengeNotPassed);
-
-            bot.changeState(bot.initializedState);
-        }
         repository.updateUser(user);
         return Response.compose(responseToCreator, responseToPlayer);
+    }
+
+    private void handleVictory(User user, PlainResponse responseToPlayer, PlainResponse responseToCreator)
+    {
+        responseToPlayer.addMessageToContent(Strings.congratulations);
+        responseToCreator.addMessageToContent(Strings.yourChallengePassed);
+
+        user.gameResults.add(new GameResult(true));
+        user.unfinishedGame = null;
+        user.points += user.challengeDescription.points;
+        user.challengeDescription = null;
+
+        bot.changeState(bot.initializedState);
+    }
+
+    private void handleLoss(User user, PlainResponse responseToPlayer, PlainResponse responseToCreator)
+    {
+        responseToPlayer.addMessageToContent(Strings.losePhrase);
+        responseToCreator.addMessageToContent(Strings.yourChallengeNotPassed);
+
+        user.gameResults.add(new GameResult(false));
+        user.unfinishedGame = null;
+        user.points -= user.challengeDescription.points;
+
+        User opponent = repository.getUser(user.challengeDescription.creatorId);
+        opponent.points += 2 * user.challengeDescription.points;
+        repository.updateUser(opponent);
+
+        user.challengeDescription = null;
+
+        bot.changeState(bot.initializedState);
     }
 }

@@ -70,7 +70,7 @@ public class TestChallengeInteraction
         for(int i = 0; i < Game.attemptsToLose; i++)
             bot.processRequest(user1, "1235");
 
-        Assert.assertEquals(10, repository.getUser(user2.id).points);
+        Assert.assertEquals(20, repository.getUser(user2.id).points);
         Assert.assertEquals(-10, repository.getUser(user1.id).points);
     }
 }

@@ -26,6 +26,7 @@ public class ChooseChallengeState extends StateBase
             bot.changeState(bot.initializedState);
             return Response.compose(new PlainResponse(user.id, Strings.onDeclineChallenges));
         }
+
         long challengeId;
         Challenge challenge;
         try
@@ -36,17 +37,23 @@ public class ChooseChallengeState extends StateBase
         catch (IllegalArgumentException ex)
         {
             bot.changeState(bot.initializedState);
-            return Response.compose(new PlainResponse(user.id, "Can't pick the challenge:("));
+            return Response.compose(new PlainResponse(user.id, Strings.cantPickChallenge));
         }
 
-        user.unfinishedGame = challenge.game;
-        user.challengeDescription = new ChallengeDescription(challengeId, challenge.points);
-        repository.updateUser(user);
+        return handleSettingChallenge(user, challenge);
+    }
 
+    private ArrayList<Response> handleSettingChallenge(User user, Challenge challenge)
+    {
+        user.unfinishedGame = challenge.game;
+        user.challengeDescription = new ChallengeDescription(challenge.creatorId, challenge.points);
+        repository.updateUser(user);
         bot.changeState(bot.challengeGameState);
+
         PlainResponse responseToCreator = new PlainResponse(challenge.creatorId, Strings.yourChallengeAccepted);
         PlainResponse responseToPlayer = new PlainResponse(user.id,
                 String.format(Strings.newGamePhrase, challenge.game.digitsToGuess.length));
+
         return Response.compose(responseToCreator, responseToPlayer);
     }
 }

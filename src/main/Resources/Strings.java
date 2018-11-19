@@ -59,4 +59,5 @@ public class Strings
 
     public static final String enoughPoints = "You have enough points";
     public static final String gotPoints = "You got %d points";
+    public static final String cantPickChallenge = "Can't pick the challenge:(";
 }
