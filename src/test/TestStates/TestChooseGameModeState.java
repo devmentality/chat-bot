@@ -51,6 +51,4 @@ public class TestChooseGameModeState
         bot.processRequest(user, "challenge");
         Assert.assertTrue(bot.getCurrentState() instanceof ChooseChallengeState);
     }
-
-
 }

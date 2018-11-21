@@ -17,7 +17,7 @@ public class ChallengeRepository
         return challenges.containsKey(id);
     }
 
-    public void addChallenge(Long id, Challenge challenge)
+    public synchronized void addChallenge(Long id, Challenge challenge)
     {
         if (hasChallenge(id))
             throw new IllegalArgumentException("User already create other challenge");

@@ -18,6 +18,7 @@ public class MultithreadingTest
         public void uncaughtException(Thread t, Throwable e)
         {
             thrown = true;
+            e.printStackTrace();
         }
     }
 

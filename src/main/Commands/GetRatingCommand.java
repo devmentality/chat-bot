@@ -1,16 +1,12 @@
 package main.Commands;
 
-import javafx.print.Collation;
 import main.Bot;
 import main.Data.INewRepository;
 import main.Data.User;
 import main.PlainResponse;
 import main.Response;
-
-import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.stream.Collectors;
 
 public class GetRatingCommand extends CommandBase
